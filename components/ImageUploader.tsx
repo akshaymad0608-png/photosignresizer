@@ -59,10 +59,9 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       ) : (
         <div className="flex flex-col gap-3">
           <div className="relative w-full h-56 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center overflow-hidden border border-gray-300 dark:border-gray-600 shadow-inner">
-             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src={image} 
-              alt="Preview" 
+              alt={`${title} preview for ExamResizer`} 
               className="max-h-full max-w-full object-contain transition-transform duration-300" 
               style={{ transform: `rotate(${rotation}deg)` }}
             />

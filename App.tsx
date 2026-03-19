@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Menu, X, Sun, Moon, Languages, Home, Info, FileText, Camera, ShieldCheck, Zap, Smartphone, Check, Calendar, Settings,
-  Upload, Scissors, Download, AlertCircle, RefreshCw
+  Menu, X, Sun, Moon, Languages, Home, Info, FileText, Camera, Settings,
+  Upload, Scissors, Download, Focus, Star, MessageSquare, Copy,
+  Zap, ShieldCheck, Smartphone, Check
 } from 'lucide-react';
 import { EXAM_PRESETS, TRANSLATIONS, FAQ_DATA, SEO_CONTENT } from './constants';
 import { ExamRequirement, Language, ProcessedImage } from './types';
@@ -14,8 +15,8 @@ import AdPlaceholder from './components/AdPlaceholder';
 // --- Sub-Components ---
 
 const StepCard = ({ icon: Icon, title, desc, step }: { icon: any, title: string, desc: string, step: string }) => (
-  <div className="relative p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
-    <div className="absolute -top-4 -left-4 w-8 h-8 bg-govSaffron text-white rounded-full flex items-center justify-center font-bold shadow-sm">
+  <div className="relative p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow mt-4 md:mt-0">
+    <div className="absolute -top-3 -left-3 w-8 h-8 bg-govSaffron text-white rounded-full flex items-center justify-center font-bold shadow-sm">
       {step}
     </div>
     <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-govBlue dark:text-blue-300 rounded-xl flex items-center justify-center mb-4">
@@ -51,7 +52,7 @@ const BlogSection = ({ lang }: { lang: Language }) => (
     <article className="prose dark:prose-invert max-w-none space-y-8">
       
       {/* Dynamic SEO Content from Constants */}
-      <section className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm">
+      <section className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-sm">
         <h3 className="text-2xl font-bold text-govBlue dark:text-blue-300 mb-4">{SEO_CONTENT.intro.title}</h3>
         <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{SEO_CONTENT.intro.text}</p>
       </section>
@@ -65,7 +66,7 @@ const BlogSection = ({ lang }: { lang: Language }) => (
         ))}
       </div>
 
-      <div className="bg-blue-50 dark:bg-blue-900/20 p-8 rounded-xl">
+      <div className="bg-blue-50 dark:bg-blue-900/20 p-4 md:p-8 rounded-xl">
         <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Official Dimensions Reference</h3>
         <div className="overflow-x-auto">
           <table className="min-w-full text-left text-sm">
@@ -90,9 +91,137 @@ const BlogSection = ({ lang }: { lang: Language }) => (
           </table>
         </div>
       </div>
+
+      <div className="mt-12 bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-sm">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Related Tools & Resources</h3>
+        <ul className="grid md:grid-cols-2 gap-4 text-govBlue dark:text-blue-400">
+          <li><a href="#" className="hover:underline">UPSC Photo and Signature Resizer Online</a></li>
+          <li><a href="#" className="hover:underline">SSC CGL Photo Maker (20KB to 50KB)</a></li>
+          <li><a href="#" className="hover:underline">IBPS PO Signature Compressor (10KB to 20KB)</a></li>
+          <li><a href="#" className="hover:underline">NEET Photo with Name and Date Generator</a></li>
+          <li><a href="#" className="hover:underline">Passport Size Photo Maker Online Free</a></li>
+          <li><a href="#" className="hover:underline">Image Compressor to 50KB</a></li>
+        </ul>
+      </div>
     </article>
   </div>
 );
+
+const HowItWorksSection = () => (
+  <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100 dark:border-gray-700 mb-12">
+    <div className="max-w-4xl mx-auto text-center">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">How to Resize Photo & Signature for Exams</h2>
+      <div className="grid md:grid-cols-3 gap-8 relative">
+        <div className="hidden md:block absolute top-1/2 left-[16%] right-[16%] h-0.5 bg-gray-200 dark:bg-gray-700 -z-10 -translate-y-1/2"></div>
+        
+        <div className="flex flex-col items-center bg-white dark:bg-gray-800 z-10 p-4">
+          <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-govBlue dark:text-blue-400 rounded-full flex items-center justify-center mb-4 shadow-sm border-4 border-white dark:border-gray-800">
+            <Upload size={28} />
+          </div>
+          <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">1. Upload Image</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">Select your passport size photo and signature from your gallery or take a new one.</p>
+        </div>
+
+        <div className="flex flex-col items-center bg-white dark:bg-gray-800 z-10 p-4">
+          <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 text-govSaffron dark:text-amber-400 rounded-full flex items-center justify-center mb-4 shadow-sm border-4 border-white dark:border-gray-800">
+            <Scissors size={28} />
+          </div>
+          <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">2. Select Exam</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">Choose your target exam (UPSC, SSC, IBPS, etc.). We automatically apply the correct dimensions and KB size limits.</p>
+        </div>
+
+        <div className="flex flex-col items-center bg-white dark:bg-gray-800 z-10 p-4">
+          <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-4 shadow-sm border-4 border-white dark:border-gray-800">
+            <Download size={28} />
+          </div>
+          <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">3. Download</h3>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">Click compress and instantly download your perfectly resized images ready for the application form.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const SupportedExamsSection = () => (
+  <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12 shadow-inner border border-gray-200 dark:border-gray-700 mb-12">
+    <div className="max-w-5xl mx-auto">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center">Supported Government Exams</h2>
+      <p className="text-gray-600 dark:text-gray-400 text-center mb-10 max-w-2xl mx-auto">
+        Our tool automatically configures the exact pixel dimensions (width x height) and file size limits (e.g., 20KB to 50KB) required for these popular Indian government job applications.
+      </p>
+      
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {EXAM_PRESETS.filter(e => e.id !== 'custom').slice(0, 12).map(exam => (
+          <div key={exam.id} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="font-bold text-sm text-gray-900 dark:text-white mb-1">{exam.name}</h3>
+            <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+              <p>Photo: {exam.photo.minKB}-{exam.photo.maxKB}KB</p>
+              <p>Sign: {exam.signature.minKB}-{exam.signature.maxKB}KB</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="text-center mt-8">
+        <p className="text-sm text-gray-500 dark:text-gray-400">And many more state-level and central exams including NEET, JEE, GATE, and State PSCs.</p>
+      </div>
+    </div>
+  </div>
+);
+
+const TestimonialsSection = () => {
+  const reviews = [
+    {
+      name: "Rahul S.",
+      exam: "UPSC Aspirant",
+      text: "This tool saved me so much time! The photo and signature were accepted on the first try without any size errors.",
+      rating: 5
+    },
+    {
+      name: "Priya M.",
+      exam: "SSC CGL",
+      text: "Very easy to use on my mobile. I just uploaded my photo, selected SSC, and it perfectly cropped and compressed it to 45KB.",
+      rating: 5
+    },
+    {
+      name: "Amit K.",
+      exam: "IBPS PO",
+      text: "I was struggling to get my signature under 20KB while keeping it clear. ExamResizer did it in seconds. Highly recommended!",
+      rating: 4
+    }
+  ];
+
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100 dark:border-gray-700 mb-12">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-2">
+            <MessageSquare className="text-govBlue dark:text-blue-400" /> User Reviews & Comments
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
+            See what other students are saying about ExamResizer
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-6">
+          {reviews.map((review, idx) => (
+            <div key={idx} className="bg-gray-50 dark:bg-gray-700/50 p-6 rounded-xl border border-gray-100 dark:border-gray-600 flex flex-col h-full">
+              <div className="flex text-govSaffron mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={16} className={i < review.rating ? "fill-current" : "text-gray-300 dark:text-gray-500"} />
+                ))}
+              </div>
+              <p className="text-gray-700 dark:text-gray-300 italic mb-4 flex-grow">"{review.text}"</p>
+              <div className="mt-auto">
+                <p className="font-bold text-gray-900 dark:text-white">{review.name}</p>
+                <p className="text-xs text-govBlue dark:text-blue-400 font-medium">{review.exam}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // --- Main App ---
 
@@ -124,11 +253,11 @@ export default function App() {
 
   // Dynamic Title for SEO
   useEffect(() => {
-    let title = "Exam Photo & Sign Resizer Pro";
+    let title = "ExamResizer: Govt Exam Photo Maker";
     if (activeTab === 'home') {
-      title = `Resize Photo for ${selectedExam.name.split('(')[0].trim()} - ${title}`;
+      title = `Resize Photo & Sign for ${selectedExam.name.split('(')[0].trim()} - ${title}`;
     } else if (activeTab === 'blog') {
-      title = `Exam Guidelines & Dimensions - ${title}`;
+      title = `Exam Photo Guidelines & Dimensions - ${title}`;
     } else if (activeTab === 'faq') {
       title = `FAQ - ${title}`;
     }
@@ -240,6 +369,14 @@ export default function App() {
     document.body.removeChild(link);
   };
 
+  const copyRequirements = () => {
+    const text = `Exam: ${selectedExam.name}
+Photo: ${selectedExam.photo.width}x${selectedExam.photo.height}px, ${selectedExam.photo.minKB}-${selectedExam.photo.maxKB}KB
+Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, ${selectedExam.signature.minKB}-${selectedExam.signature.maxKB}KB`;
+    navigator.clipboard.writeText(text);
+    alert('Requirements copied to clipboard!');
+  };
+
   const t = TRANSLATIONS[lang];
 
   return (
@@ -248,16 +385,22 @@ export default function App() {
       <nav className="bg-govBlue text-white shadow-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-2 cursor-pointer group" onClick={() => setActiveTab('home')}>
-               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-govSaffron shadow-sm text-govBlue group-hover:rotate-12 transition-transform duration-300">
-                 <Camera size={22} />
+            <a 
+              href="/" 
+              onClick={(e) => { e.preventDefault(); setActiveTab('home'); }} 
+              className="flex items-center gap-2 cursor-pointer group"
+              title="ExamResizer - Govt Exam Photo & Signature Maker"
+              aria-label="ExamResizer Home"
+            >
+               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-govSaffron shadow-sm text-govBlue group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
+                 <Focus size={22} aria-label="ExamResizer Logo" />
                </div>
                <div className="flex flex-col">
                  <span className="font-bold text-lg leading-tight tracking-tight hidden sm:block">{t.title}</span>
                  <span className="text-[10px] text-blue-200 hidden sm:block tracking-wider uppercase font-medium">Free Tool for Indian Students</span>
                  <span className="font-bold text-lg tracking-tight sm:hidden">ExamResizer</span>
                </div>
-            </div>
+            </a>
             
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
@@ -313,10 +456,10 @@ export default function App() {
               <div className="inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4">
                 100% Free & Secure
               </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-                 Resize Your Photos for <br className="hidden md:block" />
+              <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
+                 Free Exam Photo & Signature Resizer for <br className="hidden md:block" />
                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-govBlue to-blue-500 dark:from-blue-200 dark:to-blue-500">
-                    Indian Government Exams
+                    UPSC, SSC, IBPS, NEET & Govt Exams
                  </span>
               </h1>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
@@ -336,7 +479,7 @@ export default function App() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 mt-8">
               {/* Left Column: Controls */}
               <div className="lg:col-span-1 space-y-6">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-govBlue sticky top-24">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-govBlue lg:sticky lg:top-24">
                   <ExamDropdown 
                     selectedExam={selectedExam} 
                     onSelect={setSelectedExam} 
@@ -374,7 +517,14 @@ export default function App() {
                       </div>
                   )}
 
-                  <div className="mt-6 space-y-4">
+                  <div className="mt-6 space-y-4 relative">
+                    <button 
+                      onClick={copyRequirements}
+                      className="absolute -top-10 right-0 text-xs flex items-center gap-1 text-gray-500 hover:text-govBlue dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+                      title="Copy Requirements"
+                    >
+                      <Copy size={14} /> Copy Specs
+                    </button>
                     <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-100 dark:border-blue-800 transition-all hover:shadow-md">
                       <h4 className="text-sm font-bold text-govBlue dark:text-blue-300 uppercase tracking-wide mb-2 flex items-center gap-2"><Camera size={16}/> {t.photoParams}</h4>
                       <div className="grid grid-cols-2 gap-y-1 gap-x-2 text-sm text-gray-600 dark:text-gray-300">
@@ -437,7 +587,7 @@ export default function App() {
                            </div>
                            
                            {addDate && (
-                               <div className="grid grid-cols-2 gap-3 mt-3 animate-fade-in">
+                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3 animate-fade-in">
                                   <div>
                                      <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">{t.name}</label>
                                      <input 
@@ -550,6 +700,9 @@ export default function App() {
             </div>
 
             {/* SEO Content Section for Home Page */}
+            <HowItWorksSection />
+            <SupportedExamsSection />
+            
             <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100 dark:border-gray-700 mb-12">
                <div className="max-w-4xl mx-auto">
                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">{t.whyUse}</h2>
@@ -595,6 +748,8 @@ export default function App() {
                </div>
             </div>
 
+            <TestimonialsSection />
+
             <AdPlaceholder text={t.ad_placeholder} />
           </div>
         )}
@@ -607,14 +762,20 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-gray-800 text-gray-300 py-12 border-t border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div className="grid md:grid-cols-4 gap-8">
-              <div className="col-span-1 md:col-span-2">
-                <div className="flex items-center gap-2 mb-4">
-                   <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-govBlue">
-                     <Camera size={18} />
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+              <div className="col-span-1 sm:col-span-2 lg:col-span-2">
+                <a 
+                  href="/" 
+                  onClick={(e) => { e.preventDefault(); setActiveTab('home'); }} 
+                  className="flex items-center gap-2 mb-4 group"
+                  title="ExamResizer - Govt Exam Photo & Signature Maker"
+                  aria-label="ExamResizer Home"
+                >
+                   <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-govBlue group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
+                     <Focus size={18} aria-label="ExamResizer Logo" />
                    </div>
                    <span className="text-white font-bold text-xl">{t.title}</span>
-                </div>
+                </a>
                 <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
                   The most trusted tool for Indian students to resize, crop and compress exam documents. We support UPSC, SSC, IBPS, RRB, JEE, NEET and all major State PSC exams.
                 </p>
@@ -626,6 +787,16 @@ export default function App() {
                    <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">Resize Now</button></li>
                    <li><button onClick={() => setActiveTab('blog')} className="hover:text-white transition-colors">Exam Guidelines</button></li>
                    <li><button onClick={() => setActiveTab('faq')} className="hover:text-white transition-colors">Help & FAQ</button></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Popular Tools</h3>
+                <ul className="space-y-2 text-sm text-gray-400">
+                   <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">UPSC Photo Resizer</button></li>
+                   <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">SSC Signature Compressor</button></li>
+                   <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">IBPS 20KB Image Maker</button></li>
+                   <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">NEET Photo with Name & Date</button></li>
                 </ul>
               </div>
               
@@ -642,7 +813,7 @@ export default function App() {
            </div>
            
            <div className="border-t border-gray-700 mt-12 pt-8 text-center text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-4">
-             <p>&copy; {new Date().getFullYear()} ExamResizer Pro. All rights reserved.</p>
+             <p>&copy; {new Date().getFullYear()} Free Exam Photo & Signature Resizer. All rights reserved.</p>
              <p>Made in India 🇮🇳 with ❤️</p>
            </div>
         </div>

@@ -1,5 +1,5 @@
 {
-  "name": "Exam Photo & Sign Resizer Pro",
-  "description": "A professional tool for Indian students to resize, crop, and compress photos and signatures for government exams like UPSC, SSC, JEE, and NEET.",
+  "name": "ExamResizer: Govt Exam Photo & Signature Resizer",
+  "description": "Free online tool to resize, crop, and compress passport photos and signatures for UPSC, SSC, IBPS, NEET, and State PSC exams. Reduce image size to 20KB-50KB in JPG format instantly.",
   "requestFramePermissions": []
 }

@@ -1,4 +1,4 @@
-import { ExamRequirement, Language } from './types';
+import { ExamRequirement } from './types';
 
 export const EXAM_PRESETS: ExamRequirement[] = [
   {
@@ -173,6 +173,62 @@ export const EXAM_PRESETS: ExamRequirement[] = [
     photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
     signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
   },
+  {
+    id: 'cuet',
+    name: 'CUET (UG & PG)',
+    category: 'Entrance',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 200, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 4, maxKB: 30, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'mht_cet',
+    name: 'MHT CET (Maharashtra)',
+    category: 'Entrance',
+    photo: { width: 350, height: 450, minKB: 15, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 5, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'kcet',
+    name: 'KCET (Karnataka)',
+    category: 'Entrance',
+    photo: { width: 350, height: 450, minKB: 5, maxKB: 40, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 5, maxKB: 40, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'ts_eamcet',
+    name: 'TS EAMCET (Telangana)',
+    category: 'Entrance',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 30, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'ap_eapcet',
+    name: 'AP EAPCET (Andhra Pradesh)',
+    category: 'Entrance',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 30, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'bitsat',
+    name: 'BITSAT',
+    category: 'Entrance',
+    photo: { width: 350, height: 450, minKB: 50, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'viteee',
+    name: 'VITEEE',
+    category: 'Entrance',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 200, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 200, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'srmjeee',
+    name: 'SRMJEEE',
+    category: 'Entrance',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 200, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 200, format: 'jpg', resizeMode: 'contain' }
+  },
 
   // --- DEFENCE EXAMS ---
   {
@@ -309,13 +365,127 @@ export const EXAM_PRESETS: ExamRequirement[] = [
     category: 'State PSC',
     photo: { width: 350, height: 450, minKB: 20, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
     signature: { width: 350, height: 150, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'dsssb',
+    name: 'DSSSB (Delhi)',
+    category: 'State PSC',
+    photo: { width: 480, height: 640, minKB: 50, maxKB: 300, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 140, height: 110, minKB: 10, maxKB: 40, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'upsssc',
+    name: 'UPSSSC (Uttar Pradesh)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 5, maxKB: 30, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 5, maxKB: 30, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'bssc',
+    name: 'BSSC (Bihar)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'hssc',
+    name: 'HSSC (Haryana)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'ukpsc',
+    name: 'UKPSC (Uttarakhand)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'opsc',
+    name: 'OPSC (Odisha)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'jkssb',
+    name: 'JKSSB (Jammu & Kashmir)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'osssc',
+    name: 'OSSSC (Odisha)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+
+  // --- OTHER CENTRAL & PSU ---
+  {
+    id: 'kvs',
+    name: 'KVS (Kendriya Vidyalaya)',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 100, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'nvs',
+    name: 'NVS (Navodaya Vidyalaya)',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 100, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'aai',
+    name: 'AAI (Airports Authority)',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'isro',
+    name: 'ISRO',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'barc',
+    name: 'BARC',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'sail',
+    name: 'SAIL',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'ongc',
+    name: 'ONGC',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'ntpc',
+    name: 'NTPC',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
   }
 ];
 
 export const TRANSLATIONS = {
   en: {
-    title: 'Exam Photo & Sign Resizer Pro',
-    subtitle: 'Resize, Compress & Crop for Indian Exams',
+    title: 'ExamResizer',
+    subtitle: 'Resize, Compress & Crop passport photos and signatures for UPSC, SSC, IBPS, NEET, and other Indian Govt Exams',
     selectExam: 'Select Exam / Application',
     photoParams: 'Photo Parameters',
     signParams: 'Signature Parameters',
@@ -354,8 +524,8 @@ export const TRANSLATIONS = {
     customSize: 'Custom Dimensions',
   },
   hi: {
-    title: 'परीक्षा फोटो और हस्ताक्षर रिसाइज़र प्रो',
-    subtitle: 'भारतीय परीक्षाओं के लिए आकार बदलें और कंप्रेस करें',
+    title: 'ExamResizer (फोटो और हस्ताक्षर रिसाइज़र)',
+    subtitle: 'UPSC, SSC, IBPS, NEET और अन्य भारतीय सरकारी परीक्षाओं के लिए पासपोर्ट फोटो और हस्ताक्षर का आकार बदलें, कंप्रेस और क्रॉप करें',
     selectExam: 'परीक्षा / आवेदन चुनें',
     photoParams: 'फोटो पैरामीटर',
     signParams: 'हस्ताक्षर पैरामीटर',
@@ -416,8 +586,8 @@ export const FAQ_DATA = [
 
 export const SEO_CONTENT = {
   intro: {
-    title: "Best Online Photo & Signature Resizer for Indian Exams",
-    text: "Applying for government jobs like UPSC, SSC, IBPS, or entrance exams like JEE and NEET requires images to be in a very specific format. Most applications get rejected due to incorrect dimensions or file sizes. Exam Photo & Sign Resizer Pro is a free utility designed specifically for Indian students to solve this problem."
+    title: "ExamResizer: Best Online Photo & Signature Resizer for Indian Exams",
+    text: "Applying for government jobs like UPSC, SSC, IBPS, or entrance exams like JEE and NEET requires images to be in a very specific format. Most applications get rejected due to incorrect dimensions or file sizes. ExamResizer is a free utility designed specifically for Indian students to solve this problem. Whether you need a 20KB to 50KB photo converter, a signature compressor to 20kb, or a passport photo maker free, our online photo cropper for exam forms handles it all instantly."
   },
   exams: [
     {
@@ -431,6 +601,14 @@ export const SEO_CONTENT = {
     {
       title: "IBPS & SBI PO Image Resizer",
       content: "Banking exams require specific file names and sizes. IBPS signatures must not be in capital letters and should be between 10KB and 20KB. Our tool handles the resizing and compression while maintaining clarity."
+    },
+    {
+      title: "NEET & JEE Main Photo Maker",
+      content: "NTA requires passport size photographs (10KB to 200KB) and postcard size photographs (10KB to 200KB) for NEET. The photograph must be taken on or after a specific date, indicating the candidate's name and date of taking the photograph. Use our 'Add Name & Date' feature to easily comply with NTA guidelines."
+    },
+    {
+      title: "State PSC & Police Exam Resizer",
+      content: "State Public Service Commissions (like UPPSC, BPSC, MPSC, RPSC) and State Police recruitment boards have varying requirements. Our tool includes presets for major states and a custom option to dial in the exact width, height, and KB size needed for your specific state exam."
     }
   ],
   features: [
