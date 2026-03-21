@@ -54,7 +54,7 @@ const ResultCard: React.FC<ResultCardProps> = ({
       {!isSizeValid && (
         <div className="mb-3 text-xs text-red-500 dark:text-red-400">
           Target: {reqMin}-{reqMax} KB. Current: {fileSizeKB.toFixed(1)} KB.
-          <br/> Try uploading a smaller original or adjusting crop.
+          <br/> {fileSizeKB < reqMin ? "Try uploading a higher quality original." : "Try uploading a smaller original or adjusting crop."}
         </div>
       )}
 

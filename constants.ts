@@ -484,7 +484,7 @@ export const EXAM_PRESETS: ExamRequirement[] = [
 
 export const TRANSLATIONS = {
   en: {
-    title: 'ExamResizer',
+    title: 'PHOTORESIZER',
     subtitle: 'Resize, Compress & Crop passport photos and signatures for UPSC, SSC, IBPS, NEET, and other Indian Govt Exams',
     selectExam: 'Select Exam / Application',
     photoParams: 'Photo Parameters',
@@ -515,7 +515,7 @@ export const TRANSLATIONS = {
     result: 'Result',
     error_compression: 'Could not compress to target size. Try a smaller image.',
     ad_placeholder: 'Advertisement Space',
-    whyUse: 'Why use ExamResizer?',
+    whyUse: 'Why use PHOTORESIZER?',
     whyUseText: 'We provide the fastest and most secure way to resize images for Indian government exams. Unlike other tools, your photos are processed 100% on your device and never uploaded to any server.',
     features: 'Key Features',
     addDate: 'Add Name & Date (for SSC etc.)',
@@ -524,7 +524,7 @@ export const TRANSLATIONS = {
     customSize: 'Custom Dimensions',
   },
   hi: {
-    title: 'ExamResizer (फोटो और हस्ताक्षर रिसाइज़र)',
+    title: 'PHOTORESIZER (फोटो और हस्ताक्षर रिसाइज़र)',
     subtitle: 'UPSC, SSC, IBPS, NEET और अन्य भारतीय सरकारी परीक्षाओं के लिए पासपोर्ट फोटो और हस्ताक्षर का आकार बदलें, कंप्रेस और क्रॉप करें',
     selectExam: 'परीक्षा / आवेदन चुनें',
     photoParams: 'फोटो पैरामीटर',
@@ -555,7 +555,7 @@ export const TRANSLATIONS = {
     result: 'परिणाम',
     error_compression: 'लक्ष्य आकार में कंप्रेस नहीं किया जा सका। छोटी छवि का प्रयास करें।',
     ad_placeholder: 'विज्ञापन स्थान',
-    whyUse: 'ExamResizer क्यों चुनें?',
+    whyUse: 'PHOTORESIZER क्यों चुनें?',
     whyUseText: 'हम भारतीय सरकारी परीक्षाओं के लिए छवियों का आकार बदलने का सबसे तेज़ और सुरक्षित तरीका प्रदान करते हैं। अन्य उपकरणों के विपरीत, आपकी तस्वीरें 100% आपके डिवाइस पर संसाधित होती हैं और कभी भी किसी सर्वर पर अपलोड नहीं की जाती हैं।',
     features: 'मुख्य विशेषताएं',
     addDate: 'नाम और तारीख जोड़ें (SSC आदि के लिए)',
@@ -586,8 +586,8 @@ export const FAQ_DATA = [
 
 export const SEO_CONTENT = {
   intro: {
-    title: "ExamResizer: Best Online Photo & Signature Resizer for Indian Exams",
-    text: "Applying for government jobs like UPSC, SSC, IBPS, or entrance exams like JEE and NEET requires images to be in a very specific format. Most applications get rejected due to incorrect dimensions or file sizes. ExamResizer is a free utility designed specifically for Indian students to solve this problem. Whether you need a 20KB to 50KB photo converter, a signature compressor to 20kb, or a passport photo maker free, our online photo cropper for exam forms handles it all instantly."
+    title: "PHOTORESIZER: Best Online Photo & Signature Resizer for Indian Exams",
+    text: "Applying for government jobs like UPSC, SSC, IBPS, or entrance exams like JEE and NEET requires images to be in a very specific format. Most applications get rejected due to incorrect dimensions or file sizes. PHOTORESIZER is a free utility designed specifically for Indian students to solve this problem. Whether you need a 20KB to 50KB photo converter, a signature compressor to 20kb, or a passport photo maker free, our online photo cropper for exam forms handles it all instantly."
   },
   exams: [
     {

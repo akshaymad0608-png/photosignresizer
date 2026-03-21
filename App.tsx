@@ -185,7 +185,7 @@ const TestimonialsSection = () => {
     {
       name: "Amit K.",
       exam: "IBPS PO",
-      text: "I was struggling to get my signature under 20KB while keeping it clear. ExamResizer did it in seconds. Highly recommended!",
+      text: "I was struggling to get my signature under 20KB while keeping it clear. PHOTORESIZER did it in seconds. Highly recommended!",
       rating: 4
     }
   ];
@@ -198,7 +198,7 @@ const TestimonialsSection = () => {
             <MessageSquare className="text-govBlue dark:text-blue-400" /> User Reviews & Comments
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-lg">
-            See what other students are saying about ExamResizer
+            See what other students are saying about PHOTORESIZER
           </p>
         </div>
         
@@ -253,7 +253,7 @@ export default function App() {
 
   // Dynamic Title for SEO
   useEffect(() => {
-    let title = "ExamResizer: Govt Exam Photo Maker";
+    let title = "PHOTORESIZER: Govt Exam Photo Maker";
     if (activeTab === 'home') {
       title = `Resize Photo & Sign for ${selectedExam.name.split('(')[0].trim()} - ${title}`;
     } else if (activeTab === 'blog') {
@@ -389,16 +389,16 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
               href="/" 
               onClick={(e) => { e.preventDefault(); setActiveTab('home'); }} 
               className="flex items-center gap-2 cursor-pointer group"
-              title="ExamResizer - Govt Exam Photo & Signature Maker"
-              aria-label="ExamResizer Home"
+              title="PHOTORESIZER - Govt Exam Photo & Signature Maker"
+              aria-label="PHOTORESIZER Home"
             >
                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-govSaffron shadow-sm text-govBlue group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
-                 <Focus size={22} aria-label="ExamResizer Logo" />
+                 <Focus size={22} aria-label="PHOTORESIZER Logo" />
                </div>
                <div className="flex flex-col">
                  <span className="font-bold text-lg leading-tight tracking-tight hidden sm:block">{t.title}</span>
                  <span className="text-[10px] text-blue-200 hidden sm:block tracking-wider uppercase font-medium">Free Tool for Indian Students</span>
-                 <span className="font-bold text-lg tracking-tight sm:hidden">ExamResizer</span>
+                 <span className="font-bold text-lg tracking-tight sm:hidden">PHOTORESIZER</span>
                </div>
             </a>
             
@@ -768,11 +768,11 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                   href="/" 
                   onClick={(e) => { e.preventDefault(); setActiveTab('home'); }} 
                   className="flex items-center gap-2 mb-4 group"
-                  title="ExamResizer - Govt Exam Photo & Signature Maker"
-                  aria-label="ExamResizer Home"
+                  title="PHOTORESIZER - Govt Exam Photo & Signature Maker"
+                  aria-label="PHOTORESIZER Home"
                 >
                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-govBlue group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
-                     <Focus size={18} aria-label="ExamResizer Logo" />
+                     <Focus size={18} aria-label="PHOTORESIZER Logo" />
                    </div>
                    <span className="text-white font-bold text-xl">{t.title}</span>
                 </a>
