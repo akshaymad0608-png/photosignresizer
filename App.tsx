@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { jsPDF } from 'jspdf';
 import { 
-  Menu, X, Sun, Moon, Languages, Home, Info, FileText, Camera, Settings,
-  Upload, Scissors, Download, Focus, Star, MessageSquare, Copy,
-  Zap, ShieldCheck, Smartphone, Check
+  Camera, Settings, Upload, Copy, Zap, FileDown, Trash2, FileText
 } from 'lucide-react';
-import { EXAM_PRESETS, TRANSLATIONS, FAQ_DATA, SEO_CONTENT } from './constants';
+import { EXAM_PRESETS, TRANSLATIONS } from './constants';
 import { ExamRequirement, Language, ProcessedImage } from './types';
 import { processImage, readFileAsDataURL } from './utils/imageProcessing';
 import ExamDropdown from './components/ExamDropdown';
@@ -12,225 +11,32 @@ import ImageUploader from './components/ImageUploader';
 import ResultCard from './components/ResultCard';
 import AdPlaceholder from './components/AdPlaceholder';
 
-// --- Sub-Components ---
-
-const StepCard = ({ icon: Icon, title, desc, step }: { icon: any, title: string, desc: string, step: string }) => (
-  <div className="relative p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow mt-4 md:mt-0">
-    <div className="absolute -top-3 -left-3 w-8 h-8 bg-govSaffron text-white rounded-full flex items-center justify-center font-bold shadow-sm">
-      {step}
-    </div>
-    <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-govBlue dark:text-blue-300 rounded-xl flex items-center justify-center mb-4">
-      <Icon size={24} />
-    </div>
-    <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">{title}</h3>
-    <p className="text-sm text-gray-600 dark:text-gray-400">{desc}</p>
-  </div>
-);
-
-const FAQSection = ({ lang }: { lang: Language }) => (
-  <div className="max-w-3xl mx-auto py-8 px-4 animate-fade-in">
-    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 border-b pb-2 border-gray-200 dark:border-gray-700">
-      {TRANSLATIONS[lang].faq}
-    </h2>
-    <div className="space-y-4">
-      {FAQ_DATA.map((item, idx) => (
-        <div key={idx} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-govBlue dark:text-blue-400 mb-2">{item.q}</h3>
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{item.a}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
-const BlogSection = ({ lang }: { lang: Language }) => (
-  <div className="max-w-4xl mx-auto py-8 px-4 animate-fade-in">
-    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 border-b pb-2 border-gray-200 dark:border-gray-700">
-      {TRANSLATIONS[lang].blog}
-    </h2>
-    
-    <article className="prose dark:prose-invert max-w-none space-y-8">
-      
-      {/* Dynamic SEO Content from Constants */}
-      <section className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-sm">
-        <h3 className="text-2xl font-bold text-govBlue dark:text-blue-300 mb-4">{SEO_CONTENT.intro.title}</h3>
-        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{SEO_CONTENT.intro.text}</p>
-      </section>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        {SEO_CONTENT.exams.map((exam, idx) => (
-           <div key={idx} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border-l-4 border-govSaffron">
-              <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{exam.title}</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">{exam.content}</p>
-           </div>
-        ))}
-      </div>
-
-      <div className="bg-blue-50 dark:bg-blue-900/20 p-4 md:p-8 rounded-xl">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Official Dimensions Reference</h3>
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-left text-sm">
-            <thead className="bg-govBlue text-white">
-              <tr>
-                <th className="px-4 py-3 rounded-tl-lg">Exam</th>
-                <th className="px-4 py-3">Photo Size</th>
-                <th className="px-4 py-3">Sign Size</th>
-                <th className="px-4 py-3 rounded-tr-lg">Format</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-              {EXAM_PRESETS.slice(0, 8).map((exam) => (
-                <tr key={exam.id}>
-                  <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{exam.name.split('(')[0]}</td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{exam.photo.width}x{exam.photo.height}px ({exam.photo.minKB}-{exam.photo.maxKB}KB)</td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{exam.signature.width}x{exam.signature.height}px ({exam.signature.minKB}-{exam.signature.maxKB}KB)</td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300 uppercase">{exam.photo.format}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="mt-12 bg-white dark:bg-gray-800 p-6 md:p-8 rounded-xl shadow-sm">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Related Tools & Resources</h3>
-        <ul className="grid md:grid-cols-2 gap-4 text-govBlue dark:text-blue-400">
-          <li><a href="#" className="hover:underline">UPSC Photo and Signature Resizer Online</a></li>
-          <li><a href="#" className="hover:underline">SSC CGL Photo Maker (20KB to 50KB)</a></li>
-          <li><a href="#" className="hover:underline">IBPS PO Signature Compressor (10KB to 20KB)</a></li>
-          <li><a href="#" className="hover:underline">NEET Photo with Name and Date Generator</a></li>
-          <li><a href="#" className="hover:underline">Passport Size Photo Maker Online Free</a></li>
-          <li><a href="#" className="hover:underline">Image Compressor to 50KB</a></li>
-        </ul>
-      </div>
-    </article>
-  </div>
-);
-
-const HowItWorksSection = () => (
-  <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100 dark:border-gray-700 mb-12">
-    <div className="max-w-4xl mx-auto text-center">
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8">How to Resize Photo & Signature for Exams</h2>
-      <div className="grid md:grid-cols-3 gap-8 relative">
-        <div className="hidden md:block absolute top-1/2 left-[16%] right-[16%] h-0.5 bg-gray-200 dark:bg-gray-700 -z-10 -translate-y-1/2"></div>
-        
-        <div className="flex flex-col items-center bg-white dark:bg-gray-800 z-10 p-4">
-          <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-govBlue dark:text-blue-400 rounded-full flex items-center justify-center mb-4 shadow-sm border-4 border-white dark:border-gray-800">
-            <Upload size={28} />
-          </div>
-          <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">1. Upload Image</h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">Select your passport size photo and signature from your gallery or take a new one.</p>
-        </div>
-
-        <div className="flex flex-col items-center bg-white dark:bg-gray-800 z-10 p-4">
-          <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 text-govSaffron dark:text-amber-400 rounded-full flex items-center justify-center mb-4 shadow-sm border-4 border-white dark:border-gray-800">
-            <Scissors size={28} />
-          </div>
-          <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">2. Select Exam</h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">Choose your target exam (UPSC, SSC, IBPS, etc.). We automatically apply the correct dimensions and KB size limits.</p>
-        </div>
-
-        <div className="flex flex-col items-center bg-white dark:bg-gray-800 z-10 p-4">
-          <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-4 shadow-sm border-4 border-white dark:border-gray-800">
-            <Download size={28} />
-          </div>
-          <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">3. Download</h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">Click compress and instantly download your perfectly resized images ready for the application form.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const SupportedExamsSection = () => (
-  <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-8 md:p-12 shadow-inner border border-gray-200 dark:border-gray-700 mb-12">
-    <div className="max-w-5xl mx-auto">
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center">Supported Government Exams</h2>
-      <p className="text-gray-600 dark:text-gray-400 text-center mb-10 max-w-2xl mx-auto">
-        Our tool automatically configures the exact pixel dimensions (width x height) and file size limits (e.g., 20KB to 50KB) required for these popular Indian government job applications.
-      </p>
-      
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {EXAM_PRESETS.filter(e => e.id !== 'custom').slice(0, 12).map(exam => (
-          <div key={exam.id} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
-            <h3 className="font-bold text-sm text-gray-900 dark:text-white mb-1">{exam.name}</h3>
-            <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
-              <p>Photo: {exam.photo.minKB}-{exam.photo.maxKB}KB</p>
-              <p>Sign: {exam.signature.minKB}-{exam.signature.maxKB}KB</p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="text-center mt-8">
-        <p className="text-sm text-gray-500 dark:text-gray-400">And many more state-level and central exams including NEET, JEE, GATE, and State PSCs.</p>
-      </div>
-    </div>
-  </div>
-);
-
-const TestimonialsSection = () => {
-  const reviews = [
-    {
-      name: "Rahul S.",
-      exam: "UPSC Aspirant",
-      text: "This tool saved me so much time! The photo and signature were accepted on the first try without any size errors.",
-      rating: 5
-    },
-    {
-      name: "Priya M.",
-      exam: "SSC CGL",
-      text: "Very easy to use on my mobile. I just uploaded my photo, selected SSC, and it perfectly cropped and compressed it to 45KB.",
-      rating: 5
-    },
-    {
-      name: "Amit K.",
-      exam: "IBPS PO",
-      text: "I was struggling to get my signature under 20KB while keeping it clear. PHOTORESIZER did it in seconds. Highly recommended!",
-      rating: 4
-    }
-  ];
-
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100 dark:border-gray-700 mb-12">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-2">
-            <MessageSquare className="text-govBlue dark:text-blue-400" /> User Reviews & Comments
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
-            See what other students are saying about PHOTORESIZER
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-3 gap-6">
-          {reviews.map((review, idx) => (
-            <div key={idx} className="bg-gray-50 dark:bg-gray-700/50 p-6 rounded-xl border border-gray-100 dark:border-gray-600 flex flex-col h-full">
-              <div className="flex text-govSaffron mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={16} className={i < review.rating ? "fill-current" : "text-gray-300 dark:text-gray-500"} />
-                ))}
-              </div>
-              <p className="text-gray-700 dark:text-gray-300 italic mb-4 flex-grow">"{review.text}"</p>
-              <div className="mt-auto">
-                <p className="font-bold text-gray-900 dark:text-white">{review.name}</p>
-                <p className="text-xs text-govBlue dark:text-blue-400 font-medium">{review.exam}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
+// --- New Components ---
+import Navbar from './components/Navbar';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import FAQSection from './components/sections/FAQSection';
+import BlogSection from './components/sections/BlogSection';
+import HowItWorksSection from './components/sections/HowItWorksSection';
+import SupportedExamsSection from './components/sections/SupportedExamsSection';
+import TestimonialsSection from './components/sections/TestimonialsSection';
+import MonetizationSection from './components/sections/MonetizationSection';
+import WhyUseSection from './components/sections/WhyUseSection';
+import ImageControls from './components/ImageControls';
 
 // --- Main App ---
 
 export default function App() {
   // State
   const [lang, setLang] = useState<Language>('en');
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark' || 
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    return false;
+  });
   const [activeTab, setActiveTab] = useState<'home' | 'faq' | 'blog'>('home');
-  const [menuOpen, setMenuOpen] = useState(false);
 
   // Exam State
   const [selectedExam, setSelectedExam] = useState<ExamRequirement>(EXAM_PRESETS[0]); 
@@ -243,13 +49,27 @@ export default function App() {
   // Image State
   const [photoOriginal, setPhotoOriginal] = useState<string | null>(null);
   const [photoRotation, setPhotoRotation] = useState(0);
+  const [photoBrightness, setPhotoBrightness] = useState(0);
+  const [photoContrast, setPhotoContrast] = useState(0);
+  const [photoGrayscale, setPhotoGrayscale] = useState(false);
   const [photoProcessed, setPhotoProcessed] = useState<ProcessedImage | null>(null);
   
   const [signOriginal, setSignOriginal] = useState<string | null>(null);
   const [signRotation, setSignRotation] = useState(0);
+  const [signBrightness, setSignBrightness] = useState(0);
+  const [signContrast, setSignContrast] = useState(0);
+  const [signGrayscale, setSignGrayscale] = useState(true);
   const [signProcessed, setSignProcessed] = useState<ProcessedImage | null>(null);
 
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll Effect
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Dynamic Title for SEO
   useEffect(() => {
@@ -274,8 +94,10 @@ export default function App() {
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [darkMode]);
 
@@ -319,7 +141,9 @@ export default function App() {
           width: selectedExam.photo.width,
           height: selectedExam.photo.height,
           maxKB: selectedExam.photo.maxKB,
-          grayscale: false,
+          grayscale: photoGrayscale,
+          brightness: photoBrightness,
+          contrast: photoContrast,
           resizeMode: selectedExam.photo.resizeMode,
           rotation: photoRotation,
           textOverlay: addDate ? { name: photoName, date: formattedDate } : undefined
@@ -339,7 +163,9 @@ export default function App() {
           width: selectedExam.signature.width,
           height: selectedExam.signature.height,
           maxKB: selectedExam.signature.maxKB,
-          grayscale: true, // Auto convert signature to grayscale for better contrast
+          grayscale: signGrayscale,
+          brightness: signBrightness,
+          contrast: signContrast,
           resizeMode: selectedExam.signature.resizeMode,
           rotation: signRotation
         });
@@ -377,109 +203,92 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
     alert('Requirements copied to clipboard!');
   };
 
+  const downloadAsPDF = () => {
+    if (!photoProcessed && !signProcessed) return;
+
+    const doc = new jsPDF();
+    const margin = 20;
+    let currentY = margin;
+
+    doc.setFontSize(18);
+    doc.text('Exam Application Documents', margin, currentY);
+    currentY += 10;
+    doc.setFontSize(12);
+    doc.text(`Exam: ${selectedExam.name}`, margin, currentY);
+    currentY += 15;
+
+    if (photoProcessed && photoProcessed.processedUrl) {
+      doc.text('Photograph:', margin, currentY);
+      currentY += 5;
+      // Calculate aspect ratio for display
+      const imgWidth = 40; // 40mm wide
+      const imgHeight = (selectedExam.photo.height / selectedExam.photo.width) * imgWidth;
+      doc.addImage(photoProcessed.processedUrl, 'JPEG', margin, currentY, imgWidth, imgHeight);
+      currentY += imgHeight + 15;
+    }
+
+    if (signProcessed && signProcessed.processedUrl) {
+      doc.text('Signature:', margin, currentY);
+      currentY += 5;
+      const imgWidth = 50; // 50mm wide
+      const imgHeight = (selectedExam.signature.height / selectedExam.signature.width) * imgWidth;
+      doc.addImage(signProcessed.processedUrl, 'JPEG', margin, currentY, imgWidth, imgHeight);
+    }
+
+    doc.save(`exam_docs_${selectedExam.id}.pdf`);
+  };
+
+  const resetAll = () => {
+    setPhotoOriginal(null);
+    setPhotoProcessed(null);
+    setPhotoRotation(0);
+    setPhotoBrightness(0);
+    setPhotoContrast(0);
+    setPhotoGrayscale(false);
+    
+    setSignOriginal(null);
+    setSignProcessed(null);
+    setSignRotation(0);
+    setSignBrightness(0);
+    setSignContrast(0);
+    setSignGrayscale(true);
+    
+    setPhotoName('');
+    setPhotoDate('');
+    setAddDate(false);
+  };
+
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-      {/* Navbar */}
-      <nav className="bg-govBlue text-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <a 
-              href="/" 
-              onClick={(e) => { e.preventDefault(); setActiveTab('home'); }} 
-              className="flex items-center gap-2 cursor-pointer group"
-              title="PHOTORESIZER - Govt Exam Photo & Signature Maker"
-              aria-label="PHOTORESIZER Home"
-            >
-               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-govSaffron shadow-sm text-govBlue group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
-                 <Focus size={22} aria-label="PHOTORESIZER Logo" />
-               </div>
-               <div className="flex flex-col">
-                 <span className="font-bold text-lg leading-tight tracking-tight hidden sm:block">{t.title}</span>
-                 <span className="text-[10px] text-blue-200 hidden sm:block tracking-wider uppercase font-medium">Free Tool for Indian Students</span>
-                 <span className="font-bold text-lg tracking-tight sm:hidden">PHOTORESIZER</span>
-               </div>
-            </a>
-            
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                <button onClick={() => setActiveTab('home')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${activeTab === 'home' ? 'bg-white/10 shadow-inner' : 'hover:bg-white/5'}`}>{t.home}</button>
-                <button onClick={() => setActiveTab('blog')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${activeTab === 'blog' ? 'bg-white/10 shadow-inner' : 'hover:bg-white/5'}`}>{t.blog}</button>
-                <button onClick={() => setActiveTab('faq')} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${activeTab === 'faq' ? 'bg-white/10 shadow-inner' : 'hover:bg-white/5'}`}>{t.faq}</button>
-              </div>
-            </div>
-
-            <div className="hidden md:flex items-center gap-4">
-               <button onClick={() => setLang(l => l === 'en' ? 'hi' : 'en')} className="flex items-center gap-1.5 px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors text-sm font-medium border border-transparent hover:border-white/20">
-                 <Languages size={16} /> {lang === 'en' ? 'Hindi' : 'English'}
-               </button>
-               <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-full hover:bg-white/10 transition-colors text-yellow-300">
-                 {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-               </button>
-            </div>
-
-            <div className="-mr-2 flex md:hidden">
-              <button onClick={() => setMenuOpen(!menuOpen)} className="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-blue-700 focus:outline-none">
-                {menuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="md:hidden bg-blue-800 pb-4 shadow-xl">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <button onClick={() => { setActiveTab('home'); setMenuOpen(false); }} className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-700 w-full text-left flex gap-2"><Home size={18}/> {t.home}</button>
-              <button onClick={() => { setActiveTab('blog'); setMenuOpen(false); }} className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-700 w-full text-left flex gap-2"><FileText size={18}/> {t.blog}</button>
-              <button onClick={() => { setActiveTab('faq'); setMenuOpen(false); }} className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-blue-700 w-full text-left flex gap-2"><Info size={18}/> {t.faq}</button>
-            </div>
-            <div className="pt-4 pb-3 border-t border-blue-700 flex justify-around">
-               <button onClick={() => setLang(l => l === 'en' ? 'hi' : 'en')} className="flex items-center gap-2 text-white">
-                 <Languages size={18} /> {lang === 'en' ? 'Hi' : 'En'}
-               </button>
-               <button onClick={() => setDarkMode(!darkMode)} className="text-white">
-                 {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-               </button>
-            </div>
-          </div>
-        )}
-      </nav>
+    <div className="min-h-screen flex flex-col font-sans bg-gray-50 dark:bg-gray-900 transition-colors duration-200 relative">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 -z-20 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+      
+      <Navbar 
+        lang={lang} 
+        setLang={setLang} 
+        isScrolled={isScrolled} 
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
 
       {/* Main Content Area */}
       <main className="flex-grow">
         {activeTab === 'home' && (
           <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-            
-            <header className="text-center mb-12 animate-fade-in-up">
-              <div className="inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4">
-                100% Free & Secure
-              </div>
-              <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
-                 Free Exam Photo & Signature Resizer for <br className="hidden md:block" />
-                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-govBlue to-blue-500 dark:from-blue-200 dark:to-blue-500">
-                    UPSC, SSC, IBPS, NEET & Govt Exams
-                 </span>
-              </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
-                {t.subtitle}. No signup required. Secure client-side processing.
-              </p>
-              
-              {/* Steps Component */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left mt-8">
-                <StepCard step="1" icon={Settings} title="Select Exam" desc="Choose from 50+ presets like UPSC, SSC, or set custom size." />
-                <StepCard step="2" icon={Upload} title="Upload Image" desc="Select your photo and signature. Rotate if needed." />
-                <StepCard step="3" icon={Download} title="Download" desc="Get perfectly resized, compressed JPGs instantly." />
-              </div>
-            </header>
+            <Header lang={lang} onSelectExam={setSelectedExam} />
 
-            <AdPlaceholder text={t.ad_placeholder} />
+            <div className="max-w-5xl mx-auto">
+              <AdPlaceholder text={t.ad_placeholder} />
+            </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 mt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24 mt-12">
               {/* Left Column: Controls */}
-              <div className="lg:col-span-1 space-y-6">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border-t-4 border-govBlue lg:sticky lg:top-24">
+              <div className="lg:col-span-4 space-y-8">
+                <div className="bg-white dark:bg-gray-800 p-8 rounded-[2rem] shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 lg:sticky lg:top-28">
                   <ExamDropdown 
                     selectedExam={selectedExam} 
                     onSelect={setSelectedExam} 
@@ -488,65 +297,72 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
 
                   {/* CUSTOM DIMENSION INPUTS */}
                   {selectedExam.id === 'custom' && (
-                      <div className="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg animate-fade-in">
-                          <h4 className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2"><Settings size={14}/> {t.customSize}</h4>
+                      <div className="mb-8 p-6 bg-gray-50 dark:bg-gray-700/30 rounded-2xl border border-gray-100 dark:border-gray-700 animate-fade-in">
+                          <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4 flex items-center gap-2">
+                            <Settings size={14}/> {t.customSize}
+                          </h4>
                           
-                          <div className="space-y-4">
+                          <div className="space-y-6">
                               {/* Photo Inputs */}
                               <div>
-                                  <label className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1 block">Photo (px & KB)</label>
-                                  <div className="grid grid-cols-2 gap-2">
-                                      <input type="number" placeholder="W" value={selectedExam.photo.width} onChange={(e) => updateCustomExam('width', e.target.value, 'photo')} className="p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none" />
-                                      <input type="number" placeholder="H" value={selectedExam.photo.height} onChange={(e) => updateCustomExam('height', e.target.value, 'photo')} className="p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none" />
-                                      <input type="number" placeholder="Min KB" value={selectedExam.photo.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'photo')} className="p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none" />
-                                      <input type="number" placeholder="Max KB" value={selectedExam.photo.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'photo')} className="p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none" />
+                                  <label className="text-[10px] font-black uppercase tracking-tighter text-blue-600 dark:text-blue-400 mb-2 block">Photo (px & KB)</label>
+                                  <div className="grid grid-cols-2 gap-3">
+                                      <input type="number" placeholder="W" value={selectedExam.photo.width} onChange={(e) => updateCustomExam('width', e.target.value, 'photo')} className="p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all" />
+                                      <input type="number" placeholder="H" value={selectedExam.photo.height} onChange={(e) => updateCustomExam('height', e.target.value, 'photo')} className="p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all" />
+                                      <input type="number" placeholder="Min KB" value={selectedExam.photo.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'photo')} className="p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all" />
+                                      <input type="number" placeholder="Max KB" value={selectedExam.photo.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'photo')} className="p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all" />
                                   </div>
                               </div>
 
                               {/* Sign Inputs */}
                               <div>
-                                  <label className="text-xs font-semibold text-orange-600 dark:text-orange-400 mb-1 block">Signature (px & KB)</label>
-                                  <div className="grid grid-cols-2 gap-2">
-                                      <input type="number" placeholder="W" value={selectedExam.signature.width} onChange={(e) => updateCustomExam('width', e.target.value, 'signature')} className="p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 outline-none" />
-                                      <input type="number" placeholder="H" value={selectedExam.signature.height} onChange={(e) => updateCustomExam('height', e.target.value, 'signature')} className="p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 outline-none" />
-                                      <input type="number" placeholder="Min KB" value={selectedExam.signature.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'signature')} className="p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 outline-none" />
-                                      <input type="number" placeholder="Max KB" value={selectedExam.signature.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'signature')} className="p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-orange-500 outline-none" />
+                                  <label className="text-[10px] font-black uppercase tracking-tighter text-orange-600 dark:text-orange-400 mb-2 block">Signature (px & KB)</label>
+                                  <div className="grid grid-cols-2 gap-3">
+                                      <input type="number" placeholder="W" value={selectedExam.signature.width} onChange={(e) => updateCustomExam('width', e.target.value, 'signature')} className="p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all" />
+                                      <input type="number" placeholder="H" value={selectedExam.signature.height} onChange={(e) => updateCustomExam('height', e.target.value, 'signature')} className="p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all" />
+                                      <input type="number" placeholder="Min KB" value={selectedExam.signature.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'signature')} className="p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all" />
+                                      <input type="number" placeholder="Max KB" value={selectedExam.signature.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'signature')} className="p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all" />
                                   </div>
                               </div>
                           </div>
                       </div>
                   )}
 
-                  <div className="mt-6 space-y-4 relative">
+                  <div className="mt-8 space-y-6 relative">
                     <button 
                       onClick={copyRequirements}
-                      className="absolute -top-10 right-0 text-xs flex items-center gap-1 text-gray-500 hover:text-govBlue dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
+                      className="absolute -top-10 right-0 text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 text-gray-400 hover:text-brand dark:hover:text-blue-400 transition-colors"
                       title="Copy Requirements"
                     >
-                      <Copy size={14} /> Copy Specs
+                      <Copy size={12} /> Copy Specs
                     </button>
-                    <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-100 dark:border-blue-800 transition-all hover:shadow-md">
-                      <h4 className="text-sm font-bold text-govBlue dark:text-blue-300 uppercase tracking-wide mb-2 flex items-center gap-2"><Camera size={16}/> {t.photoParams}</h4>
-                      <div className="grid grid-cols-2 gap-y-1 gap-x-2 text-sm text-gray-600 dark:text-gray-300">
-                        <div className="text-gray-500">{t.width}:</div> <div className="font-mono font-medium text-right">{selectedExam.photo.width}px</div>
-                        <div className="text-gray-500">{t.height}:</div> <div className="font-mono font-medium text-right">{selectedExam.photo.height}px</div>
-                        <div className="text-gray-500">{t.minSize}:</div> <div className="font-mono font-medium text-right">{selectedExam.photo.minKB}KB</div>
-                        <div className="text-gray-500">{t.maxSize}:</div> <div className="font-mono font-medium text-right">{selectedExam.photo.maxKB}KB</div>
-                        <div className="col-span-2 border-t dark:border-gray-700 mt-2 pt-2 text-xs text-gray-400 flex justify-between">
-                            <span>Resize Mode:</span> <span className="uppercase font-semibold">{selectedExam.photo.resizeMode}</span>
+                    
+                    <div className="p-5 bg-blue-50/50 dark:bg-blue-900/20 rounded-2xl border border-blue-100/50 dark:border-blue-800/50 transition-all hover:shadow-lg group">
+                      <h4 className="text-[10px] font-black text-brand dark:text-blue-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <Camera size={14}/> {t.photoParams}
+                      </h4>
+                      <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-sm">
+                        <div className="text-gray-400 font-bold uppercase text-[10px] tracking-tighter">{t.width}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white">{selectedExam.photo.width}px</div>
+                        <div className="text-gray-400 font-bold uppercase text-[10px] tracking-tighter">{t.height}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white">{selectedExam.photo.height}px</div>
+                        <div className="text-gray-400 font-bold uppercase text-[10px] tracking-tighter">{t.minSize}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white">{selectedExam.photo.minKB}KB</div>
+                        <div className="text-gray-400 font-bold uppercase text-[10px] tracking-tighter">{t.maxSize}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white">{selectedExam.photo.maxKB}KB</div>
+                        <div className="col-span-2 border-t border-blue-100 dark:border-blue-800/50 mt-3 pt-3 text-[10px] text-gray-400 font-bold flex justify-between uppercase">
+                            <span>Resize Mode</span> <span className="text-brand dark:text-blue-400">{selectedExam.photo.resizeMode}</span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-100 dark:border-orange-800 transition-all hover:shadow-md">
-                      <h4 className="text-sm font-bold text-govSaffron dark:text-orange-400 uppercase tracking-wide mb-2 flex items-center gap-2"><FileText size={16}/> {t.signParams}</h4>
-                      <div className="grid grid-cols-2 gap-y-1 gap-x-2 text-sm text-gray-600 dark:text-gray-300">
-                        <div className="text-gray-500">{t.width}:</div> <div className="font-mono font-medium text-right">{selectedExam.signature.width}px</div>
-                        <div className="text-gray-500">{t.height}:</div> <div className="font-mono font-medium text-right">{selectedExam.signature.height}px</div>
-                        <div className="text-gray-500">{t.minSize}:</div> <div className="font-mono font-medium text-right">{selectedExam.signature.minKB}KB</div>
-                        <div className="text-gray-500">{t.maxSize}:</div> <div className="font-mono font-medium text-right">{selectedExam.signature.maxKB}KB</div>
-                        <div className="col-span-2 border-t dark:border-gray-700 mt-2 pt-2 text-xs text-gray-400 flex justify-between">
-                            <span>Resize Mode:</span> <span className="uppercase font-semibold">{selectedExam.signature.resizeMode}</span>
+                    <div className="p-5 bg-orange-50/50 dark:bg-orange-900/10 rounded-2xl border border-orange-100/50 dark:border-orange-800/50 transition-all hover:shadow-lg group">
+                      <h4 className="text-[10px] font-black text-orange-600 dark:text-orange-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <FileText size={14}/> {t.signParams}
+                      </h4>
+                      <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-sm">
+                        <div className="text-gray-400 font-bold uppercase text-[10px] tracking-tighter">{t.width}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white">{selectedExam.signature.width}px</div>
+                        <div className="text-gray-400 font-bold uppercase text-[10px] tracking-tighter">{t.height}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white">{selectedExam.signature.height}px</div>
+                        <div className="text-gray-400 font-bold uppercase text-[10px] tracking-tighter">{t.minSize}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white">{selectedExam.signature.minKB}KB</div>
+                        <div className="text-gray-400 font-bold uppercase text-[10px] tracking-tighter">{t.maxSize}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white">{selectedExam.signature.maxKB}KB</div>
+                        <div className="col-span-2 border-t border-orange-100 dark:border-orange-800/50 mt-3 pt-3 text-[10px] text-gray-400 font-bold flex justify-between uppercase">
+                            <span>Resize Mode</span> <span className="text-orange-600 dark:text-orange-400">{selectedExam.signature.resizeMode}</span>
                         </div>
                       </div>
                     </div>
@@ -555,12 +371,27 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
               </div>
 
               {/* Right Column: Uploaders */}
-              <div className="lg:col-span-2 space-y-8">
+              <div className="lg:col-span-8 space-y-12">
+                <div className="flex items-center justify-between px-4">
+                  <h2 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
+                    <div className="p-2 bg-brand/10 dark:bg-blue-900/30 rounded-xl">
+                      <Upload size={20} className="text-brand dark:text-blue-400" />
+                    </div>
+                    {t.upload_section || 'Upload Section'}
+                  </h2>
+                  <button 
+                    onClick={resetAll}
+                    className="group text-xs flex items-center gap-2 text-red-500 hover:text-white font-black transition-all bg-red-50 dark:bg-red-900/20 hover:bg-red-500 dark:hover:bg-red-600 px-4 py-2 rounded-xl border border-red-100 dark:border-red-800 uppercase tracking-widest"
+                  >
+                    <Trash2 size={14} className="group-hover:rotate-12 transition-transform" /> {t.resetAll}
+                  </button>
+                </div>
                 
                 {/* Photo Section */}
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-                   <div className="grid md:grid-cols-2 gap-8">
-                      <div className="space-y-4">
+                <div className="bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 overflow-hidden relative">
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-brand/5 blur-3xl rounded-full"></div>
+                   <div className="grid md:grid-cols-2 gap-12 relative z-10">
+                      <div className="space-y-6">
                         <ImageUploader 
                             title={t.uploadPhoto}
                             image={photoOriginal} 
@@ -569,42 +400,52 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                             label={t.dragDrop}
                             rotation={photoRotation}
                             onRotate={setPhotoRotation}
+                            lang={lang}
+                        />
+                        <ImageControls 
+                          brightness={photoBrightness} setBrightness={setPhotoBrightness}
+                          contrast={photoContrast} setContrast={setPhotoContrast}
+                          grayscale={photoGrayscale} setGrayscale={setPhotoGrayscale}
+                          t={t}
                         />
 
                         {/* NAME & DATE OVERLAY TOGGLE */}
-                        <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                           <div className="flex items-center gap-2 mb-2">
-                             <input 
-                               type="checkbox" 
-                               id="addDate" 
-                               checked={addDate} 
-                               onChange={(e) => setAddDate(e.target.checked)}
-                               className="w-4 h-4 text-govBlue rounded focus:ring-govBlue cursor-pointer"
-                             />
-                             <label htmlFor="addDate" className="text-sm font-semibold text-gray-700 dark:text-gray-300 cursor-pointer select-none">
+                        <div className="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+                           <div className="flex items-center gap-3 mb-4">
+                             <div className="relative inline-flex items-center cursor-pointer">
+                               <input 
+                                 type="checkbox" 
+                                 id="addDate" 
+                                 checked={addDate} 
+                                 onChange={(e) => setAddDate(e.target.checked)}
+                                 className="sr-only peer"
+                               />
+                               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand/20 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-brand"></div>
+                             </div>
+                             <label htmlFor="addDate" className="text-sm font-black text-gray-700 dark:text-gray-300 cursor-pointer select-none uppercase tracking-wider">
                                {t.addDate}
                              </label>
                            </div>
                            
                            {addDate && (
-                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3 animate-fade-in">
+                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 animate-fade-in">
                                   <div>
-                                     <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">{t.name}</label>
+                                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 block mb-2">{t.name}</label>
                                      <input 
                                         type="text" 
                                         value={photoName}
                                         onChange={(e) => setPhotoName(e.target.value)}
                                         placeholder="Your Name"
-                                        className="w-full p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none"
+                                        className="w-full p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all"
                                      />
                                   </div>
                                   <div>
-                                     <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">{t.date}</label>
+                                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 block mb-2">{t.date}</label>
                                      <input 
                                         type="date" 
                                         value={photoDate}
                                         onChange={(e) => setPhotoDate(e.target.value)}
-                                        className="w-full p-2 text-sm border rounded bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 outline-none"
+                                        className="w-full p-3 text-sm font-bold border-2 rounded-xl bg-white dark:bg-gray-800 dark:text-white border-gray-100 dark:border-gray-700 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all"
                                      />
                                   </div>
                                </div>
@@ -612,7 +453,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                         </div>
 
                       </div>
-                      <div className="flex flex-col justify-end h-full min-h-[160px]">
+                      <div className="flex flex-col justify-end h-full min-h-[200px]">
                          {photoProcessed ? (
                             <ResultCard 
                               processedUrl={photoProcessed.processedUrl}
@@ -626,10 +467,12 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                               type={t.photoParams.split(' ')[0]}
                             />
                          ) : (
-                           <div className="h-full flex flex-col items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 p-6 text-center">
-                             <span className="mb-2 opacity-50"><Camera size={32}/></span>
-                             <span>{t.result} {t.preview}</span>
-                             <span className="text-xs text-gray-500 mt-1 max-w-[200px]">Preview will appear here after processing</span>
+                           <div className="h-full flex flex-col items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-100 dark:border-gray-700 rounded-[2rem] bg-gray-50/50 dark:bg-gray-900/50 p-8 text-center group transition-colors hover:border-brand/20">
+                             <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
+                               <Camera size={32} className="opacity-20 group-hover:opacity-40 transition-opacity" />
+                             </div>
+                             <span className="font-black uppercase tracking-widest text-[10px] mb-1">{t.result} {t.preview}</span>
+                             <span className="text-xs text-gray-500 mt-1 max-w-[200px] font-medium leading-relaxed">Preview will appear here after processing</span>
                            </div>
                          )}
                       </div>
@@ -637,9 +480,10 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                 </div>
 
                 {/* Signature Section */}
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-                   <div className="grid md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
+                <div className="bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 overflow-hidden relative">
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 blur-3xl rounded-full"></div>
+                   <div className="grid md:grid-cols-2 gap-12 relative z-10">
+                      <div className="space-y-6">
                           <ImageUploader 
                             title={t.uploadSign}
                             image={signOriginal} 
@@ -648,9 +492,16 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                             label={t.dragDrop}
                             rotation={signRotation}
                             onRotate={setSignRotation}
+                            lang={lang}
+                          />
+                          <ImageControls 
+                            brightness={signBrightness} setBrightness={setSignBrightness}
+                            contrast={signContrast} setContrast={setSignContrast}
+                            grayscale={signGrayscale} setGrayscale={setSignGrayscale}
+                            t={t}
                           />
                       </div>
-                       <div className="flex flex-col justify-end h-full min-h-[160px]">
+                       <div className="flex flex-col justify-end h-full min-h-[200px]">
                          {signProcessed ? (
                             <ResultCard 
                               processedUrl={signProcessed.processedUrl}
@@ -664,10 +515,12 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                               type={t.signParams.split(' ')[0]}
                             />
                          ) : (
-                           <div className="h-full flex flex-col items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 p-6 text-center">
-                             <span className="mb-2 opacity-50"><FileText size={32}/></span>
-                             <span>{t.result} {t.preview}</span>
-                             <span className="text-xs text-gray-500 mt-1 max-w-[200px]">Preview will appear here after processing</span>
+                           <div className="h-full flex flex-col items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-100 dark:border-gray-700 rounded-[2rem] bg-gray-50/50 dark:bg-gray-900/50 p-8 text-center group transition-colors hover:border-orange-500/20">
+                             <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
+                               <FileText size={32} className="opacity-20 group-hover:opacity-40 transition-opacity" />
+                             </div>
+                             <span className="font-black uppercase tracking-widest text-[10px] mb-1">{t.result} {t.preview}</span>
+                             <span className="text-xs text-gray-500 mt-1 max-w-[200px] font-medium leading-relaxed">Preview will appear here after processing</span>
                            </div>
                          )}
                       </div>
@@ -675,26 +528,36 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                 </div>
 
                 {/* Global Action */}
-                <div className="flex justify-center pt-2">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
                   <button 
                     onClick={processImages}
                     disabled={(!photoOriginal && !signOriginal) || isProcessing}
                     className={`
-                      relative overflow-hidden w-full md:w-2/3 px-10 py-5 rounded-xl font-bold text-xl shadow-lg transition-all duration-300 group
+                      relative overflow-hidden w-full sm:w-2/3 px-12 py-6 rounded-2xl font-black text-2xl shadow-2xl transition-all duration-300 group
                       ${(!photoOriginal && !signOriginal) || isProcessing
-                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-700'
-                        : 'bg-gradient-to-r from-govBlue to-blue-600 text-white hover:shadow-2xl hover:-translate-y-1 active:scale-95'
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-800'
+                        : 'bg-gradient-to-r from-brand via-blue-600 to-brand bg-[length:200%_auto] animate-gradient text-white hover:shadow-brand/40 hover:-translate-y-1.5 active:scale-95'
                       }
                     `}
                   >
-                    <span className="relative z-10 flex items-center justify-center gap-3">
+                    <span className="relative z-10 flex items-center justify-center gap-4">
                       {isProcessing ? (
-                         <><div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"/> {t.processing}</>
+                         <><div className="animate-spin h-6 w-6 border-4 border-white border-t-transparent rounded-full"/> {t.processing}</>
                       ) : (
-                         <><Zap size={24} className={(!photoOriginal && !signOriginal) ? "" : "fill-current"}/> {t.compress}</>
+                         <><Zap size={28} className={(!photoOriginal && !signOriginal) ? "" : "fill-current"}/> {t.compress}</>
                       )}
                     </span>
                   </button>
+
+                  {(photoProcessed || signProcessed) && (
+                    <button
+                      onClick={downloadAsPDF}
+                      className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-6 rounded-2xl font-black text-xl bg-white dark:bg-gray-800 text-brand dark:text-blue-400 border-2 border-brand dark:border-blue-400 hover:bg-brand hover:text-white dark:hover:bg-blue-500 dark:hover:text-white shadow-xl transition-all transform hover:-translate-y-1 active:scale-95"
+                    >
+                      <FileDown size={24} />
+                      {t.downloadPDF}
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -702,54 +565,9 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
             {/* SEO Content Section for Home Page */}
             <HowItWorksSection />
             <SupportedExamsSection />
-            
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100 dark:border-gray-700 mb-12">
-               <div className="max-w-4xl mx-auto">
-                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">{t.whyUse}</h2>
-                 <p className="text-gray-600 dark:text-gray-300 text-center mb-10 text-lg">
-                    {t.whyUseText}
-                 </p>
-                 
-                 <div className="grid md:grid-cols-3 gap-8">
-                    <div className="flex flex-col items-center text-center p-4">
-                       <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-4">
-                         <ShieldCheck size={24} />
-                       </div>
-                       <h3 className="font-bold text-gray-900 dark:text-white mb-2">100% Secure</h3>
-                       <p className="text-sm text-gray-500 dark:text-gray-400">Client-side processing means your photos never leave your browser.</p>
-                    </div>
-                    <div className="flex flex-col items-center text-center p-4">
-                       <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mb-4">
-                         <Zap size={24} />
-                       </div>
-                       <h3 className="font-bold text-gray-900 dark:text-white mb-2">Fastest Resizer</h3>
-                       <p className="text-sm text-gray-500 dark:text-gray-400">Instant compression and cropping without server latency.</p>
-                    </div>
-                    <div className="flex flex-col items-center text-center p-4">
-                       <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-full flex items-center justify-center mb-4">
-                         <Smartphone size={24} />
-                       </div>
-                       <h3 className="font-bold text-gray-900 dark:text-white mb-2">Mobile Ready</h3>
-                       <p className="text-sm text-gray-500 dark:text-gray-400">Works perfectly on Android and iPhone devices.</p>
-                    </div>
-                 </div>
-
-                 <div className="mt-12 pt-10 border-t border-gray-200 dark:border-gray-700">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{t.features}</h3>
-                    <ul className="grid md:grid-cols-2 gap-4">
-                       {SEO_CONTENT.features.map((feature, i) => (
-                         <li key={i} className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-                            <Check size={20} className="text-green-500 mt-0.5 shrink-0" />
-                            <span>{feature}</span>
-                         </li>
-                       ))}
-                    </ul>
-                 </div>
-               </div>
-            </div>
-
+            <MonetizationSection lang={lang} />
+            <WhyUseSection lang={lang} />
             <TestimonialsSection />
-
             <AdPlaceholder text={t.ad_placeholder} />
           </div>
         )}
@@ -759,65 +577,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
 
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-gray-300 py-12 border-t border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-              <div className="col-span-1 sm:col-span-2 lg:col-span-2">
-                <a 
-                  href="/" 
-                  onClick={(e) => { e.preventDefault(); setActiveTab('home'); }} 
-                  className="flex items-center gap-2 mb-4 group"
-                  title="PHOTORESIZER - Govt Exam Photo & Signature Maker"
-                  aria-label="PHOTORESIZER Home"
-                >
-                   <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-govBlue group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
-                     <Focus size={18} aria-label="PHOTORESIZER Logo" />
-                   </div>
-                   <span className="text-white font-bold text-xl">{t.title}</span>
-                </a>
-                <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
-                  The most trusted tool for Indian students to resize, crop and compress exam documents. We support UPSC, SSC, IBPS, RRB, JEE, NEET and all major State PSC exams.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Quick Links</h3>
-                <ul className="space-y-2 text-sm text-gray-400">
-                   <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">Resize Now</button></li>
-                   <li><button onClick={() => setActiveTab('blog')} className="hover:text-white transition-colors">Exam Guidelines</button></li>
-                   <li><button onClick={() => setActiveTab('faq')} className="hover:text-white transition-colors">Help & FAQ</button></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Popular Tools</h3>
-                <ul className="space-y-2 text-sm text-gray-400">
-                   <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">UPSC Photo Resizer</button></li>
-                   <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">SSC Signature Compressor</button></li>
-                   <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">IBPS 20KB Image Maker</button></li>
-                   <li><button onClick={() => setActiveTab('home')} className="hover:text-white transition-colors">NEET Photo with Name & Date</button></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-white font-bold mb-4 uppercase text-sm tracking-wider">Legal</h3>
-                <ul className="space-y-2 text-sm text-gray-400">
-                   <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                   <li><a href="#" className="hover:text-white transition-colors">Terms of Use</a></li>
-                </ul>
-                <p className="text-xs text-gray-500 mt-4">
-                  {t.disclaimer}
-                </p>
-              </div>
-           </div>
-           
-           <div className="border-t border-gray-700 mt-12 pt-8 text-center text-sm text-gray-500 flex flex-col md:flex-row justify-between items-center gap-4">
-             <p>&copy; {new Date().getFullYear()} Free Exam Photo & Signature Resizer. All rights reserved.</p>
-             <p>Made in India 🇮🇳 with ❤️</p>
-           </div>
-        </div>
-      </footer>
+      <Footer lang={lang} />
     </div>
   );
 }

@@ -105,7 +105,16 @@ export const processImage = async (
       }
 
       // 4. Draw Image
+      if (config.brightness !== undefined || config.contrast !== undefined) {
+        const b = (config.brightness || 0) + 100;
+        const c = (config.contrast || 0) + 100;
+        ctx.filter = `brightness(${b}%) contrast(${c}%)`;
+      }
+      
       ctx.drawImage(sourceImage, dx, dy, dWidth, dHeight);
+      
+      // Reset filter for text overlay
+      ctx.filter = 'none';
 
       // 5. Text Overlay for Name and Date
       if (config.textOverlay) {

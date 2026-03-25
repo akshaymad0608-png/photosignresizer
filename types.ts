@@ -36,6 +36,8 @@ export interface ImageConfig {
   height: number;
   maxKB: number;
   grayscale: boolean;
+  brightness?: number; // -100 to 100
+  contrast?: number;   // -100 to 100
   resizeMode: 'cover' | 'contain' | 'fill';
   rotation?: number;
   textOverlay?: {
