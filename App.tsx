@@ -412,7 +412,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                         {/* NAME & DATE OVERLAY TOGGLE */}
                         <div className="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
                            <div className="flex items-center gap-3 mb-4">
-                             <div className="relative inline-flex items-center cursor-pointer">
+                             <label htmlFor="addDate" className="relative inline-flex items-center cursor-pointer">
                                <input 
                                  type="checkbox" 
                                  id="addDate" 
@@ -421,7 +421,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                                  className="sr-only peer"
                                />
                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand/20 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-brand"></div>
-                             </div>
+                             </label>
                              <label htmlFor="addDate" className="text-sm font-black text-gray-700 dark:text-gray-300 cursor-pointer select-none uppercase tracking-wider">
                                {t.addDate}
                              </label>
