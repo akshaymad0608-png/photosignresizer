@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Zap, Globe, Settings, Upload, Download, Heart, Star } from 'lucide-react';
+import { ShieldCheck, Zap, Globe, Settings, Upload, Download, Heart, Star, Youtube } from 'lucide-react';
 import { Language, ExamRequirement } from '../types';
 import { TRANSLATIONS, EXAM_PRESETS } from '../constants';
 import StepCard from './StepCard';
@@ -62,10 +62,10 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
               const el = document.getElementById('monetize-section');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-brand text-white font-black text-lg shadow-2xl shadow-brand/20 hover:bg-blue-600 hover:scale-105 transition-all animate-bounce-subtle"
+            className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-red-600 text-white font-black text-lg shadow-2xl shadow-red-600/20 hover:bg-red-700 hover:scale-105 transition-all animate-bounce-subtle"
           >
-            <Heart size={20} fill="currentColor" className="text-red-400 group-hover:scale-125 transition-transform" />
-            {lang === 'en' ? 'Support Our Mission' : 'हमारे मिशन का समर्थन करें'}
+            <Youtube size={20} fill="currentColor" className="text-white group-hover:scale-125 transition-transform" />
+            {lang === 'en' ? 'Subscribe on YouTube' : 'YouTube पर सब्सक्राइब करें'}
           </button>
         </div>
         

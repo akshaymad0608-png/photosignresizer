@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Star, ExternalLink, Zap, ShieldCheck, Heart, Lock, Image as ImageIcon } from 'lucide-react';
+import { BookOpen, Star, ExternalLink, Zap, ShieldCheck, Heart, Lock, Image as ImageIcon, Youtube } from 'lucide-react';
 import { Language } from '../../types';
 import AdPlaceholder from '../AdPlaceholder';
 
@@ -9,7 +9,7 @@ interface MonetizationSectionProps {
 
 const MonetizationSection: React.FC<MonetizationSectionProps> = ({ lang }) => {
   const handleSupport = () => {
-    window.open('https://g.page/photoresizer/review', '_blank');
+    window.open('https://www.youtube.com/@AIminivlogs4', '_blank');
   };
 
   const resources = [
@@ -40,26 +40,26 @@ const MonetizationSection: React.FC<MonetizationSectionProps> = ({ lang }) => {
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-widest mb-8 shadow-md border border-blue-50/50 animate-pulse">
-            <Heart size={16} className="text-red-500 fill-current" />
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-gray-800 text-red-600 dark:text-red-400 text-xs font-black uppercase tracking-widest mb-8 shadow-md border border-red-50/50 animate-pulse">
+            <Youtube size={16} className="text-red-500 fill-current" />
             {lang === 'en' ? 'Support Our Mission' : 'हमारे मिशन का समर्थन करें'}
           </div>
           <h2 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-8 tracking-tight">
-            {lang === 'en' ? 'Keep This Tool Free Forever' : 'इस टूल को हमेशा के लिए फ्री रखें'}
+            {lang === 'en' ? 'Subscribe to Our Channel' : 'हमारे चैनल को सब्सक्राइब करें'}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 mb-12 text-xl leading-relaxed max-w-2xl mx-auto font-medium">
             {lang === 'en' 
-              ? 'PhotoResizer.click is a free tool built to help students. Your small contribution helps us pay for servers and keep the lights on.' 
-              : 'PhotoResizer.click छात्रों की मदद के लिए बनाया गया एक मुफ्त टूल है। आपका छोटा सा योगदान हमें सर्वर के लिए भुगतान करने और इसे चालू रखने में मदद करता है।'}
+              ? 'PhotoResizer.click is a free tool built to help students. Subscribe to our YouTube channel for more useful tools and updates!' 
+              : 'PhotoResizer.click छात्रों की मदद के लिए बनाया गया एक मुफ्त टूल है। अधिक उपयोगी टूल और अपडेट के लिए हमारे YouTube चैनल को सब्सक्राइब करें!'}
           </p>
           
           <div className="flex flex-wrap justify-center gap-6">
             <button 
               onClick={handleSupport}
-              className="flex items-center gap-4 px-10 py-5 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-2xl font-black border-2 border-gray-100 dark:border-gray-700 hover:border-blue-500 transition-all shadow-xl active:scale-95"
+              className="flex items-center gap-4 px-10 py-5 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-black transition-all shadow-xl active:scale-95"
             >
-              <Star size={28} className="text-amber-400 fill-current" />
-              {lang === 'en' ? 'Rate Us 5 Stars' : 'हमें 5 स्टार दें'}
+              <Youtube size={28} className="fill-current" />
+              {lang === 'en' ? 'Subscribe on YouTube' : 'YouTube पर सब्सक्राइब करें'}
             </button>
           </div>
         </div>

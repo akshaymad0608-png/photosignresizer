@@ -1,5 +1,5 @@
 import React from 'react';
-import { Camera, Heart, Mail, Github, Twitter } from 'lucide-react';
+import { Camera, Heart, Mail, Github, Twitter, Youtube } from 'lucide-react';
 import { Language } from '../types';
 import { TRANSLATIONS } from '../constants';
 
@@ -27,7 +27,8 @@ const Footer = ({ lang }: FooterProps) => (
         <div className="flex gap-4 pt-4">
           <a href="#" className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm"><Twitter size={18} /></a>
           <a href="#" className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm"><Github size={18} /></a>
-          <a href="#" className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm"><Mail size={18} /></a>
+          <a href="https://www.youtube.com/@AIminivlogs4" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition-all shadow-sm"><Youtube size={18} /></a>
+          <a href="mailto:support@photoresizer.click" className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm"><Mail size={18} /></a>
         </div>
       </div>
 
