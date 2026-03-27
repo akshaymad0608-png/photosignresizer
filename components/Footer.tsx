@@ -57,7 +57,7 @@ const Footer = ({ lang }: FooterProps) => (
           Have questions or suggestions? We'd love to hear from you.
         </p>
         <a 
-          href="mailto:support@photoresizer.com" 
+          href="mailto:support@photoresizer.click" 
           className="inline-flex items-center gap-3 px-6 py-4 bg-brand text-white rounded-2xl text-sm font-black uppercase tracking-widest hover:bg-blue-600 transition-all shadow-xl shadow-brand/20"
         >
           <Mail size={18} />
