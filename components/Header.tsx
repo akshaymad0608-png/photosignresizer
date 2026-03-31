@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Zap, Globe, Settings, Upload, Download, Heart, Star, Youtube } from 'lucide-react';
+import { ShieldCheck, Zap, Globe, Settings, Upload, Download, Star, Youtube } from 'lucide-react';
 import { Language, ExamRequirement } from '../types';
 import { TRANSLATIONS, EXAM_PRESETS } from '../constants';
 import StepCard from './StepCard';
@@ -13,34 +13,42 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
   const popularExams = EXAM_PRESETS.slice(0, 5);
 
   return (
-    <header className="relative pt-24 pb-16 px-4 overflow-hidden mb-8">
-      {/* Mesh Gradient Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand/10 blur-[120px] rounded-full animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 blur-[120px] rounded-full animate-pulse delay-700"></div>
+    <header className="relative pt-24 pb-16 px-4 overflow-x-hidden mb-8">
+      {/* Premium Background Elements */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-[-20%] left-[10%] w-[600px] h-[600px] bg-brand/10 dark:bg-brand/5 blur-[120px] rounded-full animate-pulse-slow mix-blend-multiply dark:mix-blend-screen"></div>
+        <div className="absolute bottom-[-20%] right-[10%] w-[600px] h-[600px] bg-accent/10 dark:bg-accent/5 blur-[120px] rounded-full animate-pulse-slow delay-1000 mix-blend-multiply dark:mix-blend-screen"></div>
       </div>
 
-      <div className="max-w-5xl mx-auto text-center space-y-8">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand/10 dark:bg-blue-900/30 text-brand dark:text-blue-400 text-sm font-bold border border-brand/20 animate-fade-in shadow-sm">
-          <Zap size={16} fill="currentColor" />
-          <span>{lang === 'en' ? '100% Client-Side Processing' : '100% क्लाइंट-साइड प्रोसेसिंग'}</span>
+      <div className="max-w-5xl mx-auto text-center space-y-10 relative z-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md text-brand dark:text-blue-400 text-sm font-black border border-brand/20 dark:border-brand/30 shadow-xl shadow-brand/5 animate-fade-in hover:scale-105 transition-transform cursor-default">
+            <Zap size={18} fill="currentColor" className="text-brand dark:text-blue-400 drop-shadow-sm" />
+            <span className="tracking-widest uppercase text-[11px]">{lang === 'en' ? '100% Client-Side Processing' : '100% क्लाइंट-साइड प्रोसेसिंग'}</span>
+          </div>
+          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md text-amber-600 dark:text-amber-400 text-sm font-black border border-amber-200/50 dark:border-amber-800/50 shadow-xl shadow-amber-500/5 animate-fade-in hover:scale-105 transition-transform cursor-default">
+            <Star size={18} fill="currentColor" className="text-amber-500 drop-shadow-sm" />
+            <span className="tracking-widest uppercase text-[11px]">{lang === 'en' ? 'Trusted by 10,000+ Students' : '10,000+ छात्रों द्वारा विश्वसनीय'}</span>
+          </div>
         </div>
         
-        <div className="space-y-4">
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight text-gray-900 dark:text-white leading-[1.1]">
-            <span className="bg-gradient-to-r from-brand via-blue-600 to-brand bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent">
+        <div className="space-y-6 relative">
+          <div className="absolute -top-10 -left-10 w-20 h-20 bg-brand/20 blur-2xl rounded-full"></div>
+          <div className="absolute -bottom-10 -right-10 w-20 h-20 bg-accent/20 blur-2xl rounded-full"></div>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-gray-900 dark:text-white leading-[1.05] relative z-10">
+            <span className="bg-gradient-to-br from-gray-900 via-brand to-gray-900 dark:from-white dark:via-brand dark:to-gray-300 bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent drop-shadow-sm">
               {TRANSLATIONS[lang].title}
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium relative z-10">
             {TRANSLATIONS[lang].subtitle}
           </p>
         </div>
 
         {/* Popular Exams Quick Select */}
-        <div className="flex flex-col items-center gap-4 pt-4">
-          <span className="text-xs font-black uppercase tracking-widest text-gray-400 dark:text-gray-500">
+        <div className="flex flex-col items-center gap-5 pt-6 relative z-10">
+          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500 bg-white/50 dark:bg-gray-900/50 px-4 py-1.5 rounded-full backdrop-blur-sm border border-gray-100 dark:border-gray-800">
             {lang === 'en' ? 'Quick Select Popular Exams' : 'लोकप्रिय परीक्षाओं का त्वरित चयन'}
           </span>
           <div className="flex flex-wrap justify-center gap-3">
@@ -48,29 +56,30 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
               <button
                 key={exam.id}
                 onClick={() => onSelectExam?.(exam)}
-                className="px-4 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-bold text-gray-700 dark:text-gray-300 hover:border-brand dark:hover:border-blue-500 hover:text-brand dark:hover:text-blue-400 transition-all shadow-sm hover:shadow-md active:scale-95"
+                className="px-5 py-2.5 rounded-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/80 dark:border-gray-700/80 text-sm font-black text-gray-700 dark:text-gray-300 hover:border-brand dark:hover:border-brand hover:text-brand dark:hover:text-brand hover:shadow-xl hover:shadow-brand/10 transition-all active:scale-95 group"
               >
-                {exam.name.split('(')[0].trim()}
+                <span className="group-hover:scale-105 inline-block transition-transform">{exam.name.split('(')[0].trim()}</span>
               </button>
             ))}
           </div>
         </div>
 
-        <div className="flex justify-center pt-4">
+        <div className="flex justify-center pt-8 relative z-10">
           <button 
             onClick={() => {
               const el = document.getElementById('monetize-section');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-red-600 text-white font-black text-lg shadow-2xl shadow-red-600/20 hover:bg-red-700 hover:scale-105 transition-all animate-bounce-subtle"
+            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-red-600 text-white font-black text-lg shadow-2xl shadow-red-600/30 hover:bg-red-700 transition-all hover:-translate-y-1 active:scale-95 overflow-hidden"
           >
-            <Youtube size={20} fill="currentColor" className="text-white group-hover:scale-125 transition-transform" />
-            {lang === 'en' ? 'Subscribe on YouTube' : 'YouTube पर सब्सक्राइब करें'}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+            <Youtube size={24} fill="currentColor" className="text-white group-hover:scale-110 transition-transform relative z-10" />
+            <span className="relative z-10 tracking-wide">{lang === 'en' ? 'Subscribe on YouTube' : 'YouTube पर सब्सक्राइब करें'}</span>
           </button>
         </div>
         
         {/* Trust Bar */}
-        <div className="flex flex-wrap justify-center gap-8 pt-8 border-t border-gray-100 dark:border-gray-800">
+        <div className="flex flex-wrap justify-center gap-x-10 gap-y-6 pt-12 border-t border-gray-200/50 dark:border-gray-800/50 relative z-10">
           <div className="flex items-center gap-2.5 text-sm font-bold text-gray-500 dark:text-gray-400">
             <div className="p-1.5 rounded-lg bg-green-50 dark:bg-green-900/20">
               <ShieldCheck size={20} className="text-green-500" />

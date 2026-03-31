@@ -42,16 +42,20 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         )}
       </h3>
       {!image ? (
-        <label className="relative flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-2xl cursor-pointer bg-gray-50/50 dark:bg-gray-800/50 hover:bg-brand/5 dark:hover:bg-blue-900/10 hover:border-brand dark:hover:border-blue-500 transition-all group overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-brand/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <label className="relative flex flex-col items-center justify-center w-full h-64 border-2 border-gray-200 dark:border-gray-700 border-dashed rounded-[2rem] cursor-pointer bg-white/50 dark:bg-gray-800/30 hover:bg-brand/5 dark:hover:bg-brand/10 hover:border-brand/50 dark:hover:border-brand/50 transition-all duration-300 group overflow-hidden backdrop-blur-sm shadow-inner hover:shadow-[0_0_40px_-10px_rgba(79,70,229,0.15)] dark:hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.15)]">
+          <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           <div className="flex flex-col items-center justify-center pt-5 pb-6 relative z-10">
-            <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 border border-gray-100 dark:border-gray-700">
-               <Upload className="w-8 h-8 text-brand dark:text-blue-400" />
+            <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-3xl flex items-center justify-center mb-6 shadow-xl shadow-gray-200/40 dark:shadow-none group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500 border border-gray-50 dark:border-gray-700 relative overflow-hidden">
+               <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-transparent dark:from-cyan-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+               <div className="absolute inset-0 bg-brand/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+               <Upload className="w-8 h-8 text-brand dark:text-cyan-400 relative z-10 group-hover:animate-bounce" />
             </div>
-            <p className="mb-2 text-lg text-gray-900 dark:text-white font-black tracking-tight">
-              {lang === 'en' ? 'Click to upload' : 'अपलोड करने के लिए क्लिक करें'}
+            <p className="mb-2 text-xl text-gray-900 dark:text-white font-black tracking-tight group-hover:text-brand dark:group-hover:text-cyan-400 transition-colors">
+              {label}
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">{label}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium px-4 text-center max-w-xs">
+              {lang === 'en' ? 'Supports JPG, PNG. High quality images are recommended.' : 'JPG, PNG का समर्थन करता है। उच्च गुणवत्ता वाली छवियों की सिफारिश की जाती है।'}
+            </p>
           </div>
           <input 
             type="file" 
