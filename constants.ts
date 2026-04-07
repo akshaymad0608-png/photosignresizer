@@ -173,6 +173,13 @@ export const EXAM_PRESETS: ExamRequirement[] = [
     category: 'State PSC',
     photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
     signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'smc',
+    name: 'SMC (Surat Municipal Corporation)',
+    category: 'State PSC',
+    photo: { width: 500, height: 500, minKB: 10, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 750, height: 250, minKB: 5, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
   }
 ];
 
