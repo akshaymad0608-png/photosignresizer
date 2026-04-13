@@ -63,10 +63,14 @@ export default function App() {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Scroll Effect
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+      setShowScrollTop(window.scrollY > 300);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -280,7 +284,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
       />
 
       {/* Main Content Area */}
-      <main className="flex-grow">
+      <main className="flex-grow pb-24 sm:pb-0">
         {activeTab === 'home' && (
           <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
             <Header lang={lang} onSelectExam={setSelectedExam} />
@@ -313,22 +317,22 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                               {/* Photo Inputs */}
                               <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-md p-5 rounded-[2rem] border border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-md transition-shadow duration-300">
                                   <label className="text-[10px] font-black uppercase tracking-widest text-brand dark:text-cyan-400 mb-4 block flex items-center gap-2"><Camera size={12}/> Photo (px & KB)</label>
-                                  <div className="grid grid-cols-2 gap-4">
-                                      <input type="number" placeholder="W" value={selectedExam.photo.width} onChange={(e) => updateCustomExam('width', e.target.value, 'photo')} className="p-4 text-sm font-bold border-2 rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="H" value={selectedExam.photo.height} onChange={(e) => updateCustomExam('height', e.target.value, 'photo')} className="p-4 text-sm font-bold border-2 rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="Min KB" value={selectedExam.photo.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'photo')} className="p-4 text-sm font-bold border-2 rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="Max KB" value={selectedExam.photo.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'photo')} className="p-4 text-sm font-bold border-2 rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                                      <input type="number" placeholder="W" value={selectedExam.photo.width} onChange={(e) => updateCustomExam('width', e.target.value, 'photo')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                                      <input type="number" placeholder="H" value={selectedExam.photo.height} onChange={(e) => updateCustomExam('height', e.target.value, 'photo')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                                      <input type="number" placeholder="Min KB" value={selectedExam.photo.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'photo')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                                      <input type="number" placeholder="Max KB" value={selectedExam.photo.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'photo')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
                                   </div>
                               </div>
 
                               {/* Sign Inputs */}
-                              <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-md p-5 rounded-[2rem] border border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-md transition-shadow duration-300">
+                              <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-md p-4 sm:p-5 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-md transition-shadow duration-300">
                                   <label className="text-[10px] font-black uppercase tracking-widest text-orange-500 dark:text-orange-400 mb-4 block flex items-center gap-2"><FileText size={12}/> Signature (px & KB)</label>
-                                  <div className="grid grid-cols-2 gap-4">
-                                      <input type="number" placeholder="W" value={selectedExam.signature.width} onChange={(e) => updateCustomExam('width', e.target.value, 'signature')} className="p-4 text-sm font-bold border-2 rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="H" value={selectedExam.signature.height} onChange={(e) => updateCustomExam('height', e.target.value, 'signature')} className="p-4 text-sm font-bold border-2 rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="Min KB" value={selectedExam.signature.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'signature')} className="p-4 text-sm font-bold border-2 rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="Max KB" value={selectedExam.signature.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'signature')} className="p-4 text-sm font-bold border-2 rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                                      <input type="number" placeholder="W" value={selectedExam.signature.width} onChange={(e) => updateCustomExam('width', e.target.value, 'signature')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                                      <input type="number" placeholder="H" value={selectedExam.signature.height} onChange={(e) => updateCustomExam('height', e.target.value, 'signature')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                                      <input type="number" placeholder="Min KB" value={selectedExam.signature.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'signature')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                                      <input type="number" placeholder="Max KB" value={selectedExam.signature.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'signature')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
                                   </div>
                               </div>
                           </div>
@@ -386,17 +390,17 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
 
               {/* Right Column: Uploaders */}
               <div className="lg:col-span-8 space-y-12">
-                <div className="flex items-center justify-between px-4">
-                  <h2 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-4">
-                    <div className="p-3 bg-gradient-to-br from-brand/20 to-brand/5 dark:from-cyan-500/20 dark:to-cyan-500/5 rounded-2xl border border-brand/10 dark:border-cyan-500/20 shadow-sm relative overflow-hidden group">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 gap-4 sm:gap-0">
+                  <h2 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-3 sm:gap-4">
+                    <div className="p-2 sm:p-3 bg-gradient-to-br from-brand/20 to-brand/5 dark:from-cyan-500/20 dark:to-cyan-500/5 rounded-xl sm:rounded-2xl border border-brand/10 dark:border-cyan-500/20 shadow-sm relative overflow-hidden group">
                       <div className="absolute inset-0 bg-brand/10 dark:bg-cyan-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                      <Upload size={24} className="text-brand dark:text-cyan-400 relative z-10" />
+                      <Upload className="w-5 h-5 sm:w-6 sm:h-6 text-brand dark:text-cyan-400 relative z-10" />
                     </div>
                     {t.upload_section || 'Upload Section'}
                   </h2>
                   <button 
                     onClick={resetAll}
-                    className="group text-[11px] flex items-center gap-2 text-red-500 hover:text-white font-black transition-all bg-red-50 dark:bg-red-900/20 hover:bg-red-500 dark:hover:bg-red-600 px-5 py-2.5 rounded-xl border border-red-100 dark:border-red-800 uppercase tracking-[0.2em] shadow-sm hover:shadow-md hover:shadow-red-500/20 active:scale-95"
+                    className="group text-[10px] sm:text-[11px] flex items-center gap-2 text-red-500 hover:text-white font-black transition-all bg-red-50 dark:bg-red-900/20 hover:bg-red-500 dark:hover:bg-red-600 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl border border-red-100 dark:border-red-800 uppercase tracking-[0.2em] shadow-sm hover:shadow-md hover:shadow-red-500/20 active:scale-95"
                   >
                     <Trash2 size={14} className="group-hover:rotate-12 transition-transform" /> {t.resetAll}
                   </button>
@@ -451,12 +455,12 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 animate-fade-in relative z-10">
                                   <div className="space-y-3">
                                      <label className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 block">{t.name}</label>
-                                     <input 
+                                      <input 
                                         type="text" 
                                         value={photoName}
                                         onChange={(e) => setPhotoName(e.target.value)}
                                         placeholder="e.g. John Doe"
-                                        className="w-full p-4 text-sm font-bold border-2 rounded-2xl bg-white/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-700/80 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all shadow-sm placeholder:text-gray-400 dark:placeholder:text-gray-500 hover:border-gray-300 dark:hover:border-gray-600"
+                                        className="w-full p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-white/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-700/80 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all shadow-sm placeholder:text-gray-400 dark:placeholder:text-gray-500 hover:border-gray-300 dark:hover:border-gray-600"
                                      />
                                   </div>
                                   <div className="space-y-3">
@@ -465,7 +469,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                                         type="date" 
                                         value={photoDate}
                                         onChange={(e) => setPhotoDate(e.target.value)}
-                                        className="w-full p-4 text-sm font-bold border-2 rounded-2xl bg-white/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-700/80 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all shadow-sm hover:border-gray-300 dark:hover:border-gray-600"
+                                        className="w-full p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-white/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-700/80 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all shadow-sm hover:border-gray-300 dark:hover:border-gray-600"
                                      />
                                   </div>
                                </div>
@@ -550,12 +554,12 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                 </div>
 
                 {/* Global Action */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-12 relative z-20">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-12 relative z-20">
                   <button 
                     onClick={processImages}
                     disabled={(!photoOriginal && !signOriginal) || isProcessing}
                     className={`
-                      relative overflow-hidden w-full sm:w-2/3 px-12 py-6 rounded-[2.5rem] font-black text-2xl shadow-2xl transition-all duration-500 group
+                      relative overflow-hidden w-full sm:w-2/3 px-8 py-4 sm:px-12 sm:py-6 rounded-[2rem] sm:rounded-[2.5rem] font-black text-xl sm:text-2xl shadow-2xl transition-all duration-500 group
                       ${(!photoOriginal && !signOriginal) || isProcessing
                         ? 'bg-gray-100/50 text-gray-400 cursor-not-allowed dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700'
                         : 'bg-gradient-to-r from-brand via-accent to-brand bg-[length:200%_auto] animate-gradient text-white hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.5)] dark:hover:shadow-[0_20px_40px_-15px_rgba(6,182,212,0.5)] hover:-translate-y-1.5 active:scale-[0.98]'
@@ -568,11 +572,11 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                         <div className="absolute -inset-1 bg-gradient-to-r from-brand via-accent to-brand blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-500 -z-10"></div>
                       </>
                     )}
-                    <span className="relative z-10 flex items-center justify-center gap-4">
+                    <span className="relative z-10 flex items-center justify-center gap-3 sm:gap-4">
                       {isProcessing ? (
-                         <><div className="animate-spin h-6 w-6 border-4 border-white border-t-transparent rounded-full"/> {t.processing}</>
+                         <><div className="animate-spin h-5 w-5 sm:h-6 sm:w-6 border-4 border-white border-t-transparent rounded-full"/> {t.processing}</>
                       ) : (
-                         <><Zap size={28} className={(!photoOriginal && !signOriginal) ? "" : "fill-current animate-pulse-slow"}/> {t.compress}</>
+                         <><Zap size={24} className={`sm:w-7 sm:h-7 ${(!photoOriginal && !signOriginal) ? "" : "fill-current animate-pulse-slow"}`}/> {t.compress}</>
                       )}
                     </span>
                   </button>
@@ -580,10 +584,10 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                   {(photoProcessed || signProcessed) && (
                     <button
                       onClick={downloadAsPDF}
-                      className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-6 rounded-[2.5rem] font-black text-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl text-brand dark:text-cyan-400 border-2 border-brand/20 dark:border-cyan-500/30 hover:border-brand dark:hover:border-cyan-400 hover:bg-brand/5 dark:hover:bg-cyan-500/10 shadow-[0_8px_30px_-10px_rgba(79,70,229,0.15)] dark:shadow-[0_8px_30px_-10px_rgba(6,182,212,0.15)] transition-all duration-500 hover:-translate-y-1 active:scale-[0.98] group relative overflow-hidden"
+                      className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-6 rounded-[2rem] sm:rounded-[2.5rem] font-black text-lg sm:text-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl text-brand dark:text-cyan-400 border-2 border-brand/20 dark:border-cyan-500/30 hover:border-brand dark:hover:border-cyan-400 hover:bg-brand/5 dark:hover:bg-cyan-500/10 shadow-[0_8px_30px_-10px_rgba(79,70,229,0.15)] dark:shadow-[0_8px_30px_-10px_rgba(6,182,212,0.15)] transition-all duration-500 hover:-translate-y-1 active:scale-[0.98] group relative overflow-hidden"
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-transparent dark:from-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <FileDown size={24} className="group-hover:-translate-y-1 transition-transform duration-300 relative z-10" />
+                      <FileDown size={20} className="sm:w-6 sm:h-6 group-hover:-translate-y-1 transition-transform duration-300 relative z-10" />
                       <span className="relative z-10">{t.downloadPDF}</span>
                     </button>
                   )}
@@ -608,12 +612,60 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
 
       <Footer lang={lang} />
       
+      {/* Mobile Sticky Action Bar */}
+      <div className={`sm:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-800/50 z-40 transition-transform duration-300 ${
+        (photoOriginal || signOriginal) ? 'translate-y-0' : 'translate-y-full'
+      }`}>
+        <div className="flex gap-3">
+          <button 
+            onClick={processImages}
+            disabled={(!photoOriginal && !signOriginal) || isProcessing}
+            className={`
+              flex-1 py-3.5 rounded-2xl font-black text-base shadow-lg transition-all flex items-center justify-center gap-2
+              ${(!photoOriginal && !signOriginal) || isProcessing
+                ? 'bg-gray-100 text-gray-400 dark:bg-gray-800'
+                : 'bg-gradient-to-r from-brand to-accent text-white active:scale-95'
+              }
+            `}
+          >
+            {isProcessing ? (
+              <><div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"/> {t.processing}</>
+            ) : (
+              <><Zap size={20} className={(!photoOriginal && !signOriginal) ? "" : "fill-current animate-pulse-slow"}/> {t.compress}</>
+            )}
+          </button>
+          
+          {(photoProcessed || signProcessed) && (
+            <button
+              onClick={downloadAsPDF}
+              className="flex-1 py-3.5 rounded-2xl font-black text-base bg-white dark:bg-gray-800 text-brand dark:text-cyan-400 border-2 border-brand/20 dark:border-cyan-500/30 active:scale-95 transition-all flex items-center justify-center gap-2"
+            >
+              <FileDown size={20} />
+              {t.downloadPDF}
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Scroll to Top Button */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className={`fixed bottom-24 right-6 z-40 bg-white dark:bg-gray-800 text-brand dark:text-cyan-400 p-3 rounded-full shadow-xl border border-gray-100 dark:border-gray-700 hover:scale-110 transition-all duration-300 ${
+          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+        }`}
+        title="Scroll to Top"
+      >
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+      </button>
+
       {/* Floating WhatsApp Contact Button */}
       <a
         href="https://wa.me/917600885080"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 hover:shadow-[#25D366]/50 transition-all duration-300 group flex items-center justify-center"
+        className={`fixed right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 hover:shadow-[#25D366]/50 transition-all duration-300 group flex items-center justify-center ${
+          (photoOriginal || signOriginal) ? 'bottom-24 sm:bottom-6' : 'bottom-6'
+        }`}
         title="Contact us on WhatsApp"
       >
         <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="fill-current text-white"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.065-.301-.15-1.265-.462-2.406-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.21 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.195-.572-.345z"></path><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.48-8.45zM12.046 21.77c-1.775 0-3.516-.476-5.04-1.375l-.36-.214-3.75.975.996-3.645-.235-.373c-.987-1.565-1.508-3.38-1.508-5.245 0-5.445 4.445-9.885 9.9-9.885 2.64 0 5.12 1.025 6.985 2.885 1.865 1.86 2.89 4.335 2.89 6.975-.005 5.44-4.45 9.885-9.888 9.885z"></path></svg>

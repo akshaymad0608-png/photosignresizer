@@ -10,7 +10,7 @@ const HowItWorksSection = () => (
       <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-20 tracking-tight leading-tight">
         How to Resize Photo & Signature for Exams
       </h2>
-      <div className="grid md:grid-cols-3 gap-12 md:gap-16 relative">
+      <div className="grid md:grid-cols-3 gap-10 md:gap-16 relative">
         <div className="hidden md:block absolute top-12 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent -z-10"></div>
         
         <div className="flex flex-col items-center group">

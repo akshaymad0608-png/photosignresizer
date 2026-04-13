@@ -32,16 +32,16 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
           </div>
         </div>
         
-        <div className="space-y-6 relative">
+        <div className="space-y-4 sm:space-y-6 relative">
           <div className="absolute -top-10 -left-10 w-20 h-20 bg-brand/20 blur-2xl rounded-full"></div>
           <div className="absolute -bottom-10 -right-10 w-20 h-20 bg-accent/20 blur-2xl rounded-full"></div>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-gray-900 dark:text-white leading-[1.05] relative z-10">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-gray-900 dark:text-white leading-[1.1] relative z-10">
             <span className="bg-gradient-to-br from-gray-900 via-brand to-gray-900 dark:from-white dark:via-brand dark:to-gray-300 bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent drop-shadow-sm">
               {TRANSLATIONS[lang].title}
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium relative z-10">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium relative z-10 px-4 sm:px-0">
             {TRANSLATIONS[lang].subtitle}
           </p>
         </div>

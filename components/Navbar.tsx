@@ -30,11 +30,11 @@ const Navbar = ({ lang, setLang, isScrolled, activeTab, setActiveTab, darkMode, 
         : 'bg-transparent py-6'
     }`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-3 cursor-pointer group" onClick={() => handleTabClick('home')}>
-          <div className={`p-2.5 rounded-2xl transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 ${isScrolled || isMenuOpen ? 'bg-gradient-to-br from-brand to-accent text-white shadow-lg shadow-brand/20' : 'bg-white/10 backdrop-blur-md text-brand border border-white/20 shadow-xl shadow-brand/5'}`}>
-            <Camera size={24} />
+        <div className="flex items-center gap-2 sm:gap-3 cursor-pointer group" onClick={() => handleTabClick('home')}>
+          <div className={`p-2 sm:p-2.5 rounded-xl sm:rounded-2xl transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 ${isScrolled || isMenuOpen ? 'bg-gradient-to-br from-brand to-accent text-white shadow-lg shadow-brand/20' : 'bg-white/10 backdrop-blur-md text-brand border border-white/20 shadow-xl shadow-brand/5'}`}>
+            <Camera className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
-          <span className={`font-black text-2xl tracking-tighter transition-colors ${isScrolled || isMenuOpen ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>
+          <span className={`font-black text-xl sm:text-2xl tracking-tighter transition-colors ${isScrolled || isMenuOpen ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>
             PHOTO<span className="text-brand">RESIZER</span>
           </span>
         </div>

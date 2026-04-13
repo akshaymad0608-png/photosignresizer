@@ -19,7 +19,7 @@ const ExamDropdown: React.FC<ExamDropdownProps> = ({ selectedExam, onSelect, lab
       </label>
       <div className="relative">
         <select
-          className="appearance-none block w-full px-6 py-4.5 text-sm font-black border-2 border-gray-200/80 dark:border-gray-800 focus:outline-none focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 sm:text-base rounded-2xl shadow-sm bg-white/80 dark:bg-gray-900/80 backdrop-blur-md text-gray-900 dark:text-white pr-12 transition-all cursor-pointer hover:border-brand/30 dark:hover:border-cyan-500/30 hover:bg-white dark:hover:bg-gray-800 hover:shadow-md"
+          className="appearance-none block w-full px-4 py-3 sm:px-6 sm:py-4.5 text-sm font-black border-2 border-gray-200/80 dark:border-gray-800 focus:outline-none focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 sm:text-base rounded-2xl shadow-sm bg-white/80 dark:bg-gray-900/80 backdrop-blur-md text-gray-900 dark:text-white pr-12 transition-all cursor-pointer hover:border-brand/30 dark:hover:border-cyan-500/30 hover:bg-white dark:hover:bg-gray-800 hover:shadow-md"
           value={selectedExam.id}
           onChange={(e) => {
             const exam = EXAM_PRESETS.find(ex => ex.id === e.target.value);

@@ -33,29 +33,29 @@ const ResultCard: React.FC<ResultCardProps> = ({
     <div className="mt-6 p-6 md:p-8 bg-white/90 dark:bg-gray-900/80 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] border border-gray-200/50 dark:border-gray-800/50 animate-fade-in relative overflow-hidden group/result transition-all duration-500 hover:shadow-[0_16px_60px_-15px_rgba(79,70,229,0.15)] dark:hover:shadow-[0_16px_60px_-15px_rgba(6,182,212,0.15)] hover:border-brand/20 dark:hover:border-cyan-500/20">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-brand/10 to-transparent dark:from-cyan-500/10 blur-[80px] rounded-full pointer-events-none transition-opacity duration-700 opacity-40 group-hover/result:opacity-80 translate-x-1/3 -translate-y-1/3"></div>
       <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-gradient-to-tr from-accent/10 to-transparent dark:from-blue-500/10 blur-[60px] rounded-full pointer-events-none transition-opacity duration-700 opacity-30 group-hover/result:opacity-60 -translate-x-1/3 translate-y-1/3"></div>
-      <div className="flex justify-between items-start mb-8 relative z-10">
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-8 relative z-10">
         <div className="space-y-2">
-          <h4 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">{type} Result</h4>
-          <div className="flex items-center gap-3 text-sm font-bold text-gray-500 dark:text-gray-400">
-            <span className="px-3 py-1.5 bg-gray-50 dark:bg-gray-800 rounded-xl font-mono border border-gray-100 dark:border-gray-700 shadow-sm">{width}x{height}px</span>
-            <span className="w-1.5 h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full"></span>
-            <span className="px-3 py-1.5 bg-gray-50 dark:bg-gray-800 rounded-xl font-mono border border-gray-100 dark:border-gray-700 shadow-sm">{formatFileSize(fileSizeKB)}</span>
+          <h4 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">{type} Result</h4>
+          <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-bold text-gray-500 dark:text-gray-400">
+            <span className="px-2 py-1 sm:px-3 sm:py-1.5 bg-gray-50 dark:bg-gray-800 rounded-xl font-mono border border-gray-100 dark:border-gray-700 shadow-sm">{width}x{height}px</span>
+            <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full"></span>
+            <span className="px-2 py-1 sm:px-3 sm:py-1.5 bg-gray-50 dark:bg-gray-800 rounded-xl font-mono border border-gray-100 dark:border-gray-700 shadow-sm">{formatFileSize(fileSizeKB)}</span>
           </div>
         </div>
         <div>
             {isSizeValid ? (
-                <div className="flex flex-col items-end gap-2">
-                  <span className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-black bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 border border-green-200/50 dark:border-green-800/50 uppercase tracking-widest shadow-sm">
-                      <FileCheck size={16} className="mr-2" /> Perfect
+                <div className="flex flex-col items-start sm:items-end gap-1 sm:gap-2">
+                  <span className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-black bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 border border-green-200/50 dark:border-green-800/50 uppercase tracking-widest shadow-sm">
+                      <FileCheck size={14} className="mr-1.5 sm:mr-2" /> Perfect
                   </span>
-                  <span className="text-[10px] font-black text-green-500 dark:text-green-600 uppercase tracking-widest">Ready to Upload</span>
+                  <span className="text-[9px] sm:text-[10px] font-black text-green-500 dark:text-green-600 uppercase tracking-widest">Ready to Upload</span>
                 </div>
             ) : (
-                <div className="flex flex-col items-end gap-2">
-                  <span className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-black bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400 border border-amber-200/50 dark:border-amber-800/50 uppercase tracking-widest shadow-sm">
-                      <AlertTriangle size={16} className="mr-2" /> Check Size
+                <div className="flex flex-col items-start sm:items-end gap-1 sm:gap-2">
+                  <span className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-black bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400 border border-amber-200/50 dark:border-amber-800/50 uppercase tracking-widest shadow-sm">
+                      <AlertTriangle size={14} className="mr-1.5 sm:mr-2" /> Check Size
                   </span>
-                  <span className="text-[10px] font-black text-amber-500 dark:text-amber-600 uppercase tracking-widest">Needs Adjustment</span>
+                  <span className="text-[9px] sm:text-[10px] font-black text-amber-500 dark:text-amber-600 uppercase tracking-widest">Needs Adjustment</span>
                 </div>
             )}
         </div>

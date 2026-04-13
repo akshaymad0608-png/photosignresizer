@@ -176,10 +176,45 @@ export const EXAM_PRESETS: ExamRequirement[] = [
   },
   {
     id: 'smc',
-    name: 'SMC (Surat Municipal Corporation)',
+    name: 'SMC (સુરત મહાનગરપાલિકા)',
     category: 'State PSC',
     photo: { width: 500, height: 500, minKB: 10, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
     signature: { width: 750, height: 250, minKB: 5, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'ojas',
+    name: 'GSSSB / OJAS (ગુજરાત)',
+    category: 'State PSC',
+    photo: { width: 280, height: 360, minKB: 5, maxKB: 15, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 280, height: 120, minKB: 5, maxKB: 15, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'gpsc',
+    name: 'GPSC (ગુજરાત જાહેર સેવા આયોગ)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'gujarat_police',
+    name: 'Gujarat Police LRD/PSI (ગુજરાત પોલીસ)',
+    category: 'State PSC',
+    photo: { width: 280, height: 360, minKB: 5, maxKB: 15, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 280, height: 120, minKB: 5, maxKB: 15, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'gujarat_high_court',
+    name: 'Gujarat High Court (ગુજરાત હાઈકોર્ટ)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'gseb_tet_tat',
+    name: 'GSEB TET/TAT (ગુજરાત શિક્ષક યોગ્યતા કસોટી)',
+    category: 'State PSC',
+    photo: { width: 280, height: 360, minKB: 5, maxKB: 15, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 280, height: 120, minKB: 5, maxKB: 15, format: 'jpg', resizeMode: 'contain' }
   }
 ];
 
