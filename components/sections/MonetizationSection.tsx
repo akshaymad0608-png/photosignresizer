@@ -57,7 +57,7 @@ const MonetizationSection: React.FC<MonetizationSectionProps> = ({ lang }) => {
           <div className="flex flex-wrap justify-center gap-6">
             <button 
               onClick={handleSupport}
-              className="group relative flex items-center gap-4 px-10 py-5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white rounded-2xl font-black transition-all duration-300 shadow-xl shadow-red-500/20 hover:shadow-red-500/40 hover:-translate-y-1 active:scale-95 overflow-hidden"
+              className="group relative flex items-center justify-center gap-4 w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white rounded-2xl font-black transition-all duration-300 shadow-xl shadow-red-500/20 hover:shadow-red-500/40 hover:-translate-y-1 active:scale-95 overflow-hidden"
             >
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
               <Youtube size={28} className="fill-current relative z-10" />

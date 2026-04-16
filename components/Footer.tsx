@@ -27,15 +27,15 @@ const Footer = ({ lang }: FooterProps) => (
           The ultimate tool for Indian government exam aspirants. Resize, crop, and compress your photos and signatures instantly and securely.
         </p>
         <div className="flex gap-3 pt-2">
-          <a href="#" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Twitter size={20} /></a>
-          <a href="#" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Github size={20} /></a>
-          <a href="https://www.youtube.com/@AIminivlogs4" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Youtube size={20} /></a>
-          <a href="mailto:support@photoresizer.click" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Mail size={20} /></a>
+          <a href="#" aria-label="Twitter Profile" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Twitter size={20} /></a>
+          <a href="#" aria-label="Github Repository" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Github size={20} /></a>
+          <a href="https://www.youtube.com/@AIminivlogs4" aria-label="Youtube Channel" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Youtube size={20} /></a>
+          <a href="mailto:support@photoresizer.click" aria-label="Email Support" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Mail size={20} /></a>
         </div>
       </div>
 
       <div>
-        <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-900 dark:text-white mb-8">Navigation</h4>
+        <h2 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-900 dark:text-white mb-8">Navigation</h2>
         <ul className="space-y-5 text-sm text-gray-500 dark:text-gray-400 font-bold">
           <li><a href="#" className="hover:text-brand transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700"></span>Home</a></li>
           <li><a href="#faq" className="hover:text-brand transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700"></span>{TRANSLATIONS[lang].faq}</a></li>
@@ -45,7 +45,7 @@ const Footer = ({ lang }: FooterProps) => (
       </div>
 
       <div>
-        <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-900 dark:text-white mb-8">Exam Presets</h4>
+        <h2 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-900 dark:text-white mb-8">Exam Presets</h2>
         <ul className="space-y-5 text-sm text-gray-500 dark:text-gray-400 font-bold">
           <li><a href="#" className="hover:text-brand transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700"></span>UPSC Photo Resizer</a></li>
           <li><a href="#" className="hover:text-brand transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700"></span>SSC Photo Maker</a></li>
@@ -55,7 +55,7 @@ const Footer = ({ lang }: FooterProps) => (
       </div>
 
       <div>
-        <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-900 dark:text-white mb-8">Contact Us</h4>
+        <h2 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-900 dark:text-white mb-8">Contact Us</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-8 font-medium leading-relaxed">
           Have questions or suggestions? We'd love to hear from you.
         </p>
@@ -79,7 +79,7 @@ const Footer = ({ lang }: FooterProps) => (
       </div>
     </div>
 
-    <div className="max-w-7xl mx-auto pt-10 border-t border-gray-100 dark:border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500 relative z-10">
+    <div className="max-w-7xl mx-auto pt-10 border-t border-gray-100 dark:border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 relative z-10">
       <p>© 2026 PHOTORESIZER. All rights reserved.</p>
       <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-900 px-4 py-2 rounded-full border border-gray-100 dark:border-gray-800">
         Made with <Heart size={14} className="text-red-500 fill-red-500 animate-pulse" /> for Indian Aspirants

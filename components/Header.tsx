@@ -48,9 +48,9 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
 
         {/* Popular Exams Quick Select */}
         <div className="flex flex-col items-center gap-5 pt-6 relative z-10">
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500 bg-white/50 dark:bg-gray-900/50 px-4 py-1.5 rounded-full backdrop-blur-sm border border-gray-100 dark:border-gray-800">
+          <h2 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 bg-white/50 dark:bg-gray-900/50 px-4 py-1.5 rounded-full backdrop-blur-sm border border-gray-100 dark:border-gray-800">
             {lang === 'en' ? 'Quick Select Popular Exams' : 'लोकप्रिय परीक्षाओं का त्वरित चयन'}
-          </span>
+          </h2>
           <div className="flex flex-wrap justify-center gap-3">
             {popularExams.map((exam) => (
               <button
@@ -64,13 +64,13 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
           </div>
         </div>
 
-        <div className="flex justify-center pt-8 relative z-10">
+        <div className="flex justify-center pt-8 relative z-10 px-4 sm:px-0">
           <button 
             onClick={() => {
               const el = document.getElementById('monetize-section');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-red-600 text-white font-black text-lg shadow-2xl shadow-red-600/30 hover:bg-red-700 transition-all hover:-translate-y-1 active:scale-95 overflow-hidden"
+            className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-2xl bg-red-600 text-white font-black text-lg shadow-2xl shadow-red-600/30 hover:bg-red-700 transition-all hover:-translate-y-1 active:scale-95 overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
             <Youtube size={24} fill="currentColor" className="text-white group-hover:scale-110 transition-transform relative z-10" />

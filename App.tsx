@@ -309,9 +309,9 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                   {selectedExam.id === 'custom' && (
                       <div className="mb-8 p-6 md:p-8 bg-white/80 dark:bg-gray-900/40 backdrop-blur-xl rounded-[2.5rem] border border-gray-100/50 dark:border-gray-800/50 animate-fade-in shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)] relative overflow-hidden">
                           <div className="absolute top-0 right-0 w-32 h-32 bg-brand/5 dark:bg-cyan-500/5 blur-[40px] rounded-full pointer-events-none"></div>
-                          <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500 mb-6 flex items-center gap-2 relative z-10">
+                          <h2 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 mb-6 flex items-center gap-2 relative z-10">
                             <Settings size={14}/> {t.customSize}
-                          </h4>
+                          </h2>
                           
                           <div className="space-y-6 relative z-10">
                               {/* Photo Inputs */}
@@ -352,9 +352,9 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                       <div className="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-transparent dark:from-cyan-500/5 opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <div className="absolute top-0 right-0 w-32 h-32 bg-brand/10 dark:bg-cyan-500/10 blur-[40px] rounded-full pointer-events-none transition-transform duration-700 group-hover:scale-150"></div>
                       <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/5 dark:bg-blue-500/5 blur-[30px] rounded-full pointer-events-none"></div>
-                      <h4 className="text-[11px] font-black text-brand dark:text-cyan-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
+                      <h2 className="text-[11px] font-black text-brand dark:text-cyan-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
                         <div className="p-2.5 bg-brand/10 dark:bg-cyan-500/10 rounded-xl shadow-inner"><Camera size={14}/></div> {t.photoParams}
-                      </h4>
+                      </h2>
                       <div className="grid grid-cols-2 gap-y-4 gap-x-4 text-sm relative z-10">
                         <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.width}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.photo.width}px</div>
                         <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.height}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.photo.height}px</div>
@@ -370,9 +370,9 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                       <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 blur-[40px] rounded-full pointer-events-none transition-transform duration-700 group-hover:scale-150"></div>
                       <div className="absolute bottom-0 left-0 w-24 h-24 bg-amber-500/5 blur-[30px] rounded-full pointer-events-none"></div>
-                      <h4 className="text-[11px] font-black text-orange-600 dark:text-orange-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
+                      <h2 className="text-[11px] font-black text-orange-600 dark:text-orange-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
                         <div className="p-2.5 bg-orange-500/10 rounded-xl shadow-inner"><FileText size={14}/></div> {t.signParams}
-                      </h4>
+                      </h2>
                       <div className="grid grid-cols-2 gap-y-4 gap-x-4 text-sm relative z-10">
                         <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.width}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.signature.width}px</div>
                         <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.height}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.signature.height}px</div>

@@ -78,6 +78,7 @@ const Navbar = ({ lang, setLang, isScrolled, activeTab, setActiveTab, darkMode, 
               onClick={() => setLang(lang === 'en' ? 'hi' : 'en')}
               className="p-2.5 rounded-xl transition-all hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
               title={lang === 'en' ? 'Switch to Hindi' : 'Switch to English'}
+              aria-label="Toggle Language"
             >
               <Languages size={20} />
             </button>
@@ -85,6 +86,7 @@ const Navbar = ({ lang, setLang, isScrolled, activeTab, setActiveTab, darkMode, 
             <button 
               onClick={() => setDarkMode(!darkMode)}
               className="p-2.5 rounded-xl transition-all hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
+              aria-label="Toggle Dark Mode"
             >
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
@@ -92,6 +94,8 @@ const Navbar = ({ lang, setLang, isScrolled, activeTab, setActiveTab, darkMode, 
             <button 
               onClick={toggleMenu}
               className="md:hidden p-2.5 rounded-xl transition-all hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
+              aria-label="Toggle Mobile Menu"
+              aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

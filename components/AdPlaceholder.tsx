@@ -25,7 +25,7 @@ const AdPlaceholder: React.FC<AdPlaceholderProps> = ({ text }) => {
           <p className="text-brand dark:text-blue-400 font-black text-lg tracking-tight">AIMASTERTOOLS.SPACE</p>
         </div>
         <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md font-medium leading-relaxed relative z-10">
-          Discover the best AI tools for your next project. Support PhotoResizer.click by visiting our partners.
+          {text} - Discover the best AI tools for your next project. Support PhotoResizer.click by visiting our partners.
         </p>
       </div>
     </a>
