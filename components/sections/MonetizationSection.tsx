@@ -2,6 +2,7 @@ import React from 'react';
 import { BookOpen, ExternalLink, Zap, ShieldCheck, Lock, Image as ImageIcon, Youtube } from 'lucide-react';
 import { Language } from '../../types';
 import AdPlaceholder from '../AdPlaceholder';
+import Newsletter from '../Newsletter';
 
 interface MonetizationSectionProps {
   lang: Language;
@@ -66,6 +67,8 @@ const MonetizationSection: React.FC<MonetizationSectionProps> = ({ lang }) => {
           </div>
         </div>
       </div>
+
+      <Newsletter lang={lang} />
 
       <AdPlaceholder text={lang === 'en' ? 'Best Exam Preparation Books' : 'बेस्ट परीक्षा तैयारी पुस्तकें'} />
 

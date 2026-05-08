@@ -8,7 +8,7 @@
     <title>Free Online Photo Resizer | Resize Images Instantly - PhotoResizer.click</title>
     <meta name="title" content="Free Online Photo Resizer | Resize Images Instantly - PhotoResizer.click" />
     <meta name="description" content="Quickly resize your photos and images online for free. Support for JPG, PNG, and more. No software installation needed, fast and easy to use!" />
-    <meta name="keywords" content="Online Image Resizer, Resize photo for passport, Compress image size, Free photo editing tool, exam photo resizer, govt exam photo maker, signature resizer for upsc, ssc photo size converter, reduce photo size to 50kb, reduce signature size to 20kb, sarkari photo resizer, ibps photo signature size, neet photo with name and date, passport size photo maker online, image compressor for govt job, crop photo in cm and pixels, photoresizer, online photo cropper for exam form, resize photo for ssc cgl, upsc photo resizer online" />
+    <meta name="keywords" content="photo resize online free, image size kam kaise kare, passport size photo resize, jpg compress karo, Online Image Resizer, Resize photo for passport, Compress image size, Free photo editing tool, exam photo resizer, govt exam photo maker, signature resizer for upsc, ssc photo size converter, reduce photo size to 50kb, reduce signature size to 20kb, sarkari photo resizer, ibps photo signature size, neet photo with name and date, passport size photo maker online, image compressor for govt job, crop photo in cm and pixels, photoresizer, online photo cropper for exam form, resize photo for ssc cgl, upsc photo resizer online" />
     <meta name="author" content="PHOTORESIZER" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#2563eb" />
@@ -38,7 +38,8 @@
     <link rel="canonical" href="https://ais-dev-bjopfqudmc3cvnpswfgfg6-21170996765.asia-east1.run.app" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
     
     <!-- JSON-LD Structured Data for Software Application -->
@@ -127,7 +128,38 @@
     </script>
 </head>
   <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200">
-    <div id="root"></div>
+    <div id="root">
+      <style>
+        .app-shell {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #f9fafb;
+          font-family: system-ui, -apple-system, sans-serif;
+        }
+        @media (prefers-color-scheme: dark) {
+          .app-shell {
+            background-color: #111827;
+            color: white;
+          }
+        }
+        .shell-spinner {
+          width: 40px;
+          height: 40px;
+          border: 4px solid rgba(59, 130, 246, 0.2);
+          border-top-color: #3b82f6;
+          border-radius: 50%;
+          animation: shell-spin 1s linear infinite;
+        }
+        @keyframes shell-spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+      <div class="app-shell">
+        <div class="shell-spinner"></div>
+      </div>
+    </div>
   <script type="module" src="/index.tsx"></script>
 </body>
 </html>

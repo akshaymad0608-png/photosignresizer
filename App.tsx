@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { jsPDF } from 'jspdf';
 import { 
   Camera, Settings, Upload, Copy, Zap, FileDown, Trash2, FileText
 } from 'lucide-react';
@@ -10,19 +9,22 @@ import ExamDropdown from './components/ExamDropdown';
 import ImageUploader from './components/ImageUploader';
 import ResultCard from './components/ResultCard';
 import AdPlaceholder from './components/AdPlaceholder';
+import FloatingShare from './components/FloatingShare';
 
 // --- New Components ---
 import Navbar from './components/Navbar';
 import Header from './components/Header';
-import Footer from './components/Footer';
-import FAQSection from './components/sections/FAQSection';
-import BlogSection from './components/sections/BlogSection';
-import HowItWorksSection from './components/sections/HowItWorksSection';
-import SupportedExamsSection from './components/sections/SupportedExamsSection';
-import TestimonialsSection from './components/sections/TestimonialsSection';
-import MonetizationSection from './components/sections/MonetizationSection';
-import WhyUseSection from './components/sections/WhyUseSection';
 import ImageControls from './components/ImageControls';
+
+// Lazy loaded below the fold components
+const Footer = React.lazy(() => import('./components/Footer'));
+const FAQSection = React.lazy(() => import('./components/sections/FAQSection'));
+const BlogSection = React.lazy(() => import('./components/sections/BlogSection'));
+const HowItWorksSection = React.lazy(() => import('./components/sections/HowItWorksSection'));
+const SupportedExamsSection = React.lazy(() => import('./components/sections/SupportedExamsSection'));
+const TestimonialsSection = React.lazy(() => import('./components/sections/TestimonialsSection'));
+const MonetizationSection = React.lazy(() => import('./components/sections/MonetizationSection'));
+const WhyUseSection = React.lazy(() => import('./components/sections/WhyUseSection'));
 
 // --- Main App ---
 
@@ -207,9 +209,10 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
     alert('Requirements copied to clipboard!');
   };
 
-  const downloadAsPDF = () => {
+  const downloadAsPDF = async () => {
     if (!photoProcessed && !signProcessed) return;
 
+    const { jsPDF } = await import('jspdf');
     const doc = new jsPDF();
     const margin = 20;
     let currentY = margin;
@@ -596,21 +599,27 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
             </div>
 
             {/* SEO Content Section for Home Page */}
-            <HowItWorksSection />
-            <SupportedExamsSection />
-            <MonetizationSection lang={lang} />
-            <WhyUseSection lang={lang} />
-            <TestimonialsSection />
+            <React.Suspense fallback={<div className="h-64 flex items-center justify-center animate-pulse bg-gray-50 dark:bg-gray-800/50 rounded-3xl my-10"></div>}>
+              <HowItWorksSection />
+              <SupportedExamsSection />
+              <MonetizationSection lang={lang} />
+              <WhyUseSection lang={lang} />
+              <TestimonialsSection />
+            </React.Suspense>
             <AdPlaceholder text={t.ad_placeholder} />
           </div>
         )}
 
-        {activeTab === 'faq' && <FAQSection lang={lang} />}
-        {activeTab === 'blog' && <BlogSection lang={lang} />}
+        <React.Suspense fallback={<div className="h-96 flex items-center justify-center animate-pulse bg-gray-50 dark:bg-gray-800/50 rounded-3xl m-8"></div>}>
+          {activeTab === 'faq' && <FAQSection lang={lang} />}
+          {activeTab === 'blog' && <BlogSection lang={lang} />}
+        </React.Suspense>
 
       </main>
 
-      <Footer lang={lang} />
+      <React.Suspense fallback={<div className="h-64"></div>}>
+        <Footer lang={lang} />
+      </React.Suspense>
       
       {/* Mobile Sticky Action Bar */}
       <div className={`sm:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-800/50 z-40 transition-transform duration-300 ${
@@ -670,6 +679,9 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
       >
         <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="fill-current text-white"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.065-.301-.15-1.265-.462-2.406-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.21 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.195-.572-.345z"></path><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.447h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.48-8.45zM12.046 21.77c-1.775 0-3.516-.476-5.04-1.375l-.36-.214-3.75.975.996-3.645-.235-.373c-.987-1.565-1.508-3.38-1.508-5.245 0-5.445 4.445-9.885 9.9-9.885 2.64 0 5.12 1.025 6.985 2.885 1.865 1.86 2.89 4.335 2.89 6.975-.005 5.44-4.45 9.885-9.888 9.885z"></path></svg>
       </a>
+
+      {/* Floating Share Button */}
+      <FloatingShare />
     </div>
   );
 }

@@ -315,6 +315,10 @@ export const TRANSLATIONS = {
 
 export const FAQ_DATA = [
   {
+    q: "How to reduce image size (Image size kam kaise kare)?",
+    a: "If you need to 'jpg compress karo' or figure out 'image size kam kaise kare', simply upload your photo and select your exam. Our 'photo resize online free' tool will automatically compress and resize it to the required KB limit without losing quality."
+  },
+  {
     q: "Is this tool safe to use for sensitive documents?",
     a: "Yes! All processing happens locally on your device (Client-Side). Your photos and signatures are NEVER uploaded to our servers."
   },
@@ -335,7 +339,7 @@ export const FAQ_DATA = [
 export const SEO_CONTENT = {
   intro: {
     title: "PHOTORESIZER: Best Online Photo & Signature Resizer for Indian Exams",
-    text: "Applying for government jobs like UPSC, SSC, IBPS, or entrance exams like JEE and NEET requires images to be in a very specific format. Most applications get rejected due to incorrect dimensions or file sizes. PHOTORESIZER is a free utility designed specifically for Indian students to solve this problem. Whether you need a 20KB to 50KB photo converter, a signature compressor to 20kb, or a passport photo maker free, our online photo cropper for exam forms handles it all instantly. We support all major exams including SSC CGL, CHSL, MTS, GD, UPSC CSE, IBPS PO, Clerk, and State PSC exams like UPPSC, BPSC, and MPSC."
+    text: "Applying for government jobs like UPSC, SSC, IBPS, or entrance exams like JEE and NEET requires images to be in a very specific format. Most applications get rejected due to incorrect dimensions or file sizes. If you are wondering \"image size kam kaise kare\" or need to \"jpg compress karo\", PHOTORESIZER is the perfect solution. As a top \"photo resize online free\" tool, it effortlessly handles any \"passport size photo resize\" request. Whether you need a 20KB to 50KB photo converter, a signature compressor to 20kb, or a passport photo maker free, our online photo cropper for exam forms handles it all instantly. We support all major exams including SSC CGL, CHSL, MTS, GD, UPSC CSE, IBPS PO, Clerk, and State PSC exams like UPPSC, BPSC, and MPSC."
   },
   exams: [
     {
