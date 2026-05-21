@@ -29,10 +29,42 @@ const ResultCard: React.FC<ResultCardProps> = ({
 
   const isSizeValid = fileSizeKB >= reqMin && fileSizeKB <= reqMax;
 
+  const [isPreviewOpen, setIsPreviewOpen] = React.useState(false);
+
   return (
     <div className="mt-6 p-6 md:p-8 bg-white/90 dark:bg-gray-900/80 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] border border-gray-200/50 dark:border-gray-800/50 animate-fade-in relative overflow-hidden group/result transition-all duration-500 hover:shadow-[0_16px_60px_-15px_rgba(79,70,229,0.15)] dark:hover:shadow-[0_16px_60px_-15px_rgba(6,182,212,0.15)] hover:border-brand/20 dark:hover:border-cyan-500/20">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-brand/10 to-transparent dark:from-cyan-500/10 blur-[80px] rounded-full pointer-events-none transition-opacity duration-700 opacity-40 group-hover/result:opacity-80 translate-x-1/3 -translate-y-1/3"></div>
       <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-gradient-to-tr from-accent/10 to-transparent dark:from-blue-500/10 blur-[60px] rounded-full pointer-events-none transition-opacity duration-700 opacity-30 group-hover/result:opacity-60 -translate-x-1/3 translate-y-1/3"></div>
+      
+      {/* Full Screen Preview Modal */}
+      {isPreviewOpen && (
+        <div 
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out animate-fade-in"
+          onClick={() => setIsPreviewOpen(false)}
+        >
+          <div className="relative max-w-full max-h-full">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src={processedUrl} 
+              alt={`${type} Full Preview`} 
+              className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl"
+              onClick={(e) => e.stopPropagation()} 
+            />
+            <button 
+              className="absolute top-4 right-4 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 backdrop-blur-md transition-colors"
+              onClick={() => setIsPreviewOpen(false)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center pointer-events-none">
+               <span className="bg-black/60 text-white px-4 py-2 rounded-xl backdrop-blur-md text-sm font-medium">
+                 {width}x{height}px • {formatFileSize(fileSizeKB)}
+               </span>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-8 relative z-10">
         <div className="space-y-2">
           <h4 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">{type} Result</h4>
@@ -62,12 +94,22 @@ const ResultCard: React.FC<ResultCardProps> = ({
       </div>
 
       {/* Live Preview Image */}
-      <div className="mb-8 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950/50 flex items-center justify-center p-6 md:p-8 relative group backdrop-blur-sm shadow-inner">
-        <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md text-gray-900 dark:text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl z-10 shadow-sm border border-gray-100 dark:border-gray-700">Live Preview</div>
+      <div 
+        className="mb-8 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950/50 flex items-center justify-center p-6 md:p-8 relative group backdrop-blur-sm shadow-inner cursor-zoom-in"
+        onClick={() => setIsPreviewOpen(true)}
+      >
+        <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md text-gray-900 dark:text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl z-20 shadow-sm border border-gray-100 dark:border-gray-700">Live Preview</div>
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors z-10 hidden sm:block"></div>
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none">
+           <span className="bg-black/70 text-white px-4 py-2 rounded-xl backdrop-blur-md text-sm font-bold flex items-center gap-2">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+             Enlarge
+           </span>
+        </div>
         <img 
           src={processedUrl} 
           alt="Processed Preview" 
-          className="max-h-64 object-contain rounded-2xl shadow-lg group-hover:scale-[1.03] transition-transform duration-500"
+          className="max-h-64 object-contain rounded-2xl shadow-lg group-hover:scale-[1.03] transition-transform duration-500 relative z-0"
         />
       </div>
       

@@ -107,6 +107,21 @@ export default function App() {
     }
   }, [darkMode]);
 
+  // Real-time processing for controls
+  useEffect(() => {
+    if (photoProcessed || signProcessed) {
+      const timeoutId = setTimeout(() => {
+        processImages();
+      }, 100);
+      return () => clearTimeout(timeoutId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    photoRotation, photoBrightness, photoContrast, photoGrayscale,
+    signRotation, signBrightness, signContrast, signGrayscale,
+    addDate, photoName, photoDate
+  ]);
+
   // Handlers
   const handlePhotoUpload = async (file: File) => {
     const url = await readFileAsDataURL(file);
@@ -133,6 +148,7 @@ export default function App() {
   };
 
   const processImages = async () => {
+    if ('vibrate' in navigator) navigator.vibrate(50);
     setIsProcessing(true);
     try {
       if (photoOriginal) {
@@ -625,12 +641,23 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
       <div className={`sm:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-800/50 z-40 transition-transform duration-300 ${
         (photoOriginal || signOriginal) ? 'translate-y-0' : 'translate-y-full'
       }`}>
-        <div className="flex gap-3">
+        <div className="flex gap-2">
+          <button 
+            onClick={() => {
+              setPhotoOriginal(null); setPhotoProcessed(null);
+              setSignOriginal(null); setSignProcessed(null);
+            }}
+            className="w-12 appearance-none rounded-2xl flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-500 active:scale-95 transition-all outline-none"
+            aria-label="Clear All"
+          >
+            <Trash2 className="w-5 h-5 flex-shrink-0" />
+          </button>
+          
           <button 
             onClick={processImages}
             disabled={(!photoOriginal && !signOriginal) || isProcessing}
             className={`
-              flex-1 py-3.5 rounded-2xl font-black text-base shadow-lg transition-all flex items-center justify-center gap-2
+              flex-1 py-3.5 rounded-2xl font-black text-sm shadow-lg transition-all flex items-center justify-center gap-1.5
               ${(!photoOriginal && !signOriginal) || isProcessing
                 ? 'bg-gray-100 text-gray-400 dark:bg-gray-800'
                 : 'bg-gradient-to-r from-brand to-accent text-white active:scale-95'
@@ -638,18 +665,18 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
             `}
           >
             {isProcessing ? (
-              <><div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"/> {t.processing}</>
+              <><div className="animate-spin h-4 w-4 flex-shrink-0 border-2 border-white border-t-transparent rounded-full"/> {t.processing}</>
             ) : (
-              <><Zap size={20} className={(!photoOriginal && !signOriginal) ? "" : "fill-current animate-pulse-slow"}/> {t.compress}</>
+              <><Zap size={18} className={`flex-shrink-0 ${(!photoOriginal && !signOriginal) ? "" : "fill-current animate-pulse-slow"}`}/> {t.compress}</>
             )}
           </button>
           
           {(photoProcessed || signProcessed) && (
             <button
               onClick={downloadAsPDF}
-              className="flex-1 py-3.5 rounded-2xl font-black text-base bg-white dark:bg-gray-800 text-brand dark:text-cyan-400 border-2 border-brand/20 dark:border-cyan-500/30 active:scale-95 transition-all flex items-center justify-center gap-2"
+              className="flex-1 py-3.5 rounded-2xl font-black text-sm bg-white dark:bg-gray-800 text-brand dark:text-cyan-400 border-2 border-brand/20 dark:border-cyan-500/30 active:scale-95 transition-all flex items-center justify-center gap-1.5"
             >
-              <FileDown size={20} />
+              <FileDown size={18} className="flex-shrink-0" />
               {t.downloadPDF}
             </button>
           )}

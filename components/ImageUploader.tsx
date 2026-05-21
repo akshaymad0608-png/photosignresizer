@@ -44,28 +44,34 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         )}
       </h3>
       {!image ? (
-        <label className="relative flex flex-col items-center justify-center w-full h-48 sm:h-64 border-2 border-gray-200 dark:border-gray-700 border-dashed rounded-[2rem] cursor-pointer bg-white/50 dark:bg-gray-800/30 hover:bg-brand/5 dark:hover:bg-brand/10 hover:border-brand/50 dark:hover:border-brand/50 transition-all duration-300 group overflow-hidden backdrop-blur-sm shadow-inner hover:shadow-[0_0_40px_-10px_rgba(79,70,229,0.15)] dark:hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.15)]">
-          <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="flex flex-col items-center justify-center pt-5 pb-6 relative z-10">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white dark:bg-gray-800 rounded-3xl flex items-center justify-center mb-4 sm:mb-6 shadow-xl shadow-gray-200/40 dark:shadow-none group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500 border border-gray-50 dark:border-gray-700 relative overflow-hidden">
-               <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-transparent dark:from-cyan-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-               <div className="absolute inset-0 bg-brand/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-               <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-brand dark:text-cyan-400 relative z-10 group-hover:animate-bounce" />
+        <div className="flex flex-row gap-3">
+          <label className="relative flex-1 flex flex-col items-center justify-center h-28 sm:h-48 border-2 border-brand/20 dark:border-cyan-500/20 border-dashed rounded-[1.5rem] sm:rounded-[2rem] cursor-pointer bg-brand/5 dark:bg-cyan-500/5 hover:bg-brand/10 dark:hover:bg-cyan-500/10 hover:border-brand/40 dark:hover:border-cyan-500/40 transition-all duration-300 group overflow-hidden shadow-inner">
+            <div className="flex flex-col items-center justify-center p-2 sm:p-4 relative z-10 text-brand dark:text-cyan-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+              <p className="text-xs sm:text-base font-black tracking-tight">{lang === 'en' ? 'Take Photo' : 'फोटो खींचें'}</p>
             </div>
-            <p className="mb-2 text-lg sm:text-xl text-gray-900 dark:text-white font-black tracking-tight group-hover:text-brand dark:group-hover:text-cyan-400 transition-colors">
-              {label}
-            </p>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium px-4 text-center max-w-xs">
-              {lang === 'en' ? 'Supports JPG, PNG. High quality images are recommended.' : 'JPG, PNG का समर्थन करता है। उच्च गुणवत्ता वाली छवियों की सिफारिश की जाती है।'}
-            </p>
-          </div>
-          <input 
-            type="file" 
-            className="hidden" 
-            accept={accept}
-            onChange={handleChange}
-          />
-        </label>
+            <input 
+              type="file" 
+              className="hidden" 
+              accept="image/*"
+              capture="environment"
+              onChange={handleChange}
+            />
+          </label>
+          
+          <label className="relative flex-1 flex flex-col items-center justify-center h-28 sm:h-48 border-2 border-gray-200 dark:border-gray-700 border-dashed rounded-[1.5rem] sm:rounded-[2rem] cursor-pointer bg-white/50 dark:bg-gray-800/30 hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-300 group overflow-hidden shadow-inner">
+            <div className="flex flex-col items-center justify-center p-2 sm:p-4 relative z-10 text-gray-700 dark:text-gray-300">
+              <Upload className="w-7 h-7 sm:w-8 sm:h-8 mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform text-gray-500 dark:text-gray-400" />
+              <p className="text-xs sm:text-base font-black tracking-tight">{lang === 'en' ? 'Upload Gallery' : 'गैलरी से चुनें'}</p>
+            </div>
+            <input 
+              type="file" 
+              className="hidden" 
+              accept={accept}
+              onChange={handleChange}
+            />
+          </label>
+        </div>
       ) : (
         <div className="flex flex-col gap-4">
           <div className="relative w-full h-48 sm:h-64 bg-white dark:bg-gray-900 rounded-2xl flex items-center justify-center overflow-hidden border-2 border-gray-100 dark:border-gray-800 shadow-xl group">
