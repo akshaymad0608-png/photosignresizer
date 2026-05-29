@@ -7,8 +7,8 @@ interface NavbarProps {
   lang: Language;
   setLang: (lang: Language) => void;
   isScrolled: boolean;
-  activeTab: 'home' | 'faq' | 'blog';
-  setActiveTab: (tab: 'home' | 'faq' | 'blog') => void;
+  activeTab: 'home' | 'faq' | 'blog' | 'tools';
+  setActiveTab: (tab: 'home' | 'faq' | 'blog' | 'tools') => void;
   darkMode: boolean;
   setDarkMode: (dark: boolean) => void;
 }
@@ -26,20 +26,20 @@ const Navbar = ({ lang, setLang, isScrolled, activeTab, setActiveTab, darkMode, 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled || isMenuOpen 
-        ? 'bg-white/70 dark:bg-gray-950/70 backdrop-blur-2xl shadow-xl shadow-gray-200/20 dark:shadow-none py-3 border-b border-gray-200/50 dark:border-gray-800/50' 
-        : 'bg-transparent py-6'
+        ? 'bg-white/90 dark:bg-gray-950/90 backdrop-blur-3xl shadow-lg shadow-gray-200/20 dark:shadow-none py-2 sm:py-3 border-b border-gray-200/80 dark:border-gray-800/80' 
+        : 'bg-transparent py-4 sm:py-6'
     }`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-2 sm:gap-3 cursor-pointer group" onClick={() => handleTabClick('home')}>
-          <div className={`p-2 sm:p-2.5 rounded-xl sm:rounded-2xl transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 ${isScrolled || isMenuOpen ? 'bg-gradient-to-br from-brand to-accent text-white shadow-lg shadow-brand/20' : 'bg-white/10 backdrop-blur-md text-brand border border-white/20 shadow-xl shadow-brand/5'}`}>
-            <Camera className="w-5 h-5 sm:w-6 sm:h-6" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
+        <div className="flex items-center gap-2 cursor-pointer group" onClick={() => handleTabClick('home')}>
+          <div className={`p-2 rounded-xl transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 ${isScrolled || isMenuOpen ? 'bg-gradient-to-br from-brand to-accent text-white shadow-lg shadow-brand/20' : 'bg-white/10 backdrop-blur-md text-brand border border-white/20 shadow-xl shadow-brand/5'}`}>
+            <Camera className="w-5 h-5" />
           </div>
-          <span className={`font-black text-xl sm:text-2xl tracking-tighter transition-colors ${isScrolled || isMenuOpen ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>
+          <span className={`font-black text-lg sm:text-2xl tracking-tighter transition-colors ${isScrolled || isMenuOpen ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>
             PHOTO<span className="text-brand">RESIZER</span>
           </span>
         </div>
         
-        <div className="flex items-center gap-4 md:gap-8">
+        <div className="flex items-center gap-2 md:gap-8">
           <div className="hidden md:flex items-center gap-1 bg-white/50 dark:bg-gray-900/50 backdrop-blur-md p-1.5 rounded-2xl border border-gray-200/50 dark:border-gray-800/50 shadow-sm">
             <button 
               onClick={() => handleTabClick('home')}
@@ -70,6 +70,16 @@ const Navbar = ({ lang, setLang, isScrolled, activeTab, setActiveTab, darkMode, 
               }`}
             >
               {TRANSLATIONS[lang].faq}
+            </button>
+            <button 
+              onClick={() => handleTabClick('tools')}
+              className={`px-5 py-2 rounded-xl text-sm font-black uppercase tracking-widest transition-all ${
+                activeTab === 'tools' 
+                  ? 'bg-white dark:bg-gray-800 text-brand shadow-sm border border-gray-100 dark:border-gray-700' 
+                  : 'text-gray-500 dark:text-gray-400 hover:text-brand dark:hover:text-brand hover:bg-white/50 dark:hover:bg-gray-800/50'
+              }`}
+            >
+              All Tools
             </button>
           </div>
 
@@ -124,6 +134,12 @@ const Navbar = ({ lang, setLang, isScrolled, activeTab, setActiveTab, darkMode, 
               className={`block w-full text-left px-6 py-4 rounded-2xl text-lg font-black uppercase tracking-widest transition-all ${activeTab === 'faq' ? 'bg-gradient-to-r from-brand to-accent text-white shadow-lg shadow-brand/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 border border-transparent hover:border-gray-100 dark:hover:border-gray-800'}`}
             >
               {TRANSLATIONS[lang].faq}
+            </button>
+            <button 
+              onClick={() => handleTabClick('tools')}
+              className={`block w-full text-left px-6 py-4 rounded-2xl text-lg font-black uppercase tracking-widest transition-all ${activeTab === 'tools' ? 'bg-gradient-to-r from-brand to-accent text-white shadow-lg shadow-brand/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 border border-transparent hover:border-gray-100 dark:hover:border-gray-800'}`}
+            >
+              All Tools
             </button>
           </div>
         </div>

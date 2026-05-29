@@ -13,14 +13,14 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
   const popularExams = EXAM_PRESETS.slice(0, 5);
 
   return (
-    <header className="relative pt-24 pb-16 px-4 overflow-x-hidden mb-8">
+    <header className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 overflow-x-hidden mb-4 sm:mb-8">
       {/* Premium Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-[-20%] left-[10%] w-[600px] h-[600px] bg-brand/10 dark:bg-brand/5 blur-[120px] rounded-full animate-pulse-slow mix-blend-multiply dark:mix-blend-screen"></div>
-        <div className="absolute bottom-[-20%] right-[10%] w-[600px] h-[600px] bg-accent/10 dark:bg-accent/5 blur-[120px] rounded-full animate-pulse-slow delay-1000 mix-blend-multiply dark:mix-blend-screen"></div>
+        <div className="absolute top-[-20%] left-[10%] w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-brand/10 dark:bg-brand/5 blur-[120px] rounded-full animate-pulse-slow mix-blend-multiply dark:mix-blend-screen"></div>
+        <div className="absolute bottom-[-20%] right-[10%] w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-accent/10 dark:bg-accent/5 blur-[120px] rounded-full animate-pulse-slow delay-1000 mix-blend-multiply dark:mix-blend-screen"></div>
       </div>
 
-      <div className="max-w-5xl mx-auto text-center space-y-10 relative z-10">
+      <div className="max-w-5xl mx-auto text-center space-y-6 sm:space-y-10 relative z-10">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md text-brand dark:text-blue-400 text-sm font-black border border-brand/20 dark:border-brand/30 shadow-xl shadow-brand/5 animate-fade-in hover:scale-105 transition-transform cursor-default">
             <Zap size={18} fill="currentColor" className="text-brand dark:text-blue-400 drop-shadow-sm" />
@@ -35,13 +35,13 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
         <div className="space-y-4 sm:space-y-6 relative">
           <div className="absolute -top-10 -left-10 w-20 h-20 bg-brand/20 blur-2xl rounded-full"></div>
           <div className="absolute -bottom-10 -right-10 w-20 h-20 bg-accent/20 blur-2xl rounded-full"></div>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-gray-900 dark:text-white leading-[1.1] relative z-10">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-gray-900 dark:text-white leading-[1.1] relative z-10">
             <span className="bg-gradient-to-br from-gray-900 via-brand to-gray-900 dark:from-white dark:via-brand dark:to-gray-300 bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent drop-shadow-sm">
               {TRANSLATIONS[lang].title}
             </span>
           </h1>
           
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium relative z-10 px-4 sm:px-0">
+          <p className="text-base sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium relative z-10 px-4 sm:px-0">
             {TRANSLATIONS[lang].subtitle}
           </p>
         </div>
@@ -79,35 +79,35 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
         </div>
         
         {/* Trust Bar */}
-        <div className="flex flex-wrap justify-center gap-x-10 gap-y-6 pt-12 border-t border-gray-200/50 dark:border-gray-800/50 relative z-10">
-          <div className="flex items-center gap-2.5 text-sm font-bold text-gray-500 dark:text-gray-400">
-            <div className="p-1.5 rounded-lg bg-green-50 dark:bg-green-900/20">
-              <ShieldCheck size={20} className="text-green-500" />
+        <div className="grid grid-cols-2 sm:flex flex-wrap justify-center gap-x-6 sm:gap-x-10 gap-y-4 sm:gap-y-6 pt-8 sm:pt-12 border-t border-gray-200/50 dark:border-gray-800/50 relative z-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start text-center sm:text-left gap-1.5 sm:gap-2.5 text-xs sm:text-sm font-bold text-gray-500 dark:text-gray-400">
+            <div className="p-1 sm:p-1.5 rounded-lg bg-green-50 dark:bg-green-900/20">
+              <ShieldCheck size={18} className="text-green-500 sm:w-5 sm:h-5" />
             </div>
             <span>No Upload Required</span>
           </div>
-          <div className="flex items-center gap-2.5 text-sm font-bold text-gray-500 dark:text-gray-400">
-            <div className="p-1.5 rounded-lg bg-amber-50 dark:bg-amber-900/20">
-              <Zap size={20} className="text-amber-500" />
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start text-center sm:text-left gap-1.5 sm:gap-2.5 text-xs sm:text-sm font-bold text-gray-500 dark:text-gray-400">
+            <div className="p-1 sm:p-1.5 rounded-lg bg-amber-50 dark:bg-amber-900/20">
+              <Zap size={18} className="text-amber-500 sm:w-5 sm:h-5" />
             </div>
             <span>Instant Download</span>
           </div>
-          <div className="flex items-center gap-2.5 text-sm font-bold text-gray-500 dark:text-gray-400">
-            <div className="p-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20">
-              <Globe size={20} className="text-blue-500" />
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start text-center sm:text-left gap-1.5 sm:gap-2.5 text-xs sm:text-sm font-bold text-gray-500 dark:text-gray-400">
+            <div className="p-1 sm:p-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20">
+              <Globe size={18} className="text-blue-500 sm:w-5 sm:h-5" />
             </div>
             <span>Works Offline</span>
           </div>
-          <div className="flex items-center gap-2.5 text-sm font-bold text-gray-500 dark:text-gray-400">
-            <div className="p-1.5 rounded-lg bg-purple-50 dark:bg-purple-900/20">
-              <Star size={20} className="text-purple-500 fill-current" />
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start text-center sm:text-left gap-1.5 sm:gap-2.5 text-xs sm:text-sm font-bold text-gray-500 dark:text-gray-400">
+            <div className="p-1 sm:p-1.5 rounded-lg bg-purple-50 dark:bg-purple-900/20">
+              <Star size={18} className="text-purple-500 fill-current sm:w-5 sm:h-5" />
             </div>
             <span>Trusted by 1M+ Students</span>
           </div>
         </div>
 
         {/* Steps Component */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto pt-10 sm:pt-16 px-2 sm:px-0">
           <StepCard 
             step={1} 
             icon={Settings} 

@@ -7,7 +7,6 @@ interface ImageUploaderProps {
   image: string | null;
   onUpload: (file: File) => void;
   onClear: () => void;
-  label: string;
   rotation?: number;
   onRotate?: (deg: number) => void;
   accept?: string;
@@ -19,7 +18,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   image,
   onUpload,
   onClear,
-  label,
   rotation = 0,
   onRotate,
   accept = "image/*",

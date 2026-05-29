@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Share2, Twitter, Facebook, MessageCircle, Link2, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { Share2, Twitter, Facebook, Link2, X } from 'lucide-react';
 
 export default function FloatingShare() {
   const [isOpen, setIsOpen] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
-  const [url, setUrl] = useState('');
-
-  useEffect(() => {
-    // Only set URL after mount to avoid hydration mismatch if SSR (Vite is SPA but good practice)
-    setUrl(window.location.href);
-  }, []);
+  const [url] = useState(() => typeof window !== 'undefined' ? window.location.href : '');
 
   const text = 'Check out this awesome Free Photo & Signature Resizer for Govt Exams!';
 
@@ -27,16 +22,16 @@ export default function FloatingShare() {
   };
 
   return (
-    <div className="fixed left-6 bottom-6 z-50 hidden sm:flex flex-col-reverse items-center gap-3">
+    <div className="fixed left-4 sm:left-6 bottom-6 z-50 flex flex-col-reverse items-center gap-3">
       {/* Main Toggle Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 ${
+        className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 ${
           isOpen ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900 rotate-180' : 'bg-white text-gray-900 dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 hover:scale-110'
         }`}
         aria-label="Share tool"
       >
-        {isOpen ? <X size={20} /> : <Share2 size={20} />}
+        {isOpen ? <X size={20} className="sm:w-5 sm:h-5 w-4 h-4" /> : <Share2 size={20} className="sm:w-5 sm:h-5 w-4 h-4" />}
       </button>
 
       {/* Share Buttons (expand upwards) */}

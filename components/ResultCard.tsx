@@ -25,11 +25,11 @@ const ResultCard: React.FC<ResultCardProps> = ({
   fileName,
   type
 }) => {
+  const [isPreviewOpen, setIsPreviewOpen] = React.useState(false);
+
   if (!processedUrl) return null;
 
   const isSizeValid = fileSizeKB >= reqMin && fileSizeKB <= reqMax;
-
-  const [isPreviewOpen, setIsPreviewOpen] = React.useState(false);
 
   return (
     <div className="mt-6 p-6 md:p-8 bg-white/90 dark:bg-gray-900/80 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] border border-gray-200/50 dark:border-gray-800/50 animate-fade-in relative overflow-hidden group/result transition-all duration-500 hover:shadow-[0_16px_60px_-15px_rgba(79,70,229,0.15)] dark:hover:shadow-[0_16px_60px_-15px_rgba(6,182,212,0.15)] hover:border-brand/20 dark:hover:border-cyan-500/20">
@@ -43,7 +43,6 @@ const ResultCard: React.FC<ResultCardProps> = ({
           onClick={() => setIsPreviewOpen(false)}
         >
           <div className="relative max-w-full max-h-full">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src={processedUrl} 
               alt={`${type} Full Preview`} 

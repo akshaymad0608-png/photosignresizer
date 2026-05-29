@@ -8,18 +8,18 @@ interface FooterProps {
 }
 
 const Footer = ({ lang }: FooterProps) => (
-  <footer className="bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900 pt-32 pb-16 px-6 relative overflow-x-hidden">
+  <footer className="bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-900 pt-16 md:pt-32 pb-8 md:pb-16 px-4 sm:px-6 relative overflow-x-hidden">
     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-brand/20 to-transparent"></div>
     <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand/5 blur-[120px] rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
     <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-accent/5 blur-[120px] rounded-full -translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
     
-    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-16 mb-24 relative z-10">
-      <div className="space-y-8">
+    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-16 mb-16 md:mb-24 relative z-10">
+      <div className="space-y-6 md:space-y-8">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-gradient-to-br from-brand to-accent text-white rounded-2xl shadow-xl shadow-brand/20">
+          <div className="p-2 sm:p-2.5 bg-gradient-to-br from-brand to-accent text-white rounded-2xl shadow-xl shadow-brand/20">
             <Camera size={24} />
           </div>
-          <span className="font-black text-2xl tracking-tighter text-gray-900 dark:text-white">
+          <span className="font-black text-xl sm:text-2xl tracking-tighter text-gray-900 dark:text-white">
             PHOTO<span className="text-brand">RESIZER</span>
           </span>
         </div>
@@ -27,10 +27,10 @@ const Footer = ({ lang }: FooterProps) => (
           The ultimate tool for Indian government exam aspirants. Resize, crop, and compress your photos and signatures instantly and securely.
         </p>
         <div className="flex gap-3 pt-2">
-          <a href="#" aria-label="Twitter Profile" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Twitter size={20} /></a>
-          <a href="#" aria-label="Github Repository" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Github size={20} /></a>
-          <a href="https://www.youtube.com/@AIminivlogs4" aria-label="Youtube Channel" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Youtube size={20} /></a>
-          <a href="mailto:support@photoresizer.click" aria-label="Email Support" className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Mail size={20} /></a>
+          <a href="#" aria-label="Twitter Profile" className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Twitter size={18} /></a>
+          <a href="#" aria-label="Github Repository" className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Github size={18} /></a>
+          <a href="https://www.youtube.com/@AIminivlogs4" aria-label="Youtube Channel" target="_blank" rel="noopener noreferrer" className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Youtube size={18} /></a>
+          <a href="mailto:support@photoresizer.click" aria-label="Email Support" className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gray-50 dark:bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-brand hover:text-white transition-all shadow-sm hover:shadow-md hover:-translate-y-1 border border-gray-100 dark:border-gray-800"><Mail size={18} /></a>
         </div>
       </div>
 

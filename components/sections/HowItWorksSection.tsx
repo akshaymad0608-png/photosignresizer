@@ -7,7 +7,7 @@ const HowItWorksSection = () => (
     <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 dark:bg-brand/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2 transition-opacity duration-700 opacity-50 group-hover/section:opacity-100"></div>
     
     <div className="max-w-5xl mx-auto text-center relative z-10">
-      <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-20 tracking-tight leading-tight">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-16 md:mb-20 tracking-tight leading-tight">
         How to Resize Photo & Signature for Exams
       </h2>
       <div className="grid md:grid-cols-3 gap-10 md:gap-16 relative">
