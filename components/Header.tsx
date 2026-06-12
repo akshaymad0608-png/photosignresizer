@@ -13,7 +13,7 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
   const popularExams = EXAM_PRESETS.slice(0, 5);
 
   return (
-    <header className="relative pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 overflow-x-hidden mb-4 sm:mb-8">
+    <header className="relative pt-4 sm:pt-8 pb-12 sm:pb-16 px-4 overflow-x-hidden mb-4 sm:mb-8">
       {/* Premium Background Elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-[-20%] left-[10%] w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-brand/10 dark:bg-brand/5 blur-[120px] rounded-full animate-pulse-slow mix-blend-multiply dark:mix-blend-screen"></div>

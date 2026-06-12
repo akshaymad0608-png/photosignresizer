@@ -13,7 +13,7 @@ const Footer = ({ lang }: FooterProps) => (
     <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand/5 blur-[120px] rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
     <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-accent/5 blur-[120px] rounded-full -translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
     
-    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-16 mb-16 md:mb-24 relative z-10">
+    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 mb-12 sm:mb-16 md:mb-24 relative z-10">
       <div className="space-y-6 md:space-y-8">
         <div className="flex items-center gap-3">
           <div className="p-2 sm:p-2.5 bg-gradient-to-br from-brand to-accent text-white rounded-2xl shadow-xl shadow-brand/20">

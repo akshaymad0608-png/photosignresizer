@@ -2,7 +2,7 @@ import React from 'react';
 import { Upload, Scissors, Zap } from 'lucide-react';
 
 const HowItWorksSection = () => (
-  <div className="bg-white dark:bg-gray-900/50 rounded-[3rem] p-8 md:p-20 shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 mb-24 relative overflow-hidden group/section">
+  <div className="bg-white dark:bg-gray-900/50 rounded-3xl md:rounded-[3rem] p-6 sm:p-12 md:p-20 shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 mb-16 sm:mb-24 relative overflow-hidden group/section">
     <div className="absolute top-0 right-0 w-96 h-96 bg-brand/5 dark:bg-cyan-500/5 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 transition-opacity duration-700 opacity-50 group-hover/section:opacity-100"></div>
     <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 dark:bg-brand/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2 transition-opacity duration-700 opacity-50 group-hover/section:opacity-100"></div>
     

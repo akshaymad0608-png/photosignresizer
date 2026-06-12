@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Camera, Settings, Upload, Copy, Zap, FileDown, Trash2, FileText, Layers
+  Camera, Settings, Upload, Copy, Zap, FileDown, Trash2, FileText
 } from 'lucide-react';
 import { EXAM_PRESETS, TRANSLATIONS } from '../constants';
 import { ExamRequirement, Language, ProcessedImage } from '../types';
@@ -9,7 +9,6 @@ import ExamDropdown from '../components/ExamDropdown';
 import ImageUploader from '../components/ImageUploader';
 import ResultCard from '../components/ResultCard';
 import FloatingShare from '../components/FloatingShare';
-import SearchBar from '../components/SearchBar';
 
 // --- New Components ---
 import Navbar from '../components/Navbar';
@@ -302,61 +301,10 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
       />
 
       {/* Main Content Area */}
-      <main className="flex-grow pb-24 sm:pb-0">
+      <main className="flex-grow pt-28 sm:pt-32 md:pt-40 lg:pt-48 pb-24 sm:pb-0">
         {activeTab === 'home' && (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
             
-            {/* New Modern Hero for PhotoResizer */}
-            <section className="relative pt-12 pb-16 md:pt-24 md:pb-20 text-center z-10 animate-fade-in">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand/10 dark:bg-cyan-500/10 text-brand dark:text-cyan-400 font-bold text-sm mb-6 shadow-sm border border-brand/20 dark:border-cyan-500/20">
-                <Zap size={16} className="fill-current animate-pulse hover:animate-none" /> Free & Secure Processing
-              </div>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white tracking-tight leading-[1.1] mb-6">
-                The Ultimate <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-accent dark:from-cyan-400 dark:to-blue-500">File Toolkit</span>
-              </h2>
-              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Convert, resize, compress, and edit any file instantly. Powered by end-to-end encryption for maximum privacy and security.
-              </p>
-              
-              <div className="mb-8">
-                <SearchBar />
-              </div>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10 w-full max-w-2xl mx-auto">
-                <button 
-                  onClick={() => setActiveTab('tools')}
-                  className="w-full sm:w-auto px-6 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-2xl font-black text-sm sm:text-lg shadow-xl hover:scale-105 transition-all group flex items-center justify-center gap-2 border border-transparent dark:border-gray-200"
-                >
-                   <Layers size={20} className="group-hover:scale-110 transition-transform hidden sm:block" />
-                   Explore All Tools
-                </button>
-                 <button 
-                  onClick={() => {
-                     document.getElementById('exam-resizer-section')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="w-full sm:w-auto px-6 py-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm text-gray-900 dark:text-white rounded-2xl font-black text-sm sm:text-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all group flex items-center justify-center gap-2"
-                >
-                   <Settings size={20} className="group-hover:rotate-180 transition-transform duration-500 hidden sm:block" />
-                   Exam Photo Resizer
-                </button>
-              </div>
-
-              {/* Quick Categories Bar */}
-              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-4xl mx-auto mb-16">
-                 <span className="text-xs sm:text-sm font-bold text-gray-500 dark:text-gray-400 mr-1 sm:mr-2">Popular:</span>
-                 {["PDF to Word", "Image Compressor", "Remove Background", "MP4 to MP3", "Sign & Photo Resizer"].map((q, i) => (
-                   <span key={i} onClick={() => setActiveTab('tools')} className="px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 shadow-sm cursor-pointer hover:bg-brand/5 dark:hover:bg-cyan-500/10 hover:border-brand/30 dark:hover:border-cyan-500/30 hover:text-brand dark:hover:text-cyan-400 transition-colors">
-                     {q}
-                   </span>
-                 ))}
-              </div>
-            </section>
-
-            <div id="exam-resizer-section" className="mt-8 sm:mt-16 text-center mb-8 bg-brand/5 dark:bg-cyan-500/5 py-4 px-4 sm:px-6 rounded-3xl border border-brand/20 dark:border-cyan-500/20 inline-block mx-auto max-w-fit scroll-mt-24">
-              <h3 className="text-xl sm:text-3xl font-black dark:text-white mb-2">Govt Exam Photo & Signature Resizer</h3>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">The most trusted tool to crop photos and signatures for SSC, UPSC, and State Exams.</p>
-            </div>
-
             <Header lang={lang} onSelectExam={setSelectedExam} />
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12 sm:mb-24 mt-4 sm:mt-8">
@@ -673,12 +621,6 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
         </React.Suspense>
 
       </main>
-
-      {activeTab === 'home' && (
-        <React.Suspense fallback={<div className="h-64"></div>}>
-          <ToolCategorySection />
-        </React.Suspense>
-      )}
 
       <React.Suspense fallback={<div className="h-64"></div>}>
         <Footer lang={lang} />

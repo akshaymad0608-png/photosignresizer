@@ -11,17 +11,17 @@ const WhyUseSection = ({ lang }: WhyUseSectionProps) => {
   const t = TRANSLATIONS[lang];
 
   return (
-    <div className="bg-white dark:bg-gray-900/50 rounded-[3rem] p-12 md:p-20 shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 mb-24 relative overflow-hidden group/section">
+    <div className="bg-white dark:bg-gray-900/50 rounded-3xl md:rounded-[3rem] p-6 sm:p-12 md:p-20 shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 mb-16 sm:mb-24 relative overflow-hidden group/section">
       <div className="absolute top-0 left-0 w-96 h-96 bg-brand/5 dark:bg-cyan-500/5 blur-[100px] rounded-full -translate-x-1/2 -translate-y-1/2 transition-opacity duration-700 opacity-50 group-hover/section:opacity-100"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 dark:bg-brand/5 blur-[100px] rounded-full translate-x-1/2 translate-y-1/2 transition-opacity duration-700 opacity-50 group-hover/section:opacity-100"></div>
       
       <div className="max-w-4xl mx-auto relative z-10">
-        <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-8 text-center tracking-tight leading-tight">{t.whyUse}</h2>
-        <p className="text-gray-600 dark:text-gray-300 text-center mb-20 text-xl leading-relaxed font-medium max-w-3xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 sm:mb-8 text-center tracking-tight leading-tight">{t.whyUse}</h2>
+        <p className="text-gray-600 dark:text-gray-300 text-center mb-12 sm:mb-20 text-lg sm:text-xl leading-relaxed font-medium max-w-3xl mx-auto">
           {t.whyUseText}
         </p>
         
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-3 gap-8 sm:gap-12">
           <div className="flex flex-col items-center text-center group">
             <div className="w-20 h-20 bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-900/20 dark:to-green-800/10 text-green-600 dark:text-green-400 rounded-[2rem] flex items-center justify-center mb-6 shadow-xl shadow-green-500/10 border-4 border-white dark:border-gray-900 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative">
               <div className="absolute inset-0 bg-green-500/10 dark:bg-green-400/10 rounded-[1.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>

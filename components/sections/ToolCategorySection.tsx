@@ -91,19 +91,19 @@ export default function ToolCategorySection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {CATEGORIES.map((cat, idx) => (
-            <div key={idx} className="bg-white dark:bg-gray-900 rounded-[2rem] p-6 sm:p-8 shadow-xl shadow-gray-200/40 dark:shadow-none border border-gray-100 dark:border-gray-800 hover:-translate-y-2 transition-all duration-300 group">
-              <div className="flex items-center gap-4 mb-8">
-                <div className={`p-4 rounded-2xl bg-gradient-to-br ${cat.color} text-white shadow-lg`}>
-                  {cat.icon}
+            <div key={idx} className="bg-white dark:bg-gray-900 rounded-[2rem] p-5 sm:p-8 shadow-xl shadow-gray-200/40 dark:shadow-none border border-gray-100 dark:border-gray-800 hover:-translate-y-2 transition-all duration-300 group">
+              <div className="flex items-center gap-4 mb-6 sm:mb-8">
+                <div className={`p-3 sm:p-4 rounded-2xl bg-gradient-to-br ${cat.color} text-white shadow-lg`}>
+                  {React.cloneElement(cat.icon as React.ReactElement, { className: "w-5 h-5 sm:w-6 sm:h-6" })}
                 </div>
-                <h2 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">{cat.title}</h2>
+                <h2 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">{cat.title}</h2>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                 {cat.tools.map(tool => (
                   <Link 
                     key={tool.id} 
                     to={`/tools/${tool.id}`}
-                    className="px-4 py-3 bg-gray-50 dark:bg-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 rounded-xl hover:bg-brand/10 dark:hover:bg-cyan-500/10 hover:text-brand dark:hover:text-cyan-400 transition-colors truncate"
+                    className="px-4 py-2.5 sm:py-3 bg-gray-50 dark:bg-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 rounded-xl hover:bg-brand/10 dark:hover:bg-cyan-500/10 hover:text-brand dark:hover:text-cyan-400 transition-colors truncate text-center sm:text-left"
                   >
                     {tool.name}
                   </Link>
