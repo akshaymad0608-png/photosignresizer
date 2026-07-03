@@ -32,14 +32,12 @@ const ResultCard: React.FC<ResultCardProps> = ({
   const isSizeValid = fileSizeKB >= reqMin && fileSizeKB <= reqMax;
 
   return (
-    <div className="mt-6 p-6 md:p-8 bg-white/90 dark:bg-gray-900/80 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)] border border-gray-200/50 dark:border-gray-800/50 animate-fade-in relative overflow-hidden group/result transition-all duration-500 hover:shadow-[0_16px_60px_-15px_rgba(79,70,229,0.15)] dark:hover:shadow-[0_16px_60px_-15px_rgba(6,182,212,0.15)] hover:border-brand/20 dark:hover:border-cyan-500/20">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-brand/10 to-transparent dark:from-cyan-500/10 blur-[80px] rounded-full pointer-events-none transition-opacity duration-700 opacity-40 group-hover/result:opacity-80 translate-x-1/3 -translate-y-1/3"></div>
-      <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-gradient-to-tr from-accent/10 to-transparent dark:from-blue-500/10 blur-[60px] rounded-full pointer-events-none transition-opacity duration-700 opacity-30 group-hover/result:opacity-60 -translate-x-1/3 translate-y-1/3"></div>
+    <div className="mt-6 p-6 bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 animate-fade-in relative overflow-hidden">
       
       {/* Full Screen Preview Modal */}
       {isPreviewOpen && (
         <div 
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out animate-fade-in"
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 cursor-zoom-out animate-fade-in"
           onClick={() => setIsPreviewOpen(false)}
         >
           <div className="relative max-w-full max-h-full">
@@ -50,13 +48,13 @@ const ResultCard: React.FC<ResultCardProps> = ({
               onClick={(e) => e.stopPropagation()} 
             />
             <button 
-              className="absolute top-4 right-4 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 backdrop-blur-md transition-colors"
+              className="absolute top-4 right-4 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"
               onClick={() => setIsPreviewOpen(false)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
             <div className="absolute bottom-4 left-0 right-0 flex justify-center pointer-events-none">
-               <span className="bg-black/60 text-white px-4 py-2 rounded-xl backdrop-blur-md text-sm font-medium">
+               <span className="bg-black/60 text-white px-4 py-2 rounded-xl text-sm font-medium">
                  {width}x{height}px • {formatFileSize(fileSizeKB)}
                </span>
             </div>
@@ -64,29 +62,29 @@ const ResultCard: React.FC<ResultCardProps> = ({
         </div>
       )}
 
-      <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-8 relative z-10">
-        <div className="space-y-2">
-          <h4 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">{type} Result</h4>
-          <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-bold text-gray-500 dark:text-gray-400">
-            <span className="px-2 py-1 sm:px-3 sm:py-1.5 bg-gray-50 dark:bg-gray-800 rounded-xl font-mono border border-gray-100 dark:border-gray-700 shadow-sm">{width}x{height}px</span>
-            <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full"></span>
-            <span className="px-2 py-1 sm:px-3 sm:py-1.5 bg-gray-50 dark:bg-gray-800 rounded-xl font-mono border border-gray-100 dark:border-gray-700 shadow-sm">{formatFileSize(fileSizeKB)}</span>
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6 relative z-10">
+        <div className="space-y-1">
+          <h4 className="text-lg font-bold text-gray-900 dark:text-white">{type} Result</h4>
+          <div className="flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+            <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 rounded-lg font-mono border border-gray-200 dark:border-gray-700">{width}x{height}px</span>
+            <span className="w-1 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></span>
+            <span className="px-2 py-1 bg-gray-50 dark:bg-gray-800 rounded-lg font-mono border border-gray-200 dark:border-gray-700">{formatFileSize(fileSizeKB)}</span>
           </div>
         </div>
         <div>
             {isSizeValid ? (
-                <div className="flex flex-col items-start sm:items-end gap-1 sm:gap-2">
-                  <span className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-black bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 border border-green-200/50 dark:border-green-800/50 uppercase tracking-widest shadow-sm">
-                      <FileCheck size={14} className="mr-1.5 sm:mr-2" /> Perfect
+                <div className="flex flex-col items-start sm:items-end gap-1">
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800">
+                      <FileCheck size={14} className="mr-1.5" /> Perfect
                   </span>
-                  <span className="text-[9px] sm:text-[10px] font-black text-green-500 dark:text-green-600 uppercase tracking-widest">Ready to Upload</span>
+                  <span className="text-[10px] font-semibold text-green-600 dark:text-green-500 uppercase tracking-wider">Ready to Upload</span>
                 </div>
             ) : (
-                <div className="flex flex-col items-start sm:items-end gap-1 sm:gap-2">
-                  <span className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-black bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400 border border-amber-200/50 dark:border-amber-800/50 uppercase tracking-widest shadow-sm">
-                      <AlertTriangle size={14} className="mr-1.5 sm:mr-2" /> Check Size
+                <div className="flex flex-col items-start sm:items-end gap-1">
+                  <span className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+                      <AlertTriangle size={14} className="mr-1.5" /> Check Size
                   </span>
-                  <span className="text-[9px] sm:text-[10px] font-black text-amber-500 dark:text-amber-600 uppercase tracking-widest">Needs Adjustment</span>
+                  <span className="text-[10px] font-semibold text-amber-600 dark:text-amber-500 uppercase tracking-wider">Needs Adjustment</span>
                 </div>
             )}
         </div>
@@ -94,10 +92,10 @@ const ResultCard: React.FC<ResultCardProps> = ({
 
       {/* Live Preview Image */}
       <div 
-        className="mb-8 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950/50 flex items-center justify-center p-6 md:p-8 relative group backdrop-blur-sm shadow-inner cursor-zoom-in"
+        className="mb-6 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex items-center justify-center p-4 relative group cursor-zoom-in"
         onClick={() => setIsPreviewOpen(true)}
       >
-        <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md text-gray-900 dark:text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl z-20 shadow-sm border border-gray-100 dark:border-gray-700">Live Preview</div>
+        <div className="absolute top-2 left-2 bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white text-[10px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-lg z-20 border border-gray-200 dark:border-gray-700">Live Preview</div>
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors z-10 hidden sm:block"></div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none">
            <span className="bg-black/70 text-white px-4 py-2 rounded-xl backdrop-blur-md text-sm font-bold flex items-center gap-2">
@@ -108,26 +106,25 @@ const ResultCard: React.FC<ResultCardProps> = ({
         <img 
           src={processedUrl} 
           alt="Processed Preview" 
-          className="max-h-64 object-contain rounded-2xl shadow-lg group-hover:scale-[1.03] transition-transform duration-500 relative z-0"
+          className="max-h-64 object-contain rounded-lg transition-transform duration-300 relative z-0"
         />
       </div>
       
       {!isSizeValid && (
-        <div className="mb-8 p-5 bg-amber-50/80 dark:bg-amber-900/20 rounded-2xl border border-amber-100 dark:border-amber-800/50 text-sm font-bold text-amber-700 dark:text-amber-400 leading-relaxed shadow-sm">
-          <span className="block mb-2 opacity-70 uppercase tracking-widest text-[10px] font-black">Requirement: {reqMin}-{reqMax} KB</span>
+        <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800 text-sm font-medium text-amber-700 dark:text-amber-400">
+          <span className="block mb-1 text-xs font-semibold">Requirement: {reqMin}-{reqMax} KB</span>
           Current: {fileSizeKB.toFixed(1)} KB.
-          <br/> <span className="font-medium opacity-90">{fileSizeKB < reqMin ? "Try uploading a higher quality original." : "Try adjusting brightness/contrast or crop."}</span>
+          <br/> <span className="text-amber-600 dark:text-amber-500">{fileSizeKB < reqMin ? "Try uploading a higher quality original." : "Try adjusting brightness/contrast or crop."}</span>
         </div>
       )}
 
       <div className="flex flex-col sm:flex-row gap-4 relative z-10">
         <button
           onClick={onDownload}
-          className="group flex-1 flex items-center justify-center gap-3 bg-gradient-to-r from-brand to-accent hover:from-brand hover:to-brand text-white font-black py-4 px-6 rounded-2xl shadow-xl shadow-brand/20 transition-all duration-300 hover:-translate-y-1 active:scale-95 overflow-hidden relative"
+          className="flex-1 flex items-center justify-center gap-2 bg-brand hover:bg-brand/90 text-white font-bold py-3 px-6 rounded-lg transition-colors active:scale-95"
         >
-          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-          <Download size={20} className="group-hover:translate-y-0.5 transition-transform relative z-10" /> 
-          <span className="relative z-10">Download {fileName}</span>
+          <Download size={18} /> 
+          <span>Download {fileName}</span>
         </button>
         
         {navigator.share && (
@@ -154,10 +151,10 @@ const ResultCard: React.FC<ResultCardProps> = ({
                 console.error('Share failed:', err);
               }
             }}
-            className="group flex items-center justify-center bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-black py-4 px-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 active:scale-95"
+            className="flex items-center justify-center bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold py-3 px-6 rounded-lg border border-gray-200 dark:border-gray-700 transition-colors active:scale-95"
             title="Share Image"
           >
-            <Share2 size={20} className="group-hover:-rotate-12 transition-transform" />
+            <Share2 size={18} />
           </button>
         )}
       </div>

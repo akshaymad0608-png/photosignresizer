@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { 
   Camera, Settings, Upload, Copy, Zap, FileDown, Trash2, FileText
 } from 'lucide-react';
@@ -21,12 +22,18 @@ const ToolCategorySection = React.lazy(() => import('../components/sections/Tool
 const FAQSection = React.lazy(() => import('../components/sections/FAQSection'));
 const HowItWorksSection = React.lazy(() => import('../components/sections/HowItWorksSection'));
 const SupportedExamsSection = React.lazy(() => import('../components/sections/SupportedExamsSection'));
+const BlogSection = React.lazy(() => import('../components/sections/BlogSection'));
+const MajorExamsLinksSection = React.lazy(() => import('../components/sections/MajorExamsLinksSection'));
+const LatestVacanciesSection = React.lazy(() => import('../components/sections/LatestVacanciesSection'));
 
 // --- Main App ---
 
 export default function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   // State
-  const [lang, setLang] = useState<Language>('en');
+  const [lang] = useState<Language>('en');
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') === 'dark' || 
@@ -34,7 +41,23 @@ export default function App() {
     }
     return false;
   });
-  const [activeTab, setActiveTab] = useState<'home' | 'faq' | 'blog' | 'tools'>('home');
+  
+  // Sync activeTab with pathname
+  const pathname = location.pathname;
+  const activeTab = pathname === '/faq' ? 'faq' :
+                    pathname === '/blog' ? 'blog' :
+                    pathname === '/free-image-tools' ? 'tools' : 
+                    pathname === '/jobs' ? 'jobs' :
+                    pathname === '/links' ? 'links' : 'home';
+  
+  const handleTabChange = (tab: 'home' | 'faq' | 'blog' | 'tools' | 'jobs' | 'links') => {
+    if (tab === 'faq') navigate('/faq');
+    else if (tab === 'blog') navigate('/blog');
+    else if (tab === 'tools') navigate('/free-image-tools');
+    else if (tab === 'jobs') navigate('/jobs');
+    else if (tab === 'links') navigate('/links');
+    else navigate('/');
+  };
 
   // Exam State
   const [selectedExam, setSelectedExam] = useState<ExamRequirement>(EXAM_PRESETS[0]); 
@@ -83,7 +106,7 @@ export default function App() {
     } else if (activeTab === 'faq') {
       title = `FAQ - ${title}`;
     } else if (activeTab === 'tools') {
-      title = `All File Converters & Tools - ${title}`;
+      title = `Free Image Tools & Converters - ${title}`;
     }
     document.title = title;
   }, [activeTab, selectedExam]);
@@ -292,10 +315,9 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
       
       <Navbar 
         lang={lang} 
-        setLang={setLang} 
         isScrolled={isScrolled} 
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={handleTabChange}
         darkMode={darkMode}
         setDarkMode={setDarkMode}
       />
@@ -310,9 +332,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12 sm:mb-24 mt-4 sm:mt-8">
               {/* Left Column: Controls */}
               <div className="lg:col-span-4 space-y-6 sm:space-y-8">
-                <div className="bg-white dark:bg-gray-900/50 p-5 sm:p-6 md:p-8 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-800 lg:sticky lg:top-28 relative overflow-hidden group/controls">
-                  <div className="absolute -top-20 -left-20 w-64 h-64 bg-brand/5 dark:bg-cyan-500/5 blur-[60px] rounded-full pointer-events-none transition-opacity duration-500 opacity-50 group-hover/controls:opacity-100"></div>
-                  <div className="relative z-10">
+                <div className="bg-white dark:bg-gray-900 p-5 sm:p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 lg:sticky lg:top-24">
                     <ExamDropdown 
                       selectedExam={selectedExam} 
                       onSelect={setSelectedExam} 
@@ -321,83 +341,75 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
 
                   {/* CUSTOM DIMENSION INPUTS */}
                   {selectedExam.id === 'custom' && (
-                      <div className="mb-8 p-6 md:p-8 bg-white/80 dark:bg-gray-900/40 backdrop-blur-xl rounded-[2.5rem] border border-gray-100/50 dark:border-gray-800/50 animate-fade-in shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)] relative overflow-hidden">
-                          <div className="absolute top-0 right-0 w-32 h-32 bg-brand/5 dark:bg-cyan-500/5 blur-[40px] rounded-full pointer-events-none"></div>
-                          <h2 className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 mb-6 flex items-center gap-2 relative z-10">
+                      <div className="mb-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                          <h2 className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-6 flex items-center gap-2">
                             <Settings size={14}/> {t.customSize}
                           </h2>
                           
-                          <div className="space-y-6 relative z-10">
+                          <div className="space-y-6">
                               {/* Photo Inputs */}
-                              <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-md p-5 rounded-[2rem] border border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-md transition-shadow duration-300">
-                                  <label className="text-[10px] font-black uppercase tracking-widest text-brand dark:text-cyan-400 mb-4 block flex items-center gap-2"><Camera size={12}/> Photo (px & KB)</label>
-                                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                                      <input type="number" placeholder="W" value={selectedExam.photo.width} onChange={(e) => updateCustomExam('width', e.target.value, 'photo')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="H" value={selectedExam.photo.height} onChange={(e) => updateCustomExam('height', e.target.value, 'photo')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="Min KB" value={selectedExam.photo.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'photo')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="Max KB" value={selectedExam.photo.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'photo')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-brand/10 dark:focus:ring-cyan-500/10 focus:border-brand dark:focus:border-cyan-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                              <div className="bg-white dark:bg-gray-900 p-5 rounded-xl border border-gray-200 dark:border-gray-700">
+                                  <label className="text-[10px] font-bold uppercase tracking-wider text-brand dark:text-cyan-400 mb-4 flex items-center gap-2"><Camera size={12}/> Photo (px & KB)</label>
+                                  <div className="grid grid-cols-2 gap-3">
+                                      <input type="number" placeholder="W" value={selectedExam.photo.width} onChange={(e) => updateCustomExam('width', e.target.value, 'photo')} className="p-3 text-sm font-semibold border rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-brand focus:border-brand outline-none transition-colors placeholder:text-gray-400" />
+                                      <input type="number" placeholder="H" value={selectedExam.photo.height} onChange={(e) => updateCustomExam('height', e.target.value, 'photo')} className="p-3 text-sm font-semibold border rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-brand focus:border-brand outline-none transition-colors placeholder:text-gray-400" />
+                                      <input type="number" placeholder="Min KB" value={selectedExam.photo.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'photo')} className="p-3 text-sm font-semibold border rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-brand focus:border-brand outline-none transition-colors placeholder:text-gray-400" />
+                                      <input type="number" placeholder="Max KB" value={selectedExam.photo.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'photo')} className="p-3 text-sm font-semibold border rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-brand focus:border-brand outline-none transition-colors placeholder:text-gray-400" />
                                   </div>
                               </div>
 
                               {/* Sign Inputs */}
-                              <div className="bg-white/80 dark:bg-gray-800/50 backdrop-blur-md p-4 sm:p-5 rounded-[1.5rem] sm:rounded-[2rem] border border-gray-100 dark:border-gray-700/50 shadow-sm hover:shadow-md transition-shadow duration-300">
-                                  <label className="text-[10px] font-black uppercase tracking-widest text-orange-500 dark:text-orange-400 mb-4 block flex items-center gap-2"><FileText size={12}/> Signature (px & KB)</label>
-                                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                                      <input type="number" placeholder="W" value={selectedExam.signature.width} onChange={(e) => updateCustomExam('width', e.target.value, 'signature')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="H" value={selectedExam.signature.height} onChange={(e) => updateCustomExam('height', e.target.value, 'signature')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="Min KB" value={selectedExam.signature.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'signature')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
-                                      <input type="number" placeholder="Max KB" value={selectedExam.signature.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'signature')} className="p-3 sm:p-4 text-sm font-bold border-2 rounded-xl sm:rounded-2xl bg-gray-50/80 dark:bg-gray-900/80 dark:text-white border-gray-200/80 dark:border-gray-800 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 shadow-inner" />
+                              <div className="bg-white dark:bg-gray-900 p-5 rounded-xl border border-gray-200 dark:border-gray-700">
+                                  <label className="text-[10px] font-bold uppercase tracking-wider text-orange-500 mb-4 flex items-center gap-2"><FileText size={12}/> Signature (px & KB)</label>
+                                  <div className="grid grid-cols-2 gap-3">
+                                      <input type="number" placeholder="W" value={selectedExam.signature.width} onChange={(e) => updateCustomExam('width', e.target.value, 'signature')} className="p-3 text-sm font-semibold border rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors placeholder:text-gray-400" />
+                                      <input type="number" placeholder="H" value={selectedExam.signature.height} onChange={(e) => updateCustomExam('height', e.target.value, 'signature')} className="p-3 text-sm font-semibold border rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors placeholder:text-gray-400" />
+                                      <input type="number" placeholder="Min KB" value={selectedExam.signature.minKB} onChange={(e) => updateCustomExam('minKB', e.target.value, 'signature')} className="p-3 text-sm font-semibold border rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors placeholder:text-gray-400" />
+                                      <input type="number" placeholder="Max KB" value={selectedExam.signature.maxKB} onChange={(e) => updateCustomExam('maxKB', e.target.value, 'signature')} className="p-3 text-sm font-semibold border rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-white border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors placeholder:text-gray-400" />
                                   </div>
                               </div>
                           </div>
                       </div>
                   )}
 
-                  <div className="mt-8 space-y-6 relative">
+                  <div className="mt-8 space-y-4 relative">
                     <button 
                       onClick={copyRequirements}
-                      className="absolute -top-12 right-0 text-[10px] font-black uppercase tracking-widest flex items-center gap-2 text-gray-500 hover:text-brand dark:text-gray-400 dark:hover:text-cyan-400 transition-all bg-white/80 dark:bg-gray-800/80 backdrop-blur-md hover:bg-white dark:hover:bg-gray-800 px-4 py-2 rounded-xl border border-gray-200/50 dark:border-gray-700/50 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95 z-20 group"
+                      className="text-xs font-semibold flex items-center justify-center gap-2 text-gray-600 hover:text-brand dark:text-gray-400 dark:hover:text-brand bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg transition-colors w-full"
                       title="Copy Requirements"
                     >
-                      <Copy size={14} className="group-hover:scale-110 transition-transform" /> Copy Specs
+                      <Copy size={14} /> Copy Specs
                     </button>
                     
-                    <div className="p-6 bg-white/60 dark:bg-gray-900/40 backdrop-blur-xl rounded-[2rem] border border-gray-200/50 dark:border-gray-800/50 transition-all duration-500 hover:shadow-[0_8px_30px_-10px_rgba(79,70,229,0.15)] dark:hover:shadow-[0_8px_30px_-10px_rgba(6,182,212,0.15)] hover:border-brand/20 dark:hover:border-cyan-500/20 group relative overflow-hidden hover:-translate-y-1">
-                      <div className="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-transparent dark:from-cyan-500/5 opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-brand/10 dark:bg-cyan-500/10 blur-[40px] rounded-full pointer-events-none transition-transform duration-700 group-hover:scale-150"></div>
-                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/5 dark:bg-blue-500/5 blur-[30px] rounded-full pointer-events-none"></div>
-                      <h2 className="text-[11px] font-black text-brand dark:text-cyan-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
-                        <div className="p-2.5 bg-brand/10 dark:bg-cyan-500/10 rounded-xl shadow-inner"><Camera size={14}/></div> {t.photoParams}
+                    <div className="p-5 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700">
+                      <h2 className="text-xs font-bold text-brand dark:text-cyan-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <Camera size={14}/> {t.photoParams}
                       </h2>
-                      <div className="grid grid-cols-2 gap-y-4 gap-x-4 text-sm relative z-10">
-                        <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.width}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.photo.width}px</div>
-                        <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.height}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.photo.height}px</div>
-                        <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.minSize}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.photo.minKB}KB</div>
-                        <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.maxSize}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.photo.maxKB}KB</div>
-                        <div className="col-span-2 border-t border-gray-100 dark:border-gray-800/50 mt-4 pt-5 text-[10px] text-gray-500 dark:text-gray-400 font-bold flex justify-between items-center uppercase tracking-widest">
-                            <span>Resize Mode</span> <span className="text-brand dark:text-cyan-400 bg-brand/5 dark:bg-cyan-500/10 px-3 py-1.5 rounded-xl shadow-sm border border-brand/10 dark:border-cyan-500/20">{selectedExam.photo.resizeMode}</span>
+                      <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-sm">
+                        <div className="text-gray-500 dark:text-gray-400 font-medium text-xs tracking-wider flex items-center">{t.width}</div> <div className="font-mono text-right text-gray-900 dark:text-white">{selectedExam.photo.width}px</div>
+                        <div className="text-gray-500 dark:text-gray-400 font-medium text-xs tracking-wider flex items-center">{t.height}</div> <div className="font-mono text-right text-gray-900 dark:text-white">{selectedExam.photo.height}px</div>
+                        <div className="text-gray-500 dark:text-gray-400 font-medium text-xs tracking-wider flex items-center">{t.minSize}</div> <div className="font-mono text-right text-gray-900 dark:text-white">{selectedExam.photo.minKB}KB</div>
+                        <div className="text-gray-500 dark:text-gray-400 font-medium text-xs tracking-wider flex items-center">{t.maxSize}</div> <div className="font-mono text-right text-gray-900 dark:text-white">{selectedExam.photo.maxKB}KB</div>
+                        <div className="col-span-2 border-t border-gray-200 dark:border-gray-700 mt-2 pt-3 text-xs text-gray-500 dark:text-gray-400 font-medium flex justify-between items-center tracking-wider">
+                            <span>Resize Mode</span> <span className="text-brand dark:text-cyan-400 font-semibold">{selectedExam.photo.resizeMode}</span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-6 bg-white/60 dark:bg-gray-900/40 backdrop-blur-xl rounded-[2rem] border border-gray-200/50 dark:border-gray-800/50 transition-all duration-500 hover:shadow-[0_8px_30px_-10px_rgba(249,115,22,0.15)] dark:hover:shadow-[0_8px_30px_-10px_rgba(249,115,22,0.15)] hover:border-orange-500/20 group relative overflow-hidden hover:-translate-y-1">
-                      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 blur-[40px] rounded-full pointer-events-none transition-transform duration-700 group-hover:scale-150"></div>
-                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-amber-500/5 blur-[30px] rounded-full pointer-events-none"></div>
-                      <h2 className="text-[11px] font-black text-orange-600 dark:text-orange-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3 relative z-10">
-                        <div className="p-2.5 bg-orange-500/10 rounded-xl shadow-inner"><FileText size={14}/></div> {t.signParams}
+                    <div className="p-5 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700">
+                      <h2 className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <FileText size={14}/> {t.signParams}
                       </h2>
-                      <div className="grid grid-cols-2 gap-y-4 gap-x-4 text-sm relative z-10">
-                        <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.width}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.signature.width}px</div>
-                        <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.height}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.signature.height}px</div>
-                        <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.minSize}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.signature.minKB}KB</div>
-                        <div className="text-gray-500 dark:text-gray-400 font-bold uppercase text-[10px] tracking-widest flex items-center">{t.maxSize}</div> <div className="font-mono font-black text-right text-gray-900 dark:text-white bg-white/80 dark:bg-gray-900/80 px-3 py-1.5 rounded-xl border border-gray-100/50 dark:border-gray-800/50 shadow-sm">{selectedExam.signature.maxKB}KB</div>
-                        <div className="col-span-2 border-t border-gray-100 dark:border-gray-800/50 mt-4 pt-5 text-[10px] text-gray-500 dark:text-gray-400 font-bold flex justify-between items-center uppercase tracking-widest">
-                            <span>Resize Mode</span> <span className="text-orange-600 dark:text-orange-400 bg-orange-500/5 px-3 py-1.5 rounded-xl shadow-sm border border-orange-500/10">{selectedExam.signature.resizeMode}</span>
+                      <div className="grid grid-cols-2 gap-y-3 gap-x-4 text-sm">
+                        <div className="text-gray-500 dark:text-gray-400 font-medium text-xs tracking-wider flex items-center">{t.width}</div> <div className="font-mono text-right text-gray-900 dark:text-white">{selectedExam.signature.width}px</div>
+                        <div className="text-gray-500 dark:text-gray-400 font-medium text-xs tracking-wider flex items-center">{t.height}</div> <div className="font-mono text-right text-gray-900 dark:text-white">{selectedExam.signature.height}px</div>
+                        <div className="text-gray-500 dark:text-gray-400 font-medium text-xs tracking-wider flex items-center">{t.minSize}</div> <div className="font-mono text-right text-gray-900 dark:text-white">{selectedExam.signature.minKB}KB</div>
+                        <div className="text-gray-500 dark:text-gray-400 font-medium text-xs tracking-wider flex items-center">{t.maxSize}</div> <div className="font-mono text-right text-gray-900 dark:text-white">{selectedExam.signature.maxKB}KB</div>
+                        <div className="col-span-2 border-t border-gray-200 dark:border-gray-700 mt-2 pt-3 text-xs text-gray-500 dark:text-gray-400 font-medium flex justify-between items-center tracking-wider">
+                            <span>Resize Mode</span> <span className="text-orange-600 dark:text-orange-400 font-semibold">{selectedExam.signature.resizeMode}</span>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </div>
                 </div>
               </div>
@@ -421,11 +433,8 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                 </div>
                 
                 {/* Photo Section */}
-                <div className="bg-white/60 dark:bg-gray-900/40 backdrop-blur-3xl p-6 md:p-10 rounded-[2.5rem] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.3)] border border-gray-200/50 dark:border-gray-800/50 overflow-hidden relative group/section transition-all duration-500 hover:shadow-[0_16px_60px_-15px_rgba(79,70,229,0.15)] dark:hover:shadow-[0_16px_60px_-15px_rgba(6,182,212,0.15)] hover:border-brand/20 dark:hover:border-cyan-500/20">
-                   <div className="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-transparent dark:from-cyan-500/5 opacity-50 group-hover/section:opacity-100 transition-opacity duration-500"></div>
-                   <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-brand/10 to-transparent dark:from-cyan-500/10 blur-[80px] rounded-full pointer-events-none transition-opacity duration-700 opacity-40 group-hover/section:opacity-80 translate-x-1/3 -translate-y-1/3"></div>
-                   <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-accent/10 to-transparent dark:from-blue-500/10 blur-[60px] rounded-full pointer-events-none transition-opacity duration-700 opacity-30 group-hover/section:opacity-60 -translate-x-1/3 translate-y-1/3"></div>
-                   <div className="grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
+                <div className="bg-white dark:bg-gray-900 p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800">
+                   <div className="grid md:grid-cols-2 gap-8 md:gap-12">
                       <div className="space-y-6">
                         <ImageUploader 
                             title={t.uploadPhoto}
@@ -444,30 +453,28 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                         />
 
                         {/* NAME & DATE OVERLAY TOGGLE */}
-                        <div className="bg-white/60 dark:bg-gray-900/40 backdrop-blur-xl p-6 md:p-8 rounded-[2.5rem] border border-gray-200/50 dark:border-gray-800/50 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.3)] relative overflow-hidden mt-6 group/date transition-all duration-500 hover:shadow-[0_8px_30px_-10px_rgba(79,70,229,0.15)] dark:hover:shadow-[0_8px_30px_-10px_rgba(6,182,212,0.15)] hover:border-brand/20 dark:hover:border-cyan-500/20">
-                           <div className="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-transparent dark:from-cyan-500/5 opacity-50 group-hover/date:opacity-100 transition-opacity duration-500"></div>
-                           <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-brand/10 dark:bg-cyan-500/10 blur-[40px] rounded-full pointer-events-none transition-opacity duration-500 opacity-50 group-hover/date:opacity-100"></div>
-                           <div className="flex items-center gap-4 mb-2 relative z-10">
-                             <label className="flex items-center gap-4 cursor-pointer select-none group">
+                        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 mt-6">
+                           <div className="flex items-center gap-4 mb-2">
+                             <label className="flex items-center gap-4 cursor-pointer select-none">
                                <div className="relative flex items-center">
                                  <input 
                                    type="checkbox" 
                                    checked={addDate} 
                                    onChange={(e) => setAddDate(e.target.checked)}
-                                   className="peer w-7 h-7 appearance-none border-2 border-gray-300 dark:border-gray-600 rounded-xl checked:bg-brand dark:checked:bg-cyan-500 checked:border-brand dark:checked:border-cyan-500 transition-all cursor-pointer shadow-sm group-hover:border-brand/50 dark:group-hover:border-cyan-500/50 bg-white/50 dark:bg-gray-800/50"
+                                   className="peer w-6 h-6 appearance-none border border-gray-300 dark:border-gray-600 rounded-md checked:bg-brand dark:checked:bg-cyan-500 checked:border-brand dark:checked:border-cyan-500 transition-colors cursor-pointer bg-white dark:bg-gray-700"
                                  />
-                                 <svg className="absolute w-4 h-4 text-white left-1.5 top-1.5 pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity drop-shadow-sm" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <svg className="absolute w-4 h-4 text-white left-1 top-1 pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                    <path d="M1 5L4.5 8.5L13 1" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                                  </svg>
                                </div>
-                               <span className="text-sm font-black text-gray-700 dark:text-gray-300 uppercase tracking-widest group-hover:text-brand dark:group-hover:text-cyan-400 transition-colors">{t.addDate}</span>
+                               <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{t.addDate}</span>
                              </label>
                            </div>
                            
                            {addDate && (
-                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 animate-fade-in relative z-10">
-                                  <div className="space-y-3">
-                                     <label className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 block">{t.name}</label>
+                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                                  <div className="space-y-2">
+                                     <label className="text-xs font-semibold text-gray-600 dark:text-gray-400 block">{t.name}</label>
                                       <input 
                                         type="text" 
                                         value={photoName}
@@ -517,11 +524,8 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                 </div>
 
                 {/* Signature Section */}
-                <div className="bg-white/60 dark:bg-gray-900/40 backdrop-blur-3xl p-6 md:p-10 rounded-[2.5rem] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.3)] border border-gray-200/50 dark:border-gray-800/50 overflow-hidden relative group/section transition-all duration-500 hover:shadow-[0_16px_60px_-15px_rgba(249,115,22,0.15)] dark:hover:shadow-[0_16px_60px_-15px_rgba(249,115,22,0.15)] hover:border-orange-500/20">
-                   <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-transparent opacity-50 group-hover/section:opacity-100 transition-opacity duration-500"></div>
-                   <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-orange-500/10 to-transparent blur-[80px] rounded-full pointer-events-none transition-opacity duration-700 opacity-40 group-hover/section:opacity-80 translate-x-1/3 -translate-y-1/3"></div>
-                   <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-amber-500/10 to-transparent blur-[60px] rounded-full pointer-events-none transition-opacity duration-700 opacity-30 group-hover/section:opacity-60 -translate-x-1/3 translate-y-1/3"></div>
-                   <div className="grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
+                <div className="bg-white dark:bg-gray-900 p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800">
+                   <div className="grid md:grid-cols-2 gap-8 md:gap-12">
                       <div className="space-y-6">
                           <ImageUploader 
                             title={t.uploadSign}
@@ -553,12 +557,12 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                               type={t.signParams.split(' ')[0]}
                             />
                          ) : (
-                           <div className="h-full flex flex-col items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-100 dark:border-gray-700 rounded-[2rem] bg-gray-50/50 dark:bg-gray-900/50 p-6 md:p-8 text-center group transition-colors hover:border-orange-500/20">
-                             <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
-                               <FileText size={32} className="opacity-20 group-hover:opacity-40 transition-opacity" />
+                           <div className="h-full flex flex-col items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 p-6 md:p-8 text-center transition-colors">
+                             <div className="w-16 h-16 bg-white dark:bg-gray-900 rounded-xl flex items-center justify-center mb-4 shadow-sm">
+                               <FileText size={32} className="opacity-40" />
                              </div>
-                             <span className="font-black uppercase tracking-widest text-[10px] mb-1">{t.result} {t.preview}</span>
-                             <span className="text-xs text-gray-500 mt-1 max-w-[200px] font-medium leading-relaxed">Preview will appear here after processing</span>
+                             <span className="font-bold uppercase tracking-wider text-[10px] mb-1">{t.result} {t.preview}</span>
+                             <span className="text-xs text-gray-500 mt-1 max-w-[200px]">Preview will appear here after processing</span>
                            </div>
                          )}
                       </div>
@@ -571,24 +575,18 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                     onClick={processImages}
                     disabled={(!photoOriginal && !signOriginal) || isProcessing}
                     className={`
-                      relative overflow-hidden w-full sm:w-2/3 px-8 py-4 sm:px-12 sm:py-6 rounded-[2rem] sm:rounded-[2.5rem] font-black text-xl sm:text-2xl shadow-2xl transition-all duration-500 group
+                      w-full sm:w-2/3 px-8 py-4 sm:px-12 sm:py-4 rounded-xl font-bold text-lg shadow-sm transition-colors
                       ${(!photoOriginal && !signOriginal) || isProcessing
-                        ? 'bg-gray-100/50 text-gray-400 cursor-not-allowed dark:bg-gray-800/50 border-2 border-gray-200 dark:border-gray-700'
-                        : 'bg-gradient-to-r from-brand via-accent to-brand bg-[length:200%_auto] animate-gradient text-white hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.5)] dark:hover:shadow-[0_20px_40px_-15px_rgba(6,182,212,0.5)] hover:-translate-y-1.5 active:scale-[0.98]'
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed dark:bg-gray-800'
+                        : 'bg-brand text-white hover:bg-brand/90 active:scale-[0.98]'
                       }
                     `}
                   >
-                    {!((!photoOriginal && !signOriginal) || isProcessing) && (
-                      <>
-                        <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div className="absolute -inset-1 bg-gradient-to-r from-brand via-accent to-brand blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-500 -z-10"></div>
-                      </>
-                    )}
-                    <span className="relative z-10 flex items-center justify-center gap-3 sm:gap-4">
+                    <span className="flex items-center justify-center gap-2">
                       {isProcessing ? (
-                         <><div className="animate-spin h-5 w-5 sm:h-6 sm:w-6 border-4 border-white border-t-transparent rounded-full"/> {t.processing}</>
+                         <><div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"/> {t.processing}</>
                       ) : (
-                         <><Zap size={24} className={`sm:w-7 sm:h-7 ${(!photoOriginal && !signOriginal) ? "" : "fill-current animate-pulse-slow"}`}/> {t.compress}</>
+                         <><Zap size={20} /> {t.compress}</>
                       )}
                     </span>
                   </button>
@@ -596,27 +594,26 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                   {(photoProcessed || signProcessed) && (
                     <button
                       onClick={downloadAsPDF}
-                      className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-6 rounded-[2rem] sm:rounded-[2.5rem] font-black text-lg sm:text-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl text-brand dark:text-cyan-400 border-2 border-brand/20 dark:border-cyan-500/30 hover:border-brand dark:hover:border-cyan-400 hover:bg-brand/5 dark:hover:bg-cyan-500/10 shadow-[0_8px_30px_-10px_rgba(79,70,229,0.15)] dark:shadow-[0_8px_30px_-10px_rgba(6,182,212,0.15)] transition-all duration-500 hover:-translate-y-1 active:scale-[0.98] group relative overflow-hidden"
+                      className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 sm:px-8 rounded-xl font-bold text-lg bg-white dark:bg-gray-800 text-brand dark:text-cyan-400 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm transition-colors active:scale-[0.98]"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-transparent dark:from-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <FileDown size={20} className="sm:w-6 sm:h-6 group-hover:-translate-y-1 transition-transform duration-300 relative z-10" />
-                      <span className="relative z-10">{t.downloadPDF}</span>
+                      <FileDown size={20} />
+                      <span>{t.downloadPDF}</span>
                     </button>
                   )}
                 </div>
               </div>
             </div>
 
-            {/* SEO Content Section for Home Page */}
-            <React.Suspense fallback={<div className="h-64 flex items-center justify-center animate-pulse bg-gray-50 dark:bg-gray-800/50 rounded-3xl my-10"></div>}>
-              <HowItWorksSection />
-              <SupportedExamsSection />
-            </React.Suspense>
+            {/* Remove SEO Content Sections from bottom of Home Page since they'll have their own tabs */}
           </div>
         )}
 
         <React.Suspense fallback={<div className="h-96 flex items-center justify-center animate-pulse bg-gray-50 dark:bg-gray-800/50 rounded-3xl m-8"></div>}>
+          {activeTab === 'jobs' && <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-12"><LatestVacanciesSection /></div>}
+          {activeTab === 'links' && <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-12"><MajorExamsLinksSection /></div>}
+          {activeTab === 'home' && <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-12"><HowItWorksSection /><SupportedExamsSection /></div>}
           {activeTab === 'faq' && <FAQSection lang={lang} />}
+          {activeTab === 'blog' && <BlogSection lang={lang} />}
           {activeTab === 'tools' && <ToolCategorySection />}
         </React.Suspense>
 
@@ -627,8 +624,8 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
       </React.Suspense>
       
       {/* Mobile Sticky Action Bar */}
-      <div className={`sm:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-800/50 z-40 transition-transform duration-300 ${
-        (photoOriginal || signOriginal) ? 'translate-y-0' : 'translate-y-full'
+      <div className={`sm:hidden fixed bottom-0 left-0 right-0 p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 z-40 transition-transform duration-300 shadow-lg ${
+        ((photoOriginal || signOriginal) && activeTab === 'home') ? 'translate-y-0' : 'translate-y-full'
       }`}>
         <div className="flex gap-2">
           <button 
@@ -636,7 +633,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
               setPhotoOriginal(null); setPhotoProcessed(null);
               setSignOriginal(null); setSignProcessed(null);
             }}
-            className="w-12 appearance-none rounded-2xl flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-500 active:scale-95 transition-all outline-none"
+            className="w-12 h-12 rounded-lg flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-red-500 active:scale-95 transition-colors"
             aria-label="Clear All"
           >
             <Trash2 className="w-5 h-5 flex-shrink-0" />
@@ -646,24 +643,24 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
             onClick={processImages}
             disabled={(!photoOriginal && !signOriginal) || isProcessing}
             className={`
-              flex-1 py-3.5 rounded-2xl font-black text-sm shadow-lg transition-all flex items-center justify-center gap-1.5
+              flex-1 py-3 px-2 rounded-lg font-bold text-sm shadow-sm transition-colors flex items-center justify-center gap-1.5
               ${(!photoOriginal && !signOriginal) || isProcessing
                 ? 'bg-gray-100 text-gray-400 dark:bg-gray-800'
-                : 'bg-gradient-to-r from-brand to-accent text-white active:scale-95'
+                : 'bg-brand text-white active:bg-brand/90'
               }
             `}
           >
             {isProcessing ? (
               <><div className="animate-spin h-4 w-4 flex-shrink-0 border-2 border-white border-t-transparent rounded-full"/> {t.processing}</>
             ) : (
-              <><Zap size={18} className={`flex-shrink-0 ${(!photoOriginal && !signOriginal) ? "" : "fill-current animate-pulse-slow"}`}/> {t.compress}</>
+              <><Zap size={18} className="flex-shrink-0" /> {t.compress}</>
             )}
           </button>
           
           {(photoProcessed || signProcessed) && (
             <button
               onClick={downloadAsPDF}
-              className="flex-1 py-3.5 rounded-2xl font-black text-sm bg-white dark:bg-gray-800 text-brand dark:text-cyan-400 border-2 border-brand/20 dark:border-cyan-500/30 active:scale-95 transition-all flex items-center justify-center gap-1.5"
+              className="flex-1 py-3 px-2 rounded-lg font-bold text-sm bg-white dark:bg-gray-800 text-brand dark:text-cyan-400 border border-gray-200 dark:border-gray-700 active:bg-gray-50 transition-colors flex items-center justify-center gap-1.5"
             >
               <FileDown size={18} className="flex-shrink-0" />
               {t.downloadPDF}

@@ -18,7 +18,7 @@ export default function PlatformNavbar() {
            <Link to="/admin" className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 font-bold text-xs sm:text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl transition-colors">
               <LayoutDashboard size={16} /> <span className="hidden sm:inline">Admin</span>
            </Link>
-           <Link to="/" className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 font-bold text-xs sm:text-sm bg-brand/10 hover:bg-brand/20 text-brand rounded-xl transition-colors">
+           <Link to="/all-tools" className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 font-bold text-xs sm:text-sm bg-brand/10 hover:bg-brand/20 text-brand rounded-xl transition-colors">
               <Layers size={16} /> <span className="hidden sm:inline">Tools</span>
            </Link>
         </div>

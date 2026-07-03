@@ -80,6 +80,27 @@ export const EXAM_PRESETS: ExamRequirement[] = [
     signature: { width: 350, height: 150, minKB: 3, maxKB: 30, format: 'jpg', resizeMode: 'contain' }
   },
   {
+    id: 'kvs_nvs',
+    name: 'KVS / NVS (Teaching & Non-Teaching)',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'nabard_sebi',
+    name: 'NABARD / SEBI (Grade A & B)',
+    category: 'Central',
+    photo: { width: 200, height: 230, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 140, height: 60, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'aai',
+    name: 'AAI (Airports Authority of India)',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
     id: 'fci',
     name: 'FCI (Food Corporation)',
     category: 'Central',
@@ -215,6 +236,76 @@ export const EXAM_PRESETS: ExamRequirement[] = [
     category: 'State PSC',
     photo: { width: 280, height: 360, minKB: 5, maxKB: 15, format: 'jpg', resizeMode: 'cover' },
     signature: { width: 280, height: 120, minKB: 5, maxKB: 15, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'hpsc',
+    name: 'HPSC (Haryana)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'ppsc',
+    name: 'PPSC (Punjab)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 10, maxKB: 40, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 30, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'tnpsc',
+    name: 'TNPSC (Tamil Nadu)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'kpsc',
+    name: 'KPSC (Karnataka / Kerala)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'appsc_tspsc',
+    name: 'APPSC / TSPSC',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'wbpsc',
+    name: 'WBPSC (West Bengal)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'opsc',
+    name: 'OPSC (Odisha)',
+    category: 'State PSC',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 100, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 350, height: 150, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'gpsc_ojas',
+    name: 'GPSC (Gujarat OJAS)',
+    category: 'State PSC',
+    photo: { width: 170, height: 170, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 170, height: 170, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'gsssb',
+    name: 'GSSSB (Gujarat)',
+    category: 'State PSC',
+    photo: { width: 170, height: 170, minKB: 15, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 170, height: 170, minKB: 15, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    id: 'gujarat_police_ojas',
+    name: 'Gujarat Police (LRD/PSI)',
+    category: 'State PSC',
+    photo: { width: 170, height: 170, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 170, height: 170, minKB: 10, maxKB: 50, format: 'jpg', resizeMode: 'contain' }
   }
 ];
 
@@ -242,6 +333,10 @@ export const TRANSLATIONS = {
     blog: 'Exam Guide',
     disclaimer: 'Disclaimer: We are not affiliated with any government body. Always verify official notifications.',
     home: 'Home',
+    photoResizer: 'Photo Resizer',
+    latestJobs: 'Latest Jobs',
+    examLinks: 'Exam Links',
+    freeTools: 'Free Image Tools',
     settings: 'Advanced Settings',
     grayscale: 'Convert to Black & White',
     autoCrop: 'Auto Crop to Aspect Ratio',
@@ -288,6 +383,10 @@ export const TRANSLATIONS = {
     blog: 'परीक्षा गाइड',
     disclaimer: 'अस्वीकरण: हम किसी भी सरकारी निकाय से संबद्ध नहीं हैं। हमेशा आधिकारिक अधिसूचनाओं की पुष्टि करें।',
     home: 'होम',
+    photoResizer: 'फोटो रिसाइज़र',
+    latestJobs: 'नवीनतम नौकरियाँ',
+    examLinks: 'परीक्षा लिंक',
+    freeTools: 'मुफ्त इमेज टूल्स',
     settings: 'एडवांस सेटिंग्स',
     grayscale: 'ब्लैक एंड व्हाइट में बदलें',
     autoCrop: 'ऑटो क्रॉप (अनुपात अनुसार)',

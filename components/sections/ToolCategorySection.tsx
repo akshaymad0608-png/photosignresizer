@@ -42,6 +42,18 @@ const CATEGORIES = [
     ]
   },
   {
+    title: "Govt Exam Tools",
+    icon: <FileText className="w-6 h-6" />,
+    color: "from-brand to-accent",
+    tools: [
+      { id: "age-calculator", name: "Age Calculator" },
+      { id: "percentage-calculator", name: "Percentage Calculator" },
+      { id: "typing-test", name: "Typing Speed Test" },
+      { id: "pdf-compressor-exam", name: "Exam PDF Compressor" },
+      { id: "photo-date-editor", name: "Photo Date Overlay" }
+    ]
+  },
+  {
     title: "AI Power Tools",
     icon: <Sparkles className="w-6 h-6" />,
     color: "from-emerald-400 to-teal-500",
@@ -78,10 +90,10 @@ const CATEGORIES = [
 
 export default function ToolCategorySection() {
   return (
-    <section className="py-16 md:py-24 bg-white/50 dark:bg-gray-950/50">
+    <section className="py-16 md:py-24 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12 flex flex-col items-center">
-          <h1 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight mb-4">
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight mb-4">
             Ultimate Conversion Suite
           </h1>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -91,19 +103,19 @@ export default function ToolCategorySection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {CATEGORIES.map((cat, idx) => (
-            <div key={idx} className="bg-white dark:bg-gray-900 rounded-[2rem] p-5 sm:p-8 shadow-xl shadow-gray-200/40 dark:shadow-none border border-gray-100 dark:border-gray-800 hover:-translate-y-2 transition-all duration-300 group">
-              <div className="flex items-center gap-4 mb-6 sm:mb-8">
-                <div className={`p-3 sm:p-4 rounded-2xl bg-gradient-to-br ${cat.color} text-white shadow-lg`}>
-                  {React.cloneElement(cat.icon as React.ReactElement, { className: "w-5 h-5 sm:w-6 sm:h-6" })}
+            <div key={idx} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:border-brand/50 dark:hover:border-cyan-500/50 transition-colors group">
+              <div className="flex items-center gap-4 mb-6">
+                <div className={`p-3 rounded-lg bg-gradient-to-br ${cat.color} text-white shadow-sm`}>
+                  {React.cloneElement(cat.icon as React.ReactElement, { className: "w-5 h-5" })}
                 </div>
-                <h2 className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">{cat.title}</h2>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">{cat.title}</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                 {cat.tools.map(tool => (
                   <Link 
                     key={tool.id} 
                     to={`/tools/${tool.id}`}
-                    className="px-4 py-2.5 sm:py-3 bg-gray-50 dark:bg-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 rounded-xl hover:bg-brand/10 dark:hover:bg-cyan-500/10 hover:text-brand dark:hover:text-cyan-400 transition-colors truncate text-center sm:text-left"
+                    className="px-4 py-2 bg-white dark:bg-gray-900 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-brand dark:hover:text-cyan-400 transition-colors truncate text-center sm:text-left border border-gray-100 dark:border-gray-800"
                   >
                     {tool.name}
                   </Link>
