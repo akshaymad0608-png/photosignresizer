@@ -13,6 +13,7 @@ import FloatingShare from '../components/FloatingShare';
 
 // --- New Components ---
 import Navbar from '../components/Navbar';
+import MobileBottomNav from '../components/MobileBottomNav';
 import Header from '../components/Header';
 import ImageControls from '../components/ImageControls';
 
@@ -98,7 +99,7 @@ export default function App() {
 
   // Dynamic Title for SEO
   useEffect(() => {
-    let title = "PHOTORESIZER: Govt Exam Photo Maker";
+    let title = "PHOTORESIZER: Govt Exam Photo Maker | Resize & Compress Image Online";
     if (activeTab === 'home') {
       title = `Resize Photo & Sign for ${selectedExam.name.split('(')[0].trim()} - ${title}`;
     } else if (activeTab === 'blog') {
@@ -106,7 +107,7 @@ export default function App() {
     } else if (activeTab === 'faq') {
       title = `FAQ - ${title}`;
     } else if (activeTab === 'tools') {
-      title = `Free Image Tools & Converters - ${title}`;
+      title = `All Files Converters & Free Image Tools - ${title}`;
     }
     document.title = title;
   }, [activeTab, selectedExam]);
@@ -323,12 +324,9 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
       />
 
       {/* Main Content Area */}
-      <main className="flex-grow pt-28 sm:pt-32 md:pt-40 lg:pt-48 pb-24 sm:pb-0">
+      <main className="flex-grow pt-24 sm:pt-28 md:pt-32 lg:pt-32 pb-24 sm:pb-0">
         {activeTab === 'home' && (
           <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-            
-            <Header lang={lang} onSelectExam={setSelectedExam} />
-
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12 sm:mb-24 mt-4 sm:mt-8">
               {/* Left Column: Controls */}
               <div className="lg:col-span-4 space-y-6 sm:space-y-8">
@@ -603,6 +601,10 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                 </div>
               </div>
             </div>
+            
+            <div className="mt-16 border-t border-gray-200 dark:border-gray-800 pt-16">
+              <Header lang={lang} onSelectExam={setSelectedExam} />
+            </div>
 
             {/* Remove SEO Content Sections from bottom of Home Page since they'll have their own tabs */}
           </div>
@@ -695,6 +697,8 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
 
       {/* Floating Share Button */}
       <FloatingShare />
+
+      <MobileBottomNav lang={lang} activeTab={activeTab} setActiveTab={handleTabChange} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Camera, Sun, Moon, Menu, X } from 'lucide-react';
+import React from 'react';
+import { Camera, Sun, Moon } from 'lucide-react';
 import { Language } from '../types';
 import { TRANSLATIONS } from '../constants';
 
@@ -13,18 +13,14 @@ interface NavbarProps {
 }
 
 const Navbar = ({ lang, isScrolled, activeTab, setActiveTab, darkMode, setDarkMode }: NavbarProps) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const handleTabClick = (tab: 'home' | 'faq' | 'blog' | 'tools' | 'jobs' | 'links') => {
     setActiveTab(tab);
-    setIsMenuOpen(false);
   };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled || isMenuOpen 
+      isScrolled 
         ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-md shadow-sm py-3 border-b border-gray-200 dark:border-gray-800' 
         : 'bg-transparent py-4'
     }`}>
@@ -112,62 +108,9 @@ const Navbar = ({ lang, isScrolled, activeTab, setActiveTab, darkMode, setDarkMo
             >
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-
-            <button 
-              onClick={toggleMenu}
-              className="md:hidden p-2.5 rounded-xl transition-all hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
-              aria-label="Toggle Mobile Menu"
-              aria-expanded={isMenuOpen}
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800 shadow-lg">
-          <div className="px-4 py-4 space-y-2">
-            <button 
-              onClick={() => handleTabClick('home')}
-              className={`block w-full text-left px-4 py-3 rounded-lg text-base font-semibold transition-colors ${activeTab === 'home' ? 'bg-brand/10 text-brand' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'}`}
-            >
-              {TRANSLATIONS[lang].photoResizer}
-            </button>
-            <button 
-              onClick={() => handleTabClick('jobs')}
-              className={`block w-full text-left px-4 py-3 rounded-lg text-base font-semibold transition-colors ${activeTab === 'jobs' ? 'bg-brand/10 text-brand' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'}`}
-            >
-              {TRANSLATIONS[lang].latestJobs}
-            </button>
-            <button 
-              onClick={() => handleTabClick('links')}
-              className={`block w-full text-left px-4 py-3 rounded-lg text-base font-semibold transition-colors ${activeTab === 'links' ? 'bg-brand/10 text-brand' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'}`}
-            >
-              {TRANSLATIONS[lang].examLinks}
-            </button>
-            <button 
-              onClick={() => handleTabClick('blog')}
-              className={`block w-full text-left px-4 py-3 rounded-lg text-base font-semibold transition-colors ${activeTab === 'blog' ? 'bg-brand/10 text-brand' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'}`}
-            >
-              {TRANSLATIONS[lang].blog}
-            </button>
-            <button 
-              onClick={() => handleTabClick('faq')}
-              className={`block w-full text-left px-4 py-3 rounded-lg text-base font-semibold transition-colors ${activeTab === 'faq' ? 'bg-brand/10 text-brand' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'}`}
-            >
-              {TRANSLATIONS[lang].faq}
-            </button>
-            <button 
-              onClick={() => handleTabClick('tools')}
-              className={`block w-full text-left px-4 py-3 rounded-lg text-base font-semibold transition-colors ${activeTab === 'tools' ? 'bg-brand/10 text-brand' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900'}`}
-            >
-              {TRANSLATIONS[lang].freeTools}
-            </button>
-          </div>
-        </div>
-      )}
     </nav>
   );
 };

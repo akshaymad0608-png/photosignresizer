@@ -77,9 +77,12 @@ body {
   font-size: 0px !important;
   display: flex !important;
   align-items: center;
+  width: 120px;
+  overflow: hidden;
 }
-.goog-te-gadget > span,
-.goog-te-gadget > div {
+.goog-te-gadget span,
+.goog-logo-link,
+.goog-te-gadget img {
   display: none !important;
 }
 .goog-te-gadget .goog-te-combo {
@@ -93,7 +96,8 @@ body {
   outline: none;
   cursor: pointer;
   margin: 0 !important;
-  max-width: 100px;
+  width: 120px;
+  max-width: 120px;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;

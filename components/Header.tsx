@@ -17,7 +17,7 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
       {/* Background accents */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-gradient-to-b from-brand/10 to-transparent dark:from-brand/5 dark:to-transparent rounded-full blur-[100px] -z-10 pointer-events-none"></div>
 
-      <div className="max-w-5xl mx-auto text-center space-y-8 sm:space-y-12 animate-fade-in-up">
+      <div className="max-w-5xl mx-auto text-center space-y-8 sm:space-y-12 animate-fade-in-up relative z-10">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-brand/10 text-brand text-sm font-semibold border border-brand/20 backdrop-blur-sm">
             <Zap size={16} />
@@ -41,6 +41,11 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
           <p className="text-base min-[400px]:text-lg sm:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-light">
             {TRANSLATIONS[lang].subtitle}
           </p>
+        </div>
+
+        <div className="relative mx-auto max-w-4xl mt-8 sm:mt-12 mb-8 rounded-2xl overflow-hidden shadow-2xl border border-gray-200/50 dark:border-gray-800/50 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1600" alt="Students studying" className="w-full h-auto object-cover aspect-[21/9]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent"></div>
         </div>
 
         {/* Popular Exams Quick Select */}
