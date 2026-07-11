@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Briefcase, Calendar, Users, ExternalLink, Filter } from 'lucide-react';
+import React from 'react';
 
 const VACANCIES = [
   {
@@ -79,194 +78,181 @@ const VACANCIES = [
     color: "blue",
     category: "Police/Defence",
     state: "Uttar Pradesh"
+  },
+  {
+    id: "v7",
+    board: "India Post",
+    post: "Gramin Dak Sevak (GDS)",
+    vacancies: "44,228",
+    lastDate: "05-Aug-2026",
+    qualification: "10th Pass",
+    link: "https://indiapostgdsonline.gov.in/",
+    status: "Active",
+    color: "rose",
+    category: "Central Govt",
+    state: "All India"
+  },
+  {
+    id: "v8",
+    board: "SSC",
+    post: "Multi Tasking Staff (MTS)",
+    vacancies: "8,326",
+    lastDate: "31-Jul-2026",
+    qualification: "10th Pass",
+    link: "https://ssc.nic.in/",
+    status: "Active",
+    color: "amber",
+    category: "Central Govt",
+    state: "All India"
+  },
+  {
+    id: "v9",
+    board: "RRB",
+    post: "ALP & Technician",
+    vacancies: "9,144",
+    lastDate: "10-Aug-2026",
+    qualification: "ITI / Diploma",
+    link: "https://indianrailways.gov.in/",
+    status: "Active",
+    color: "emerald",
+    category: "Railway",
+    state: "All India"
+  },
+  {
+    id: "v10",
+    board: "SBI",
+    post: "Probationary Officer (PO)",
+    vacancies: "2,000+",
+    lastDate: "28-Jul-2026",
+    qualification: "Any Graduate",
+    link: "https://sbi.co.in/web/careers",
+    status: "Active",
+    color: "blue",
+    category: "Banking",
+    state: "All India"
+  },
+  {
+    id: "v11",
+    board: "RPF",
+    post: "Constable & SI",
+    vacancies: "4,660",
+    lastDate: "20-Jul-2026",
+    qualification: "10th/Graduate",
+    link: "https://indianrailways.gov.in/",
+    status: "Active",
+    color: "rose",
+    category: "Police/Defence",
+    state: "All India"
+  },
+  {
+    id: "v12",
+    board: "BSF",
+    post: "Head Constable (RO/RM)",
+    vacancies: "1,526",
+    lastDate: "25-Jul-2026",
+    qualification: "12th with PCM",
+    link: "https://rectt.bsf.gov.in/",
+    status: "Active",
+    color: "emerald",
+    category: "Police/Defence",
+    state: "All India"
   }
 ];
 
-const getColorClasses = (color: string, type: 'bg' | 'text' | 'badge') => {
-  const colors: Record<string, any> = {
-    emerald: {
-      bg: "bg-emerald-50 dark:bg-emerald-900/20",
-      text: "text-emerald-600 dark:text-emerald-400",
-      badge: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300"
-    },
-    blue: {
-      bg: "bg-blue-50 dark:bg-blue-900/20",
-      text: "text-blue-600 dark:text-blue-400",
-      badge: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
-    },
-    rose: {
-      bg: "bg-rose-50 dark:bg-rose-900/20",
-      text: "text-rose-600 dark:text-rose-400",
-      badge: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300"
-    },
-    amber: {
-      bg: "bg-amber-50 dark:bg-amber-900/20",
-      text: "text-amber-600 dark:text-amber-400",
-      badge: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300"
-    }
-  };
-  return colors[color][type] || colors.blue[type];
-};
+const COLORS = [
+  'bg-[#808000]', // Olive
+  'bg-[#1d35c2]', // Blue
+  'bg-[#f56600]', // Orange
+  'bg-[#a30000]', // Dark Red
+  'bg-[#ff3300]', // Red-Orange
+  'bg-[#008000]', // Green
+  'bg-[#e830c0]', // Pink
+  'bg-[#0073e6]', // Light Blue
+];
 
 const LatestVacanciesSection = () => {
-  const [activeTab, setActiveTab] = useState<'all' | 'category' | 'state'>('all');
-  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
-
-  const categories = Array.from(new Set(VACANCIES.map(v => v.category)));
-  const states = Array.from(new Set(VACANCIES.map(v => v.state)));
-
-  let filteredVacancies = VACANCIES;
-  if (activeTab === 'category' && selectedFilter) {
-    filteredVacancies = VACANCIES.filter(v => v.category === selectedFilter);
-  } else if (activeTab === 'state' && selectedFilter) {
-    filteredVacancies = VACANCIES.filter(v => v.state === selectedFilter);
-  }
-
-  const handleTabChange = (tab: 'all' | 'category' | 'state') => {
-    setActiveTab(tab);
-    setSelectedFilter(null);
-  };
+  // Use first 8 items for the colorful top boxes
+  const topBoxes = VACANCIES.slice(0, 8);
+  
+  // Use the remaining items for the Latest Job list, plus some of the first ones to fill it up
+  const latestJobsList = VACANCIES;
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 sm:p-12 md:p-16 mb-16 sm:mb-24 border border-gray-200 dark:border-gray-800">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
-        <div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight flex items-center gap-3">
-            <Briefcase className="text-brand w-8 h-8" />
-            Latest Govt Job Vacancies
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl">
-            Stay updated with the newest recruitment notifications and apply before the deadline.
-          </p>
-        </div>
-      </div>
-
-      <div className="flex flex-wrap items-center gap-3 mb-8 pb-6 border-b border-gray-200 dark:border-gray-800">
-        <button 
-          onClick={() => handleTabChange('all')}
-          className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
-            activeTab === 'all' 
-              ? 'bg-brand text-white shadow-md' 
-              : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-          }`}
-        >
-          All Jobs
-        </button>
-        <button 
-          onClick={() => handleTabChange('category')}
-          className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${
-            activeTab === 'category' 
-              ? 'bg-brand text-white shadow-md' 
-              : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-          }`}
-        >
-          <Filter size={16} /> Category Wise
-        </button>
-        <button 
-          onClick={() => handleTabChange('state')}
-          className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${
-            activeTab === 'state' 
-              ? 'bg-brand text-white shadow-md' 
-              : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-          }`}
-        >
-          <Filter size={16} /> State Wise
-        </button>
-      </div>
-
-      {activeTab === 'category' && (
-        <div className="flex flex-wrap gap-2 mb-8 animate-fade-in">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setSelectedFilter(cat === selectedFilter ? null : cat)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
-                cat === selectedFilter 
-                  ? 'border-brand bg-brand/10 text-brand' 
-                  : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-brand/50'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {activeTab === 'state' && (
-        <div className="flex flex-wrap gap-2 mb-8 animate-fade-in">
-          {states.map(st => (
-            <button
-              key={st}
-              onClick={() => setSelectedFilter(st === selectedFilter ? null : st)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
-                st === selectedFilter 
-                  ? 'border-brand bg-brand/10 text-brand' 
-                  : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-brand/50'
-              }`}
-            >
-              {st}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <div className="grid md:grid-cols-2 gap-6">
-        {filteredVacancies.map((job) => (
-          <div 
-            key={job.id} 
-            className="group flex flex-col bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all relative overflow-hidden"
+    <div className="bg-white dark:bg-gray-900 rounded-2xl mb-16 sm:mb-24 overflow-hidden">
+      
+      {/* Top Colorful Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 p-2">
+        {topBoxes.map((job, index) => (
+          <a
+            key={job.id}
+            href={job.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${COLORS[index % COLORS.length]} p-4 text-center text-white font-bold text-sm sm:text-base hover:opacity-90 transition-opacity flex flex-col items-center justify-center min-h-[80px] shadow-sm`}
           >
-            <div className="flex justify-between items-start mb-4">
-              <div className={`px-3 py-1 rounded-full text-xs font-semibold ${getColorClasses(job.color, 'badge')}`}>
-                {job.status}
-              </div>
-              <div className={`font-bold text-sm ${getColorClasses(job.color, 'text')}`}>
-                {job.board}
-              </div>
-            </div>
-            
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand transition-colors">
-              {job.post}
-            </h3>
-
-            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-4 uppercase tracking-wider font-semibold">
-              <span>{job.category}</span>
-              <span>•</span>
-              <span>{job.state}</span>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                <Users size={16} className="text-gray-400" />
-                <span><strong className="text-gray-900 dark:text-gray-200">{job.vacancies}</strong> Posts</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                <Calendar size={16} className="text-gray-400" />
-                <span>Last Date: <strong className="text-gray-900 dark:text-gray-200">{job.lastDate}</strong></span>
-              </div>
-            </div>
-            
-            <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                {job.qualification}
-              </span>
-              <a 
-                href={job.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:text-brand-dark transition-colors"
-              >
-                Apply Now
-                <ExternalLink size={16} />
-              </a>
-            </div>
-          </div>
+            <span>{job.board} {job.post}</span>
+            <span>Apply Online</span>
+          </a>
         ))}
-        {filteredVacancies.length === 0 && (
-          <div className="col-span-full py-12 text-center text-gray-500 dark:text-gray-400">
-            No vacancies found for the selected filter.
+      </div>
+
+      {/* 3 Column Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-2 mt-4">
+        
+        {/* Result Column */}
+        <div className="border border-red-800 dark:border-red-900 bg-white dark:bg-gray-800">
+          <div className="bg-[#a30000] text-white text-center py-2 font-bold text-xl md:text-2xl">
+            Result
           </div>
-        )}
+          <div className="p-4 space-y-3 h-[400px] overflow-y-auto">
+            <ul className="list-disc pl-5 space-y-3">
+              {latestJobsList.map((job) => (
+                <li key={`res-${job.id}`} className="text-[#0000ee] dark:text-blue-400 hover:underline cursor-pointer">
+                  <a href={job.link} target="_blank" rel="noopener noreferrer">
+                    {job.board} {job.post} Result 2026
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Admit Card Column */}
+        <div className="border border-red-800 dark:border-red-900 bg-white dark:bg-gray-800">
+          <div className="bg-[#a30000] text-white text-center py-2 font-bold text-xl md:text-2xl">
+            Admit Card
+          </div>
+          <div className="p-4 space-y-3 h-[400px] overflow-y-auto">
+            <ul className="list-disc pl-5 space-y-3">
+              {latestJobsList.map((job) => (
+                <li key={`adm-${job.id}`} className="text-[#0000ee] dark:text-blue-400 hover:underline cursor-pointer">
+                  <a href={job.link} target="_blank" rel="noopener noreferrer">
+                    {job.board} {job.post} Admit Card 2026
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Latest Job Column */}
+        <div className="border border-red-800 dark:border-red-900 bg-white dark:bg-gray-800">
+          <div className="bg-[#a30000] text-white text-center py-2 font-bold text-xl md:text-2xl">
+            Latest Job
+          </div>
+          <div className="p-4 space-y-3 h-[400px] overflow-y-auto">
+            <ul className="list-disc pl-5 space-y-3">
+              {latestJobsList.map((job) => (
+                <li key={`job-${job.id}`} className="text-[#0000ee] dark:text-blue-400 hover:underline cursor-pointer">
+                  <a href={job.link} target="_blank" rel="noopener noreferrer">
+                    {job.board} {job.post} Online Form 2026
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   );
