@@ -13,7 +13,7 @@ const BlogSection = ({ lang }: { lang: Language }) => (
     <div className="space-y-8 relative z-10">
       <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 md:p-12 border border-gray-200 dark:border-gray-700 relative overflow-hidden">
         <div className="relative z-10">
-          <h3 className="text-2xl md:text-3xl font-bold text-brand dark:text-cyan-400 mb-6">{SEO_CONTENT.intro.title}</h3>
+          <h3 className="text-2xl md:text-3xl font-bold text-brand dark:text-accent mb-6">{SEO_CONTENT.intro.title}</h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">{SEO_CONTENT.intro.text}</p>
         </div>
       </div>

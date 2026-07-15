@@ -6,23 +6,25 @@ const CATEGORIES = [
   {
     title: "Image Tools",
     icon: <FileImage className="w-6 h-6" />,
-    color: "from-blue-500 to-cyan-400",
+    color: " ",
     tools: [
-      { id: "jpg-to-png", name: "JPG to PNG" },
-      { id: "png-to-jpg", name: "PNG to JPG" },
+      { id: "jpg-", name: "JPG to PNG" },
+      { id: "png-", name: "PNG to JPG" },
       { id: "webp-converter", name: "WEBP Converter" },
-      { id: "heic-to-jpg", name: "HEIC to JPG" },
+      { id: "heic-", name: "HEIC to JPG" },
       { id: "image-compressor", name: "Image Compressor" },
-      { id: "crop-image", name: "Crop Image" }
+      { id: "crop-image", name: "Crop Image" },
+      { id: "grayscale-converter", name: "Convert to Grayscale" },
+      { id: "remove-background", name: "Remove Background" }
     ]
   },
   {
     title: "PDF Tools",
     icon: <FileText className="w-6 h-6" />,
-    color: "from-red-500 to-orange-400",
+    color: " ",
     tools: [
-      { id: "pdf-to-word", name: "PDF to Word" },
-      { id: "word-to-pdf", name: "Word to PDF" },
+      { id: "pdf-", name: "PDF to Word" },
+      { id: "word-", name: "Word to PDF" },
       { id: "merge-pdf", name: "Merge PDF" },
       { id: "split-pdf", name: "Split PDF" },
       { id: "compress-pdf", name: "Compress PDF" },
@@ -32,19 +34,19 @@ const CATEGORIES = [
   {
     title: "Video Tools",
     icon: <Video className="w-6 h-6" />,
-    color: "from-purple-500 to-pink-500",
+    color: " ",
     tools: [
-      { id: "mp4-to-mp3", name: "MP4 to MP3" },
+      { id: "mp4-", name: "MP4 to MP3" },
       { id: "video-compressor", name: "Video Compressor" },
-      { id: "video-to-gif", name: "Video to GIF" },
-      { id: "mov-to-mp4", name: "MOV to MP4" },
+      { id: "video-", name: "Video to GIF" },
+      { id: "mov-", name: "MOV to MP4" },
       { id: "trim-video", name: "Trim Video" }
     ]
   },
   {
     title: "Govt Exam Tools",
     icon: <FileText className="w-6 h-6" />,
-    color: "from-brand to-accent",
+    color: " ",
     tools: [
       { id: "age-calculator", name: "Age Calculator" },
       { id: "percentage-calculator", name: "Percentage Calculator" },
@@ -56,7 +58,7 @@ const CATEGORIES = [
   {
     title: "AI Power Tools",
     icon: <Sparkles className="w-6 h-6" />,
-    color: "from-emerald-400 to-teal-500",
+    color: " ",
     tools: [
       { id: "ai-bg-remover", name: "AI Background Remover" },
       { id: "ai-upscaler", name: "AI Image Upscaler" },
@@ -68,10 +70,10 @@ const CATEGORIES = [
   {
     title: "Audio Tools",
     icon: <Music className="w-6 h-6" />,
-    color: "from-yellow-400 to-orange-500",
+    color: " ",
     tools: [
       { id: "mp3-converter", name: "MP3 Converter" },
-      { id: "wav-to-mp3", name: "WAV to MP3" },
+      { id: "wav-", name: "WAV to MP3" },
       { id: "audio-cutter", name: "Audio Cutter" },
       { id: "audio-compressor", name: "Audio Compressor" }
     ]
@@ -79,10 +81,10 @@ const CATEGORIES = [
   {
     title: "Archive Tools",
     icon: <FileArchive className="w-6 h-6" />,
-    color: "from-gray-600 to-gray-400",
+    color: " ",
     tools: [
       { id: "zip-extractor", name: "ZIP Extractor" },
-      { id: "rar-to-zip", name: "RAR to ZIP" },
+      { id: "rar-", name: "RAR to ZIP" },
       { id: "7z-converter", name: "7Z Converter" }
     ]
   }
@@ -103,9 +105,9 @@ export default function ToolCategorySection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {CATEGORIES.map((cat, idx) => (
-            <div key={idx} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:border-brand/50 dark:hover:border-cyan-500/50 transition-colors group">
+            <div key={idx} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:border-brand/50 dark:hover:border-accent/50 transition-colors group">
               <div className="flex items-center gap-4 mb-6">
-                <div className={`p-3 rounded-lg bg-gradient-to-br ${cat.color} text-white shadow-sm`}>
+                <div className={`p-3 rounded-lg bg-gradient- ${cat.color} text-white shadow-sm`}>
                   {React.cloneElement(cat.icon as React.ReactElement, { className: "w-5 h-5" })}
                 </div>
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">{cat.title}</h2>
@@ -115,7 +117,7 @@ export default function ToolCategorySection() {
                   <Link 
                     key={tool.id} 
                     to={`/tools/${tool.id}`}
-                    className="px-4 py-2 bg-white dark:bg-gray-900 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-brand dark:hover:text-cyan-400 transition-colors truncate text-center sm:text-left border border-gray-100 dark:border-gray-800"
+                    className="px-4 py-2 bg-white dark:bg-gray-900 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-brand dark:hover:text-accent transition-colors truncate text-center sm:text-left border border-gray-100 dark:border-gray-800"
                   >
                     {tool.name}
                   </Link>

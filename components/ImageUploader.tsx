@@ -36,15 +36,15 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
           {title}
         </span>
         {image && (
-          <span className="text-[10px] font-bold uppercase tracking-wider text-green-600 dark:text-green-400 flex items-center gap-1.5 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-md border border-green-200 dark:border-green-800">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-brand dark:text-brand flex items-center gap-1.5 bg-brand/10 dark:bg-brand/20 px-2 py-1 rounded-md border border-brand/20 dark:border-brand/20">
              <CheckCircle size={14}/> Ready
           </span>
         )}
       </h3>
       {!image ? (
         <div className="flex flex-row gap-3">
-          <label className="relative flex-1 flex flex-col items-center justify-center h-32 sm:h-40 border-2 border-brand/30 dark:border-cyan-500/30 border-dashed rounded-xl cursor-pointer bg-brand/5 dark:bg-cyan-500/5 hover:bg-brand/10 transition-colors group">
-            <div className="flex flex-col items-center justify-center p-2 sm:p-4 text-brand dark:text-cyan-400">
+          <label className="relative flex-1 flex flex-col items-center justify-center h-32 sm:h-40 border-2 border-brand/30 dark:border-accent/30 border-dashed rounded-xl cursor-pointer bg-brand/5 dark:bg-accent/5 hover:bg-brand/10 transition-colors group">
+            <div className="flex flex-col items-center justify-center p-2 sm:p-4 text-brand dark:text-accent">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-2"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
               <p className="text-sm font-semibold">{lang === 'en' ? 'Take Photo' : 'फोटो खींचें'}</p>
             </div>

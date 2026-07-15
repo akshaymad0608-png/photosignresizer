@@ -8,7 +8,7 @@ const SupportedExamsSection = () => (
       {Object.values(EXAM_PRESETS).map((exam, idx) => (
         <div key={idx} className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center text-center transition-colors">
           <div className="w-10 h-10 bg-gray-50 dark:bg-gray-800 rounded-lg flex items-center justify-center mb-3">
-            <span className="text-brand dark:text-cyan-400 font-bold">{exam.name.charAt(0)}</span>
+            <span className="text-brand dark:text-accent font-bold">{exam.name.charAt(0)}</span>
           </div>
           <span className="font-semibold text-gray-900 dark:text-white text-xs leading-tight">{exam.name}</span>
         </div>

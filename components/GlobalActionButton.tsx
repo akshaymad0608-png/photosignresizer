@@ -15,9 +15,7 @@ const GlobalActionButton = ({ lang, onClick, disabled, loading }: GlobalActionBu
     <button
       onClick={onClick}
       disabled={disabled || loading}
-      className={`w-full py-5 px-8 bg-gradient-to-r from-brand to-blue-600 text-white font-extrabold rounded-2xl shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${
-        loading ? 'animate-pulse' : ''
-      }`}
+      className={`w-full py-5 px-8 bg-brand text-white font-extrabold rounded-2xl shadow-sm hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 ${ loading ? 'animate-pulse' : '' }`}
     >
       <div className="p-1.5 bg-white/20 rounded-lg group-hover:rotate-12 transition-transform">
         <Zap size={24} fill="white" />

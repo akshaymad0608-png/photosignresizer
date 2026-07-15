@@ -1,4 +1,5 @@
 import { ImageConfig } from '../types';
+import { removeBackground } from '@imgly/background-removal';
 
 export const readFileAsDataURL = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -13,6 +14,17 @@ export const processImage = async (
   sourceUrl: string,
   config: ImageConfig
 ): Promise<{ url: string; sizeKB: number }> => {
+  let finalSourceUrl = sourceUrl;
+  
+  if (config.removeBg) {
+    try {
+      const blob = await removeBackground(sourceUrl);
+      finalSourceUrl = URL.createObjectURL(blob);
+    } catch (e) {
+      console.error("Failed to remove background:", e);
+    }
+  }
+
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -174,13 +186,17 @@ export const processImage = async (
          attempts++;
       }
 
+      if (config.removeBg && finalSourceUrl !== sourceUrl) {
+         URL.revokeObjectURL(finalSourceUrl);
+      }
+
       resolve({
         url: dataUrl,
         sizeKB: calculateBytes(dataUrl) / 1024
       });
     };
     img.onerror = (err) => reject(err);
-    img.src = sourceUrl;
+    img.src = finalSourceUrl;
   });
 };
 

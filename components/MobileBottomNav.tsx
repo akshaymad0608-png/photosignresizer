@@ -19,7 +19,7 @@ const MobileBottomNav = ({ lang, activeTab, setActiveTab }: MobileBottomNavProps
   ] as const;
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 z-50 pb-[env(safe-area-inset-bottom)]">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-gray-950/95 backdrop- border-t border-gray-200 dark:border-gray-800 z-50 pb-[env(safe-area-inset-bottom)]">
       <div className="flex justify-around items-center p-2">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -28,11 +28,7 @@ const MobileBottomNav = ({ lang, activeTab, setActiveTab }: MobileBottomNavProps
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex flex-col items-center justify-center w-full p-2 space-y-1 rounded-xl transition-all ${
-                isActive 
-                  ? 'text-brand' 
-                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
-              }`}
+              className={`flex flex-col items-center justify-center w-full p-2 space-y-1 rounded-xl transition-all ${ isActive ? 'text-brand' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100' }`}
             >
               <div className={`p-1 rounded-lg transition-colors ${isActive ? 'bg-brand/10' : 'bg-transparent'}`}>
                 <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />

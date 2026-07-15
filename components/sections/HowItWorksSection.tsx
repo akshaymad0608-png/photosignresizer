@@ -11,7 +11,7 @@ const HowItWorksSection = () => (
         <div className="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-gray-200 dark:bg-gray-700 -z-10"></div>
         
         <div className="flex flex-col items-center">
-          <div className="w-20 h-20 bg-white dark:bg-gray-900 text-brand dark:text-cyan-400 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-200 dark:border-gray-700 relative">
+          <div className="w-20 h-20 bg-white dark:bg-gray-900 text-brand dark:text-accent rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-200 dark:border-gray-700 relative">
             <Upload size={32} />
           </div>
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">1. Upload Image</h3>
@@ -19,7 +19,7 @@ const HowItWorksSection = () => (
         </div>
 
         <div className="flex flex-col items-center">
-          <div className="w-20 h-20 bg-white dark:bg-gray-900 text-orange-500 dark:text-amber-400 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-200 dark:border-gray-700 relative">
+          <div className="w-20 h-20 bg-white dark:bg-gray-900 text-accent dark:text-amber-400 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-200 dark:border-gray-700 relative">
             <Scissors size={32} />
           </div>
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">2. Select Exam</h3>
@@ -27,7 +27,7 @@ const HowItWorksSection = () => (
         </div>
 
         <div className="flex flex-col items-center">
-          <div className="w-20 h-20 bg-white dark:bg-gray-900 text-green-500 dark:text-green-400 rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-200 dark:border-gray-700 relative">
+          <div className="w-20 h-20 bg-white dark:bg-gray-900 text-brand dark:text-brand rounded-xl flex items-center justify-center mb-6 shadow-sm border border-gray-200 dark:border-gray-700 relative">
             <Zap size={32} />
           </div>
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">3. Download</h3>

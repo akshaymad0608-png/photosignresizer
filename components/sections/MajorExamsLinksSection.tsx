@@ -9,7 +9,7 @@ const MAJOR_EXAMS = [
     url: "https://upsc.gov.in/",
     details: "Civil Services, NDA, CDS, CAPF",
     icon: <Landmark className="text-blue-500" size={24} />,
-    color: "bg-blue-50 dark:bg-blue-900/20"
+    color: "bg-brand/10 dark:bg-brand/20"
   },
   {
     id: "ssc",
@@ -17,8 +17,8 @@ const MAJOR_EXAMS = [
     fullName: "Staff Selection Commission",
     url: "https://ssc.nic.in/",
     details: "CGL, CHSL, MTS, GD Constable",
-    icon: <Briefcase className="text-emerald-500" size={24} />,
-    color: "bg-emerald-50 dark:bg-emerald-900/20"
+    icon: <Briefcase className="text-brand" size={24} />,
+    color: "bg-brand/10 dark:bg-brand/20"
   },
   {
     id: "ibps",
@@ -27,7 +27,7 @@ const MAJOR_EXAMS = [
     url: "https://www.ibps.in/",
     details: "PO, Clerk, SO, RRB",
     icon: <Bank className="text-amber-500" size={24} />,
-    color: "bg-amber-50 dark:bg-amber-900/20"
+    color: "bg-brand/10 dark:bg-brand/20"
   },
   {
     id: "rrb",
@@ -36,7 +36,7 @@ const MAJOR_EXAMS = [
     url: "https://indianrailways.gov.in/railwayboard/view_section.jsp?lang=0&id=0,4,1244",
     details: "NTPC, Group D, ALP, JE",
     icon: <Train className="text-red-500" size={24} />,
-    color: "bg-red-50 dark:bg-red-900/20"
+    color: "bg-brand/10 dark:bg-brand/20"
   },
   {
     id: "gpsc",
@@ -44,8 +44,8 @@ const MAJOR_EXAMS = [
     fullName: "Gujarat Public Service Commission",
     url: "https://gpsc.gujarat.gov.in/",
     details: "Class 1/2, DYSO, PI, STI",
-    icon: <Building2 className="text-purple-500" size={24} />,
-    color: "bg-purple-50 dark:bg-purple-900/20"
+    icon: <Building2 className="text-accent" size={24} />,
+    color: "bg-brand/10 dark:bg-brand/20"
   },
   {
     id: "sbi",
@@ -53,8 +53,8 @@ const MAJOR_EXAMS = [
     fullName: "State Bank of India Careers",
     url: "https://sbi.co.in/web/careers",
     details: "SBI PO, SBI Clerk, SO",
-    icon: <GraduationCap className="text-cyan-500" size={24} />,
-    color: "bg-cyan-50 dark:bg-cyan-900/20"
+    icon: <GraduationCap className="text-accent" size={24} />,
+    color: "bg-brand/10 dark:bg-brand/20"
   },
   {
     id: "gsssb",
@@ -63,7 +63,7 @@ const MAJOR_EXAMS = [
     url: "https://gsssb.gujarat.gov.in/",
     details: "Clerk, Head Clerk, ATDO",
     icon: <Briefcase className="text-orange-500" size={24} />,
-    color: "bg-orange-50 dark:bg-orange-900/20"
+    color: "bg-brand/10 dark:bg-brand/20"
   },
   {
     id: "ojas",
@@ -72,7 +72,7 @@ const MAJOR_EXAMS = [
     url: "https://ojas.gujarat.gov.in/",
     details: "Portal for all Gujarat Govt Jobs",
     icon: <Globe className="text-indigo-500" size={24} />,
-    color: "bg-indigo-50 dark:bg-indigo-900/20"
+    color: "bg-brand/10 dark:bg-brand/20"
   }
 ];
 
@@ -97,7 +97,7 @@ const MajorExamsLinksSection = () => (
           href={exam.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex flex-col bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all hover:-translate-y-1 relative"
+          className="group flex flex-col bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-sm transition-all hover:-translate-y-1 relative"
         >
           <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
             <ExternalLink size={18} className="text-gray-400" />

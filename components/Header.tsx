@@ -15,15 +15,15 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
   return (
     <header className="relative pt-8 sm:pt-12 pb-16 sm:pb-24 px-4 mb-8 sm:mb-12 overflow-hidden">
       {/* Background accents */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-gradient-to-b from-brand/10 to-transparent dark:from-brand/5 dark:to-transparent rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-gray-100 dark:bg-gray-800 rounded-full 100px] -z-10 pointer-events-none"></div>
 
       <div className="max-w-5xl mx-auto text-center space-y-8 sm:space-y-12 animate-fade-in-up relative z-10">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-brand/10 text-brand text-sm font-semibold border border-brand/20 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-brand/10 text-brand text-sm font-semibold border border-brand/20 backdrop-">
             <Zap size={16} />
             <span className="uppercase text-[11px] tracking-widest">{lang === 'en' ? '100% Client-Side Processing' : '100% क्लाइंट-साइड प्रोसेसिंग'}</span>
           </div>
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-semibold border border-accent/20 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-semibold border border-accent/20 backdrop-">
             <Star size={16} />
             <span className="uppercase text-[11px] tracking-widest">{lang === 'en' ? 'Trusted by 10,000+ Students' : '10,000+ छात्रों द्वारा विश्वसनीय'}</span>
           </div>
@@ -32,7 +32,7 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
         <div className="space-y-6 sm:space-y-8">
           <h1 className="text-3xl min-[400px]:text-4xl sm:text-6xl md:text-7xl font-extrabold text-gray-900 dark:text-white leading-[1.1] tracking-tight break-words">
             {TRANSLATIONS[lang].title.split(' ').map((word, i) => (
-              <span key={i} className={i % 2 !== 0 ? "text-transparent bg-clip-text bg-gradient-to-r from-brand to-accent" : ""}>
+              <span key={i} className={i % 2 !== 0 ? "text-gray-900 dark:text-white" : ""}>
                 {word}{' '}
               </span>
             ))}
@@ -43,9 +43,16 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
           </p>
         </div>
 
-        <div className="relative mx-auto max-w-4xl mt-8 sm:mt-12 mb-8 rounded-2xl overflow-hidden shadow-2xl border border-gray-200/50 dark:border-gray-800/50 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1600" alt="Students studying" className="w-full h-auto object-cover aspect-[21/9]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent"></div>
+        {/* Motivational Quote */}
+        <div className="relative mx-auto max-w-4xl mt-8 sm:mt-12 mb-8 p-8 sm:p-12 rounded-3xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <p className="text-xl sm:text-3xl font-medium text-gray-800 dark:text-gray-200 leading-relaxed italic">
+            "{lang === 'en' ? 'Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do.' : 'सफलता कोई दुर्घटना नहीं है। यह कड़ी मेहनत, दृढ़ता, सीखना, अध्ययन, बलिदान और सबसे बढ़कर, आप जो कर रहे हैं या करना सीख रहे हैं उससे प्यार करना है।'}"
+          </p>
+          <div className="mt-6 flex justify-center items-center gap-3">
+             <div className="h-px w-12 bg-brand/30"></div>
+             <span className="text-sm font-bold tracking-widest uppercase text-brand">Pelé</span>
+             <div className="h-px w-12 bg-brand/30"></div>
+          </div>
         </div>
 
         {/* Popular Exams Quick Select */}
@@ -58,7 +65,7 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
               <button
                 key={exam.id}
                 onClick={() => onSelectExam?.(exam)}
-                className="px-5 py-2.5 rounded-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-md border border-gray-200 dark:border-gray-700 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:border-brand hover:bg-brand hover:text-white dark:hover:border-brand transition-all shadow-sm hover:shadow-lg hover:shadow-brand/20 hover:-translate-y-0.5"
+                className="px-5 py-2.5 rounded-full bg-white/50 dark:bg-gray-800/50 backdrop- border border-gray-200 dark:border-gray-700 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:border-brand hover:bg-brand hover:text-white dark:hover:border-brand transition-all shadow-sm hover:shadow-sm hover:shadow-sm hover:-translate-y-0.5"
               >
                 {exam.name.split('(')[0].trim()}
               </button>
@@ -71,9 +78,9 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
             href="https://akshay.website"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-2xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold text-lg shadow-xl shadow-gray-900/10 dark:shadow-white/10 hover:bg-gray-800 dark:hover:bg-gray-100 transition-all hover:-translate-y-1 active:scale-95 overflow-hidden"
+            className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-2xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold text-lg shadow-sm hover:bg-gray-800 dark:hover:bg-gray-100 transition-all hover:-translate-y-1 active:scale-95 overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 dark:via-black/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+            <div className="absolute inset-0 bg-gradient- dark: -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
             <Globe size={22} className="group-hover:scale-110 transition-transform relative z-10 text-blue-500" />
             <span className="relative z-10 tracking-wide">{lang === 'en' ? 'Visit akshay.website' : 'akshay.website पर जाएं'}</span>
           </a>
@@ -82,25 +89,25 @@ const Header = ({ lang, onSelectExam }: HeaderProps) => {
         {/* Trust Bar */}
         <div className="grid grid-cols-2 sm:flex flex-wrap justify-center gap-x-8 sm:gap-x-12 gap-y-6 pt-12 sm:pt-16 border-t border-gray-200/60 dark:border-gray-800/60 relative z-10">
           <div className="flex flex-col items-center justify-center gap-3 text-sm font-semibold text-gray-500 dark:text-gray-400">
-            <div className="p-3 rounded-2xl bg-emerald-50 text-emerald-500 dark:bg-emerald-500/10 dark:text-emerald-400">
+            <div className="p-3 rounded-2xl bg-brand/10 text-brand dark:bg-brand/20 dark:text-brand">
               <ShieldCheck size={24} />
             </div>
             <span>No Upload Required</span>
           </div>
           <div className="flex flex-col items-center justify-center gap-3 text-sm font-semibold text-gray-500 dark:text-gray-400">
-            <div className="p-3 rounded-2xl bg-sky-50 text-sky-500 dark:bg-sky-500/10 dark:text-sky-400">
+            <div className="p-3 rounded-2xl bg-accent/10 text-accent dark:bg-accent/20 dark:text-accent">
               <Zap size={24} />
             </div>
             <span>Instant Download</span>
           </div>
           <div className="flex flex-col items-center justify-center gap-3 text-sm font-semibold text-gray-500 dark:text-gray-400">
-            <div className="p-3 rounded-2xl bg-indigo-50 text-indigo-500 dark:bg-indigo-500/10 dark:text-indigo-400">
+            <div className="p-3 rounded-2xl bg-brand/10 text-brand dark:bg-brand/20 dark:text-brand">
               <Globe size={24} />
             </div>
             <span>Works Offline</span>
           </div>
           <div className="flex flex-col items-center justify-center gap-3 text-sm font-semibold text-gray-500 dark:text-gray-400">
-            <div className="p-3 rounded-2xl bg-amber-50 text-amber-500 dark:bg-amber-500/10 dark:text-amber-400">
+            <div className="p-3 rounded-2xl bg-accent/10 text-accent dark:bg-accent/20 dark:text-accent">
               <Star size={24} />
             </div>
             <span>Trusted by 1M+ Students</span>

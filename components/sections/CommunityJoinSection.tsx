@@ -2,12 +2,12 @@ import React from 'react';
 import { MessageCircle } from 'lucide-react';
 
 const CommunityJoinSection = () => (
-  <div className="bg-gradient-to-br from-brand to-brand-dark rounded-2xl p-8 sm:p-12 mb-16 text-white text-center relative overflow-hidden">
-    <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
-    <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
+  <div className="bg-brand rounded-2xl p-8 sm:p-12 mb-16 text-white text-center relative overflow-hidden">
+    <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white opacity-10 rounded-full"></div>
+    <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-white opacity-10 rounded-full"></div>
     
     <div className="relative z-10 max-w-3xl mx-auto">
-      <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="w-16 h-16 bg-white/20 backdrop- rounded-full flex items-center justify-center mx-auto mb-6">
         <MessageCircle size={32} className="text-white" />
       </div>
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { removeBackground } from '@imgly/background-removal';
 import { Upload, X, File, Settings, Download, Zap, Loader2 } from 'lucide-react';
 
 interface GenericUploaderProps {
@@ -48,7 +49,14 @@ export default function GenericUploader({ toolName }: GenericUploaderProps) {
     setFiles(prev => prev.filter((_, i) => i !== index));
   };
 
-  const simulateProcessing = () => {
+  const simulateProcessing = async () => {
+    if (toolName.toLowerCase().includes('remove background')) {
+      setIsProcessing(true);
+      setProgress(50);
+      setCompleted(true);
+      setIsProcessing(false);
+      return;
+    }
     setIsProcessing(true);
     setProgress(0);
     const interval = setInterval(() => {
@@ -94,12 +102,20 @@ export default function GenericUploader({ toolName }: GenericUploaderProps) {
       const originalNameWithoutExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
       const downloadName = `${originalNameWithoutExt}-converted.${ext}`;
 
-      let finalBlob: Blob = file;
 
-      // Simulate basic client-side image conversion
-      if (file.type.startsWith('image/') && ['png', 'jpg', 'jpeg', 'webp'].includes(ext)) {
-        try {
-          const img = new Image();
+        let finalBlob: Blob = file;
+
+        // Simulate basic client-side image conversion
+        if (file.type.startsWith('image/') && ['png', 'jpg', 'jpeg', 'webp'].includes(ext)) {
+          try {
+            if (toolName.toLowerCase().includes('remove background')) {
+               const url = URL.createObjectURL(file);
+               const bgBlob = await removeBackground(url);
+               finalBlob = bgBlob;
+               URL.revokeObjectURL(url);
+            } else {
+               const img = new Image();
+
           const url = URL.createObjectURL(file);
           
           await new Promise((resolve) => {
@@ -110,6 +126,11 @@ export default function GenericUploader({ toolName }: GenericUploaderProps) {
               const ctx = canvas.getContext('2d');
               
               if (ctx) {
+                // If the tool is a grayscale or black & white converter, apply a filter
+                if (toolName.toLowerCase().includes('grayscale') || toolName.toLowerCase().includes('black and white')) {
+                  ctx.filter = 'grayscale(100%)';
+                }
+                
                 ctx.drawImage(img, 0, 0);
                 
                 let mimeType = file.type;
@@ -129,6 +150,7 @@ export default function GenericUploader({ toolName }: GenericUploaderProps) {
             img.src = url;
           });
           URL.revokeObjectURL(url);
+            }
         } catch (e) {
           console.error("Simulation conversion error", e);
         }
@@ -153,9 +175,7 @@ export default function GenericUploader({ toolName }: GenericUploaderProps) {
           onDragLeave={onDragLeave}
           onDrop={onDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-3xl rounded-[3rem] p-8 md:p-16 border-2 border-dashed shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center min-h-[400px] transition-colors group cursor-pointer relative overflow-hidden
-            ${isDragging ? 'border-brand dark:border-cyan-500 bg-brand/5 dark:bg-cyan-500/10' : 'border-gray-200 dark:border-gray-800 hover:border-brand/50 dark:hover:border-cyan-500/50'}
-          `}
+          className={`w-full bg-white/80 dark:bg-gray-900/80 backdrop- rounded-[3rem] p-8 md:p-16 border-2 border-dashed shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center min-h-[400px] transition-colors group cursor-pointer relative overflow-hidden ${isDragging ? 'border-brand dark:border-accent bg-brand/5 dark:bg-accent/10' : 'border-gray-200 dark:border-gray-800 hover:border-brand/50 dark:hover:border-accent/50'}`}
         >
           <input 
             type="file" 
@@ -164,21 +184,21 @@ export default function GenericUploader({ toolName }: GenericUploaderProps) {
             className="hidden" 
             multiple 
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent dark:from-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div className="absolute inset-0 bg-brand text-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
           
-          <div className="w-24 h-24 bg-brand/10 dark:bg-cyan-500/10 rounded-3xl flex items-center justify-center mb-8 shadow-inner group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500 relative z-10 w-24 h-24 text-brand dark:text-cyan-400">
+          <div className="w-24 h-24 bg-brand/10 dark:bg-accent/10 rounded-3xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500 relative z-10 w-24 h-24 text-brand dark:text-accent">
             <Upload size={40} className={isDragging ? "animate-bounce" : "group-hover:animate-bounce"} />
           </div>
           
           <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-4 relative z-10">Select Files Here</h3>
           <p className="text-gray-500 dark:text-gray-400 mb-8 relative z-10">or drag and drop them directly</p>
           
-          <button className="bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-10 py-4 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-transform shadow-xl relative z-10">
+          <button className="bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-10 py-4 rounded-full font-bold text-lg hover:scale-105 active:scale-95 transition-transform shadow-sm relative z-10">
             Browse Device
           </button>
         </div>
       ) : (
-        <div className="w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-[2.5rem] p-6 sm:p-8 border border-gray-200/50 dark:border-gray-800/50 shadow-2xl">
+        <div className="w-full bg-white/90 dark:bg-gray-900/90 backdrop- rounded-[2.5rem] p-6 sm:p-8 border border-gray-200/50 dark:border-gray-800/50 shadow-sm">
           <div className="flex items-center justify-between mb-6">
              <h3 className="text-xl font-bold text-gray-900 dark:text-white">Selected Files ({files.length})</h3>
              {!isProcessing && !completed && (
@@ -226,7 +246,7 @@ export default function GenericUploader({ toolName }: GenericUploaderProps) {
               </div>
               <div className="w-full h-3 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-gradient-to-r from-brand to-accent transition-all duration-300 ease-out"
+                  className="h-full bg-brand transition-all duration-300 ease-out"
                   style={{ width: `${progress}%` }}
                 ></div>
               </div>
@@ -249,7 +269,7 @@ export default function GenericUploader({ toolName }: GenericUploaderProps) {
                  </button>
                  <button 
                   onClick={handleDownloadAll}
-                  className="flex-[2] py-4 font-black text-white bg-gradient-to-r from-green-500 to-emerald-400 rounded-2xl shadow-lg hover:shadow-green-500/25 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                  className="flex-[2] py-4 font-black text-white bg-brand rounded-2xl shadow-sm hover:shadow-sm hover:-translate-y-1 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
                  >
                    <Download size={20} /> Download All
                  </button>
@@ -262,7 +282,7 @@ export default function GenericUploader({ toolName }: GenericUploaderProps) {
                  <button 
                   onClick={simulateProcessing}
                   disabled={isProcessing}
-                  className="flex-1 py-4 font-black text-white bg-gradient-to-r from-brand to-accent rounded-2xl shadow-lg hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 w-full disabled:opacity-50 disabled:pointer-events-none"
+                  className="flex-1 py-4 font-black text-white bg-brand rounded-2xl shadow-sm hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 w-full disabled:opacity-50 disabled:pointer-events-none"
                  >
                    {isProcessing ? (
                      <><Loader2 size={24} className="animate-spin" /> Processing...</>
