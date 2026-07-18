@@ -1,79 +1,155 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Mail, Github, Twitter, Globe } from 'lucide-react';
+import { type LucideIcon, Heart, ShieldCheck } from 'lucide-react';
 import Logo from './Logo';
+import Newsletter from './Newsletter';
 import { Language } from '../types';
-import { TRANSLATIONS } from '../constants';
 
 interface FooterProps {
   lang: Language;
 }
 
-const Footer = ({ lang }: FooterProps) => (
-  <footer className="bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 pt-16 md:pt-24 pb-8 md:pb-12 px-4 sm:px-6 relative overflow-x-hidden">
-    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-10 xl:gap-12 mb-16 relative z-10">
-      
-      {/* Brand & About */}
-      <div className="xl:col-span-2 space-y-6">
-        <Logo className="scale-75 origin-left" />
-        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-sm">
-          The ultimate tool for Indian government exam aspirants. Resize, crop, and compress your photos and signatures instantly and securely in your browser. No data leaves your device.
-        </p>
-        <div className="flex gap-3">
-          <a href="#" aria-label="Twitter Profile" className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex items-center justify-center text-gray-500 hover:border-brand hover:text-brand transition-all shadow-sm"><Twitter size={18} /></a>
-          <a href="#" aria-label="Github Repository" className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex items-center justify-center text-gray-500 hover:border-brand hover:text-brand transition-all shadow-sm"><Github size={18} /></a>
-          <a href="https://akshay.website" aria-label="Website" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex items-center justify-center text-gray-500 hover:border-accent hover:text-accent transition-all shadow-sm"><Globe size={18} /></a>
-          <a href="mailto:support@photoresizer.click" aria-label="Email Support" className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex items-center justify-center text-gray-500 hover:border-brand hover:text-brand transition-all shadow-sm"><Mail size={18} /></a>
+const COLUMNS = [
+  {
+    heading: 'Tools',
+    links: [
+      { label: 'Photo & signature resizer', href: '/' },
+      { label: 'Image compressor', href: '/tools/image-compressor' },
+      { label: 'JPG to PNG', href: '/tools/jpg-to-png' },
+      { label: 'Convert to WebP', href: '/tools/webp-converter' },
+      { label: 'Remove background', href: '/tools/remove-background' },
+      { label: 'All free tools', href: '/free-image-tools' },
+    ],
+  },
+  {
+    heading: 'Resources',
+    links: [
+      { label: 'Supported exams', href: '/#supported-exams' },
+      { label: 'How it works', href: '/#how-it-works' },
+      { label: 'Guides', href: '/blog' },
+      { label: 'FAQ', href: '/faq' },
+      { label: 'Latest vacancies', href: '/jobs' },
+      { label: 'Useful links', href: '/links' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Sitemap', href: '/sitemap.xml' },
+    ],
+  },
+  {
+    heading: 'Legal',
+    links: [
+      { label: 'Privacy policy', href: '/privacy' },
+      { label: 'Terms of use', href: '/terms' },
+      { label: 'Cookie policy', href: '/cookies' },
+      { label: 'Disclaimer', href: '/terms#disclaimer' },
+    ],
+  },
+];
+
+// Add real profile URLs here to show the social row. Left empty on purpose:
+// linking to a network's homepage instead of your own profile looks broken.
+const SOCIALS: { label: string; href: string; Icon: LucideIcon }[] = [];
+
+const isInternal = (href: string) => href.startsWith('/') && !href.endsWith('.xml');
+
+export default function Footer({ lang }: FooterProps) {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="mt-20 border-t border-line bg-bg-subtle">
+      <div className="shell py-14">
+        {/* Newsletter band */}
+        <div className="mb-14">
+          <Newsletter lang={lang} />
         </div>
+
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+          {/* Brand */}
+          <div className="lg:pr-8">
+            <Logo />
+            <p className="mt-4 text-[14px] leading-relaxed text-fg-muted max-w-[38ch]">
+              {lang === 'hi'
+                ? 'सरकारी परीक्षा फॉर्म के लिए फोटो और हस्ताक्षर रिसाइज़र। सब कुछ आपके ब्राउज़र में, बिना अपलोड किए।'
+                : 'A photo and signature resizer for Indian government exam forms. Everything runs in your browser, nothing is uploaded.'}
+            </p>
+
+            <p className="mt-5 inline-flex items-center gap-2 text-[12px] font-medium text-success">
+              <ShieldCheck size={14} />
+              {lang === 'hi' ? 'फाइलें कभी अपलोड नहीं होतीं' : 'Files never leave your device'}
+            </p>
+
+            <ul className="mt-6 flex gap-2">
+              {SOCIALS.map(({ label, href, Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={label}
+                    className="w-9 h-9 rounded-lg border border-line bg-surface text-fg-muted flex items-center justify-center transition-colors hover:text-brand-600 hover:border-brand-400"
+                  >
+                    <Icon size={16} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Link columns */}
+          {COLUMNS.map(col => (
+            <nav key={col.heading} aria-label={col.heading}>
+              <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-fg mb-4">
+                {col.heading}
+              </h2>
+              <ul className="space-y-2.5">
+                {col.links.map(link => (
+                  <li key={link.label}>
+                    {isInternal(link.href) ? (
+                      <Link
+                        to={link.href}
+                        className="text-[13.5px] text-fg-muted hover:text-brand-600 transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="text-[13.5px] text-fg-muted hover:text-brand-600 transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-12 pt-6 border-t border-line flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+          <p className="text-[12.5px] text-fg-muted">
+            © {year} PhotoResizer. {lang === 'hi' ? 'सर्वाधिकार सुरक्षित।' : 'All rights reserved.'}
+          </p>
+          <p className="text-[12.5px] text-fg-muted inline-flex items-center gap-1.5">
+            {lang === 'hi' ? 'भारत में' : 'Made in India with'}
+            <Heart size={12} className="text-danger fill-current" />
+            {lang === 'hi' ? 'बनाया गया' : 'for exam aspirants'}
+          </p>
+        </div>
+
+        <p className="mt-4 text-[11.5px] leading-relaxed text-fg-faint max-w-[80ch]">
+          {lang === 'hi'
+            ? 'PhotoResizer किसी सरकारी विभाग या भर्ती बोर्ड से संबद्ध नहीं है। आकार की आवश्यकताएँ आधिकारिक अधिसूचनाओं से ली गई हैं — आवेदन से पहले हमेशा मूल अधिसूचना देखें।'
+            : 'PhotoResizer is not affiliated with any government department or recruitment board. Size requirements are taken from official notifications — always check the original notification before applying.'}
+        </p>
       </div>
-
-      {/* Quick Links */}
-      <div>
-        <h2 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-6">Quick Links</h2>
-        <ul className="space-y-3.5 text-sm text-gray-600 dark:text-gray-400 font-medium">
-          <li><Link to="/" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">Home</Link></li>
-          <li><Link to="/faq" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">{TRANSLATIONS[lang].faq}</Link></li>
-          <li><Link to="/blog" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">{TRANSLATIONS[lang].blog}</Link></li>
-          <li><Link to="/terms" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">Terms of Service</Link></li>
-          <li><Link to="/privacy" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">Privacy Policy</Link></li>
-        </ul>
-      </div>
-
-      {/* Popular Tools */}
-      <div>
-        <h2 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-6">Popular Tools</h2>
-        <ul className="space-y-3.5 text-sm text-gray-600 dark:text-gray-400 font-medium">
-          <li><Link to="/tools/image-compressor" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">Image Compressor</Link></li>
-          <li><Link to="/tools/grayscale-converter" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">Grayscale Converter</Link></li>
-          <li><Link to="/tools/jpg-" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">JPG to PNG Converter</Link></li>
-          <li><Link to="/tools/pdf-" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">PDF to Word</Link></li>
-          <li><Link to="/tools/merge-pdf" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">Merge PDF</Link></li>
-          <li><Link to="/tools/split-pdf" className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">Split PDF</Link></li>
-        </ul>
-      </div>
-
-      {/* Top Exams */}
-      <div>
-        <h2 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-6">Top Exams</h2>
-        <ul className="space-y-3.5 text-sm text-gray-600 dark:text-gray-400 font-medium">
-          <li><button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">UPSC Photo Resizer</button></li>
-          <li><button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">SSC Photo & Sign Maker</button></li>
-          <li><button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">IBPS Signature Tool</button></li>
-          <li><button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">NEET Image Converter</button></li>
-          <li><button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-brand dark:hover:text-accent transition-colors flex items-center gap-2">GATE Photo Tool</button></li>
-        </ul>
-      </div>
-
-    </div>
-
-    {/* Bottom Footer */}
-    <div className="max-w-7xl mx-auto pt-8 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-semibold text-gray-500 dark:text-gray-400 relative z-10">
-      <p>© {new Date().getFullYear()} PhotoResizer.click. All rights reserved.</p>
-      <div className="flex items-center gap-1.5 bg-gray-50 dark:bg-gray-900 px-3 py-1.5 rounded-full border border-gray-200 dark:border-gray-800">
-        Made with <Heart size={14} className="text-red-500 fill-red-500 mx-0.5 animate-pulse" /> for Indian Aspirants
-      </div>
-    </div>
-  </footer>
-);
-
-export default Footer;
+    </footer>
+  );
+}

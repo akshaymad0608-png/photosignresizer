@@ -1,84 +1,140 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Lock, ShieldCheck, ZapIcon } from 'lucide-react';
-import PlatformNavbar from '../components/PlatformNavbar';
+import { useParams, Navigate, Link } from 'react-router-dom';
+import { ShieldCheck, WifiOff, Gauge, ChevronRight } from 'lucide-react';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import GenericUploader from '../components/GenericUploader';
+import Seo from '../seo/Seo';
+import { breadcrumbSchema, webPageSchema, howToSchema } from '../seo/schema';
+import { getTool, RETIRED_TOOL_IDS, TOOLS } from '../data/tools';
 
 export default function ToolPage() {
   const { toolId } = useParams();
+  const tool = getTool(toolId);
 
-  // Simple formatting of the URL param (e.g. jpg- -> JPG to PNG)
-  const formattedName = toolId?.split('-').map(word => 
-    word.length <= 3 ? word.toUpperCase() : word.charAt(0).toUpperCase() + word.slice(1)
-  ).join(' ') || 'Converter Tool';
+  // Retired or unknown tool IDs must not render a page — they would be thin,
+  // duplicated content competing with the tools that actually work.
+  if (!tool) {
+    if (toolId && RETIRED_TOOL_IDS.includes(toolId)) {
+      return <Navigate to="/free-image-tools" replace />;
+    }
+    return <Navigate to="/404" replace />;
+  }
+
+  const path = `/tools/${tool.id}`;
+  const related = TOOLS.filter(t => t.id !== tool.id && t.group === tool.group).slice(0, 3);
 
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-gray-50 dark:bg-gray-950 transition-colors">
-      {/* Background gradients */}
-      <div className="fixed inset-0 pointer-events-none -z-10">
-         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand/10 dark:bg-brand/5 120px] mix-blend-multiply dark:mix-blend-screen"></div>
-      </div>
-      
-      <PlatformNavbar />
+    <>
+      <Seo
+        title={`${tool.name} — free and private | PhotoResizer`}
+        description={tool.blurb}
+        path={path}
+        schema={[
+          webPageSchema({ title: tool.name, description: tool.blurb, path }),
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Free image tools', path: '/free-image-tools' },
+            { name: tool.name, path },
+          ]),
+          howToSchema(),
+        ]}
+      />
 
-      <main className="flex-grow flex flex-col items-center pt-8 md:pt-16 px-4">
-        <div className="max-w-4xl w-full text-center mb-12">
-           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white tracking-tight leading-tight mb-6 relative">
-              {formattedName}
-           </h1>
-           <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-             Quickly convert and process your files securely in seconds.
-           </p>
-        </div>
+      <div className="min-h-screen flex flex-col bg-bg">
+        <Header onOpenSearch={() => {}} />
 
-        {/* Uploader Section */}
-        <GenericUploader toolId={toolId} toolName={formattedName} />
+        <main id="main" className="flex-grow pt-24 pb-16">
+          <div className="shell">
+            <nav aria-label="Breadcrumb" className="mb-6">
+              <ol className="flex flex-wrap items-center gap-1.5 text-[12.5px] text-fg-muted">
+                <li><Link to="/" className="hover:text-brand-600 transition-colors">Home</Link></li>
+                <ChevronRight size={13} aria-hidden="true" />
+                <li>
+                  <Link to="/free-image-tools" className="hover:text-brand-600 transition-colors">
+                    Free image tools
+                  </Link>
+                </li>
+                <ChevronRight size={13} aria-hidden="true" />
+                <li aria-current="page" className="text-fg-soft font-medium">{tool.name}</li>
+              </ol>
+            </nav>
 
-        {/* Trust Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-8 mt-16 mb-24 opacity-60">
-           <div className="flex items-center gap-2 font-bold text-gray-600 dark:text-gray-400"><Lock size={20} /> End- Encrypted</div>
-           <div className="flex items-center gap-2 font-bold text-gray-600 dark:text-gray-400"><ShieldCheck size={20} /> Files auto-deleted after 1h</div>
-           <div className="flex items-center gap-2 font-bold text-gray-600 dark:text-gray-400"><ZapIcon size={20} /> Enterprise Speed CDN</div>
-        </div>
+            <div className="max-w-[62ch] mb-10">
+              <h1 className="font-display text-[clamp(1.9rem,1.3rem+2.4vw,3rem)] font-extrabold tracking-tight text-fg leading-tight">
+                {tool.name}
+              </h1>
+              <p className="mt-4 text-[16.5px] leading-relaxed text-fg-soft">{tool.blurb}</p>
 
-        {/* SEO Text Content */}
-        <div className="max-w-4xl w-full pb-24">
-          <div className="bg-white/50 dark:bg-gray-900/50 backdrop- rounded-[2rem] p-8 md:p-12 mb-8 border border-gray-200/50 dark:border-gray-800/50">
-             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">How to use the {formattedName} tool</h2>
-             <div className="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed">
-                <p>
-                  Our advanced {formattedName} tool allows you to easily process your files with high quality and speed.
-                  With our cloud-based engine, you don't need to install any software on your device.
-                </p>
-                <ol className="list-decimal pl-5 space-y-2 font-medium">
-                  <li>Click on the "Browse Device" button or drag and drop your files into the upload area above.</li>
-                  <li>Adjust any necessary settings if required (e.g. quality, resolution).</li>
-                  <li>Wait for our high-speed server to process the conversion.</li>
-                  <li>Click "Download" to save the processed file securely to your device.</li>
+              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+                <li className="flex items-center gap-2 text-[13px] font-medium text-fg-soft">
+                  <ShieldCheck size={15} className="text-success" />
+                  Nothing is uploaded
+                </li>
+                <li className="flex items-center gap-2 text-[13px] font-medium text-fg-soft">
+                  <WifiOff size={15} className="text-success" />
+                  Works offline
+                </li>
+                <li className="flex items-center gap-2 text-[13px] font-medium text-fg-soft">
+                  <Gauge size={15} className="text-success" />
+                  No file size cap
+                </li>
+              </ul>
+            </div>
+
+            <GenericUploader toolId={tool.id} toolName={tool.name} />
+
+            <div className="mt-16 grid gap-6 lg:grid-cols-2 max-w-5xl">
+              <section className="card p-6">
+                <h2 className="font-display text-[20px] font-bold text-fg mb-4">How to use it</h2>
+                <ol className="list-decimal pl-5 space-y-2 text-[14px] leading-relaxed text-fg-muted">
+                  <li>Choose a file, or drag one onto the box above.</li>
+                  <li>The file is read into a canvas in this page — it is not sent anywhere.</li>
+                  <li>Press download. The converted file is written straight to your device.</li>
                 </ol>
-             </div>
+              </section>
+
+              <section className="card p-6">
+                <h2 className="font-display text-[20px] font-bold text-fg mb-4">Common questions</h2>
+                <dl className="space-y-4 text-[14px] leading-relaxed">
+                  <div>
+                    <dt className="font-semibold text-fg mb-1">Are my files uploaded?</dt>
+                    <dd className="text-fg-muted">
+                      No. There is no upload endpoint. Everything runs in your browser, which is
+                      also why the tool keeps working with the network switched off.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="font-semibold text-fg mb-1">Does it work on a phone?</dt>
+                    <dd className="text-fg-muted">
+                      Yes. Very large images may be slow on older phones, since the work happens
+                      on your device rather than on a server.
+                    </dd>
+                  </div>
+                </dl>
+              </section>
+            </div>
+
+            {related.length > 0 && (
+              <section className="mt-12 max-w-5xl">
+                <h2 className="font-display text-[18px] font-bold text-fg mb-4">Related tools</h2>
+                <ul className="grid gap-3 sm:grid-cols-3">
+                  {related.map(t => (
+                    <li key={t.id}>
+                      <Link to={`/tools/${t.id}`} className="card card-lift p-4 block h-full">
+                        <p className="text-[14px] font-semibold text-fg">{t.name}</p>
+                        <p className="text-[12.5px] text-fg-muted mt-1 leading-snug">{t.blurb}</p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </div>
-          
-          <div className="bg-white/50 dark:bg-gray-900/50 backdrop- rounded-[2rem] p-8 md:p-12 border border-gray-200/50 dark:border-gray-800/50">
-             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Frequently Asked Questions</h2>
-             <div className="space-y-6">
-                <div>
-                   <h4 className="font-bold text-gray-900 dark:text-gray-200 text-lg mb-2">Is it safe to upload my files here?</h4>
-                   <p className="text-gray-600 dark:text-gray-400">Yes, absolute privacy is guaranteed. All files are transferred via end- encrypted SSL connection and are automatically permanently deleted from our servers after 1 hour.</p>
-                </div>
-                <div>
-                   <h4 className="font-bold text-gray-900 dark:text-gray-200 text-lg mb-2">Does this work on mobile?</h4>
-                   <p className="text-gray-600 dark:text-gray-400">Our platform is 100% mobile-friendly and optimized for fast processing on any iOS or Android device.</p>
-                </div>
-             </div>
-          </div>
-        </div>
-      </main>
-      
-      <div className="w-full">
-         <Footer lang="en" />
+        </main>
+
+        <Footer lang="en" />
       </div>
-    </div>
+    </>
   );
 }

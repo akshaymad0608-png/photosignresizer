@@ -7,14 +7,15 @@ async function startServer() {
   const PORT = 3000;
 
   // Basic security and setup
-  app.use(express.json({ limit: "50mb" }));
+  // 50mb was the old limit. Nothing here accepts a body that large, and an
+  // unauthenticated 50mb endpoint is a cheap denial-of-service target.
+  app.use(express.json({ limit: "100kb" }));
 
-  // API constraints & rate-limiting middleware mock 
-  // (In production, replace with express-rate-limit)
-  const rateLimiter = (req: any, res: any, next: any) => {
-    // Basic rate limit logging
-    next();
-  };
+  // WARNING: this is a no-op, not a rate limiter. It calls next() every time.
+  // Before exposing any real endpoint publicly, replace it with express-rate-limit:
+  //   import rateLimit from "express-rate-limit";
+  //   const rateLimiter = rateLimit({ windowMs: 60_000, max: 30 });
+  const rateLimiter = (_req: any, _res: any, next: any) => next();
 
   // API routes FIRST
   app.get("/api/health", (req, res) => {
@@ -32,8 +33,10 @@ async function startServer() {
     res.json({ success: true, message: "AI upscaler endpoint placeholder." });
   });
   
-  // Analytics Endpoint Placeholder
-  app.get("/api/admin/stats", (req, res) => {
+  // Analytics Endpoint Placeholder.
+  // NOTE: unauthenticated. It returns hardcoded numbers today, so nothing real
+  // leaks, but add auth before it ever reads from a database.
+  app.get("/api/admin/stats", rateLimiter, (_req, res) => {
     res.json({ success: true, conversions: 1200000, activeUsers: 45000 });
   });
 

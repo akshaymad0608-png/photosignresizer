@@ -1,21 +1,87 @@
 {
-  "name": "PhotoResizer",
+  "name": "PhotoResizer — Govt Exam Photo & Signature Resizer",
   "short_name": "PhotoResizer",
-  "description": "Resize and compress photos and signatures for Govt Exams instantly.",
-  "start_url": "/",
+  "description": "Resize photos and signatures to the exact pixel and KB limits required by Indian government exam forms. Runs entirely in your browser.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "browser"
+  ],
+  "orientation": "any",
+  "background_color": "#fbfcfe",
+  "theme_color": "#365ef6",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": [
+    "utilities",
+    "photo",
+    "productivity",
+    "education"
+  ],
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>",
-      "sizes": "192x192",
-      "type": "image/svg+xml"
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
     },
     {
-      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>",
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "PhotoResizer"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Resize exam photo",
+      "short_name": "Resize",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Free image tools",
+      "short_name": "Tools",
+      "url": "/free-image-tools"
+    },
+    {
+      "name": "Latest vacancies",
+      "short_name": "Jobs",
+      "url": "/jobs"
     }
   ]
 }

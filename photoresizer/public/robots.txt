@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+User-agent: GPTBot
+Allow: /
+
+Host: https://photoresizer.click
+Sitemap: https://photoresizer.click/sitemap.xml

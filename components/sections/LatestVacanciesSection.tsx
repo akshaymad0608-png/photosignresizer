@@ -1,304 +1,242 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
+import { ExternalLink, CalendarClock, Clock, AlertTriangle } from 'lucide-react';
+import {
+  VACANCIES,
+  AS_OF,
+  resolveLink,
+  isExpired,
+  parseLastDate,
+  type Vacancy,
+} from '../../data/vacancies';
 
-const VACANCIES = [
-  {
-    id: "v-forest",
-    board: "Gujarat Forest Department",
-    post: "Tracker",
-    vacancies: "Various",
-    lastDate: "22-Jul-2026",
-    qualification: "10 Pass",
-    link: "https://ojas.gujarat.gov.in/",
-    status: "Active",
-    color: "emerald",
-    category: "State Govt",
-    state: "Gujarat"
-  },
-  {
-    id: "v-pgvcl",
-    board: "PGVCL, UGVCL, MGVCL, DGVCL",
-    post: "Junior Assistant",
-    vacancies: "2306",
-    lastDate: "06-Aug-2026",
-    qualification: "12th",
-    link: "#",
-    status: "Active",
-    color: "blue",
-    category: "State Govt",
-    state: "Gujarat"
-  },
-  {
-    id: "v-iob",
-    board: "IOB",
-    post: "Apprentice",
-    vacancies: "750",
-    lastDate: "20-Jul-2026",
-    qualification: "Graduate",
-    link: "#",
-    status: "Active",
-    color: "blue",
-    category: "Banking",
-    state: "All India"
-  },
-  {
-    id: "v-boi",
-    board: "Bank of India",
-    post: "Credit Officer",
-    vacancies: "Various",
-    lastDate: "21-Jul-2026",
-    qualification: "Graduate",
-    link: "#",
-    status: "Active",
-    color: "rose",
-    category: "Banking",
-    state: "All India"
-  },
-  {
-    id: "v-ibps-po",
-    board: "IBPS",
-    post: "Probationary Officer",
-    vacancies: "6975",
-    lastDate: "21-Jul-2026",
-    qualification: "Graduate",
-    link: "https://ibps.in/",
-    status: "Active",
-    color: "blue",
-    category: "Banking",
-    state: "All India"
-  },
-  {
-    id: "v-ibps-so",
-    board: "IBPS",
-    post: "Specialist Officer",
-    vacancies: "745",
-    lastDate: "21-Jul-2026",
-    qualification: "Graduate/Post Graduate",
-    link: "https://ibps.in/",
-    status: "Active",
-    color: "rose",
-    category: "Banking",
-    state: "All India"
-  },
-  {
-    id: "v-iocl",
-    board: "IndianOil",
-    post: "Apprentice",
-    vacancies: "647",
-    lastDate: "28-Jul-2026",
-    qualification: "ITI / Diploma / Graduate",
-    link: "#",
-    status: "Active",
-    color: "amber",
-    category: "Central Govt",
-    state: "All India"
-  },
-  {
-    id: "v-rrb-tech",
-    board: "RRB",
-    post: "Technician",
-    vacancies: "6665",
-    lastDate: "29-Jul-2026",
-    qualification: "ITI / Diploma",
-    link: "https://indianrailways.gov.in/",
-    status: "Active",
-    color: "blue",
-    category: "Railway",
-    state: "All India"
-  },
-  {
-    id: "v-railway-section",
-    board: "Railway",
-    post: "Section Controller",
-    vacancies: "119",
-    lastDate: "14-Aug-2026",
-    qualification: "Graduate",
-    link: "https://indianrailways.gov.in/",
-    status: "Active",
-    color: "emerald",
-    category: "Railway",
-    state: "All India"
-  },
-  {
-    id: "v-bro",
-    board: "BRO",
-    post: "Various Posts",
-    vacancies: "1898",
-    lastDate: "19-Jul-2026",
-    qualification: "10th / ITI / Graduate",
-    link: "#",
-    status: "Active",
-    color: "blue",
-    category: "Central Govt",
-    state: "All India"
-  },
-  {
-    id: "v-gsssb-agri",
-    board: "GSSSB",
-    post: "Agriculture Overseer",
-    vacancies: "14",
-    lastDate: "22-Jul-2026",
-    qualification: "B.Sc. Agriculture",
-    link: "https://ojas.gujarat.gov.in/",
-    status: "Active",
-    color: "emerald",
-    category: "State Govt",
-    state: "Gujarat"
-  },
-  {
-    id: "v-jmc",
-    board: "JMC",
-    post: "Various Posts",
-    vacancies: "120",
-    lastDate: "20-Jul-2026",
-    qualification: "Various",
-    link: "#",
-    status: "Active",
-    color: "rose",
-    category: "State Govt",
-    state: "Gujarat"
-  },
-  {
-    id: "v-rnsb",
-    board: "RNSB",
-    post: "Various Posts",
-    vacancies: "179",
-    lastDate: "20-Jul-2026",
-    qualification: "Graduate",
-    link: "#",
-    status: "Active",
-    color: "amber",
-    category: "Banking",
-    state: "Gujarat"
-  },
-  {
-    id: "v-amc",
-    board: "AMC",
-    post: "Assistant Senior Clerk",
-    vacancies: "250",
-    lastDate: "30-Jul-2026",
-    qualification: "Graduate",
-    link: "#",
-    status: "Active",
-    color: "blue",
-    category: "State Govt",
-    state: "Gujarat"
-  },
-  {
-    id: "v-gyan-sahayak",
-    board: "Gyan Sahayak",
-    post: "Secondary & Higher Secondary Teacher",
-    vacancies: "1861",
-    lastDate: "15-Jul-2026",
-    qualification: "B.Ed. / Post Graduate",
-    link: "#",
-    status: "Active",
-    color: "emerald",
-    category: "State Govt",
-    state: "Gujarat"
-  },
-  {
-    id: "v-ap-apprentice",
-    board: "AP Apprentice",
-    post: "Apprentice",
-    vacancies: "Various",
-    lastDate: "28-Jul-2026",
-    qualification: "Diploma / Graduate",
-    link: "#",
-    status: "Active",
-    color: "blue",
-    category: "State Govt",
-    state: "Andhra Pradesh"
-  }
+type LinkKind = 'apply' | 'result' | 'admitCard';
+
+const COLUMNS: { kind: LinkKind; heading: string; suffix: string }[] = [
+  { kind: 'apply', heading: 'Latest jobs', suffix: 'Online Form' },
+  { kind: 'result', heading: 'Results', suffix: 'Result' },
+  { kind: 'admitCard', heading: 'Admit cards', suffix: 'Admit Card' },
 ];
 
+const FILTERS = ['All', 'Central Govt', 'State Govt', 'Banking', 'Railway', 'Defence'] as const;
 
-const LatestVacanciesSection = () => {
-  // Use first 8 items for the colorful top boxes
-  const topBoxes = VACANCIES.slice(0, 8);
-  
-  // Use the remaining items for the Latest Job list, plus some of the first ones to fill it up
-  const latestJobsList = VACANCIES;
+/** Days left, or null when the date can't be parsed. */
+function daysLeft(job: Vacancy): number | null {
+  const d = parseLastDate(job.lastDate);
+  if (!d) return null;
+  const today = new Date();
+  const ms = d.getTime() - new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+  return Math.round(ms / 86_400_000);
+}
+
+/**
+ * One row in a column. A link is only ever rendered as an anchor when a real
+ * URL exists — a missing URL renders as plain text, never as href="#".
+ */
+interface JobLinkProps {
+  job: Vacancy;
+  kind: LinkKind;
+  suffix: string;
+}
+
+const JobLink: React.FC<JobLinkProps> = ({ job, kind, suffix }) => {
+  const target = resolveLink(job, kind);
+  const label = `${job.board} ${job.post} ${suffix} 2026`;
+
+  if (!target) {
+    return (
+      <li className="flex items-start gap-2 py-2 border-b border-line-soft last:border-0">
+        <span className="flex-1 text-[13.5px] leading-snug text-fg-faint">{label}</span>
+        <span className="pill bg-surface-2 text-fg-faint text-[10px] shrink-0 mt-0.5">
+          Link soon
+        </span>
+      </li>
+    );
+  }
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl mb-16 sm:mb-24 overflow-hidden">
-      
-      {/* Top Colorful Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 p-2">
-        {topBoxes.map((job, index) => (
-          <a
-            key={job.id}
-            href={job.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${index % 2 === 0 ? 'bg-brand' : 'bg-accent'} p-4 text-center text-white font-bold text-sm sm:text-base hover:opacity-90 transition-opacity flex flex-col items-center justify-center min-h-[80px] shadow-sm`}
+    <li className="border-b border-line-soft last:border-0">
+      <a
+        href={target.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-start gap-2 py-2 group"
+      >
+        <span className="flex-1 text-[13.5px] leading-snug text-fg-soft group-hover:text-brand-600 transition-colors">
+          {label}
+        </span>
+        {!target.exact && (
+          <span
+            className="pill bg-surface-2 text-fg-muted text-[10px] shrink-0 mt-0.5"
+            title="Goes to the official portal — search there for this notification"
           >
-            <span>{job.board} {job.post}</span>
-            <span>Apply Online</span>
-          </a>
-        ))}
-      </div>
-
-      {/* 3 Column Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-2 mt-4">
-        
-        {/* Result Column */}
-        <div className="border border-brand dark:border-brand bg-white dark:bg-gray-800">
-          <div className="bg-brand text-white text-center py-2 font-bold text-xl md:text-2xl">
-            Result
-          </div>
-          <div className="p-4 space-y-3 h-[400px] overflow-y-auto">
-            <ul className="list-disc pl-5 space-y-3">
-              {latestJobsList.map((job) => (
-                <li key={`res-${job.id}`} className="text-accent dark:text-accent hover:underline cursor-pointer">
-                  <a href={job.link} target="_blank" rel="noopener noreferrer">
-                    {job.board} {job.post} Result 2026
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Admit Card Column */}
-        <div className="border border-brand dark:border-brand bg-white dark:bg-gray-800">
-          <div className="bg-brand text-white text-center py-2 font-bold text-xl md:text-2xl">
-            Admit Card
-          </div>
-          <div className="p-4 space-y-3 h-[400px] overflow-y-auto">
-            <ul className="list-disc pl-5 space-y-3">
-              {latestJobsList.map((job) => (
-                <li key={`adm-${job.id}`} className="text-accent dark:text-accent hover:underline cursor-pointer">
-                  <a href={job.link} target="_blank" rel="noopener noreferrer">
-                    {job.board} {job.post} Admit Card 2026
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Latest Job Column */}
-        <div className="border border-brand dark:border-brand bg-white dark:bg-gray-800">
-          <div className="bg-brand text-white text-center py-2 font-bold text-xl md:text-2xl">
-            Latest Job
-          </div>
-          <div className="p-4 space-y-3 h-[400px] overflow-y-auto">
-            <ul className="list-disc pl-5 space-y-3">
-              {latestJobsList.map((job) => (
-                <li key={`job-${job.id}`} className="text-accent dark:text-accent hover:underline cursor-pointer">
-                  <a href={job.link} target="_blank" rel="noopener noreferrer">
-                    {job.board} {job.post} Online Form 2026
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
+            Portal
+          </span>
+        )}
+        <ExternalLink
+          size={13}
+          className="shrink-0 mt-1 text-fg-faint group-hover:text-brand-600 transition-colors"
+        />
+      </a>
+    </li>
   );
 };
 
-export default LatestVacanciesSection;
+export default function LatestVacanciesSection() {
+  const [filter, setFilter] = useState<(typeof FILTERS)[number]>('All');
 
+  const jobs = useMemo(() => {
+    const list = filter === 'All' ? VACANCIES : VACANCIES.filter(j => j.category === filter);
+    // Soonest deadline first; undated and expired entries sink to the bottom.
+    return [...list].sort((a, b) => {
+      const ea = isExpired(a) ? 1 : 0;
+      const eb = isExpired(b) ? 1 : 0;
+      if (ea !== eb) return ea - eb;
+      const da = parseLastDate(a.lastDate)?.getTime() ?? Infinity;
+      const db = parseLastDate(b.lastDate)?.getTime() ?? Infinity;
+      return da - db;
+    });
+  }, [filter]);
+
+  const featured = jobs.filter(j => !isExpired(j)).slice(0, 6);
+
+  return (
+    <section className="mb-16">
+      <h2 className="mb-2">Latest vacancies</h2>
+      <p className="text-[15px] text-fg-muted mb-2 max-w-[62ch]">
+        Sorted by closing date. Always confirm details on the official notification before applying.
+      </p>
+      <p className="font-mono text-[12px] text-fg-faint mb-6">
+        List last checked: {AS_OF} · {jobs.filter(j => !isExpired(j)).length} open
+      </p>
+
+      {/* Category filter */}
+      <div className="flex gap-1.5 overflow-x-auto no-scrollbar mb-6" role="tablist" aria-label="Job category">
+        {FILTERS.map(f => (
+          <button
+            key={f}
+            type="button"
+            role="tab"
+            aria-selected={filter === f}
+            onClick={() => setFilter(f)}
+            className={`pill shrink-0 transition-colors ${
+              filter === f
+                ? 'pill-brand'
+                : 'bg-surface border border-line text-fg-muted hover:text-brand-600 hover:border-brand-400'
+            }`}
+          >
+            {f}
+          </button>
+        ))}
+      </div>
+
+      {/* Closing soon */}
+      {featured.length > 0 && (
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 mb-10">
+          {featured.map(job => {
+            const left = daysLeft(job);
+            const urgent = left !== null && left <= 7;
+            const target = resolveLink(job, 'apply');
+
+            const body = (
+              <>
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <div className="min-w-0">
+                    <h3 className="text-[14.5px] font-semibold text-fg leading-snug">{job.board}</h3>
+                    <p className="text-[13px] text-fg-muted mt-0.5">{job.post}</p>
+                  </div>
+                  <span className="pill bg-surface-2 text-fg-muted text-[10.5px] shrink-0">
+                    {job.vacancies}
+                  </span>
+                </div>
+
+                <dl className="text-[12px] text-fg-muted space-y-1 mb-3">
+                  <div className="flex gap-1.5">
+                    <dt className="sr-only">Qualification</dt>
+                    <dd>{job.qualification}</dd>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <CalendarClock size={12} aria-hidden="true" />
+                    <dt className="sr-only">Last date</dt>
+                    <dd className="font-mono tabular-nums">{job.lastDate}</dd>
+                    {!job.verified && (
+                      <dd
+                        className="pill bg-surface-2 text-fg-faint text-[10px]"
+                        title={`Not re-checked on ${AS_OF} — confirm the date on the official site`}
+                      >
+                        Unconfirmed
+                      </dd>
+                    )}
+                  </div>
+                </dl>
+
+                <div className="flex items-center justify-between gap-2">
+                  {left !== null && (
+                    <span
+                      className={`inline-flex items-center gap-1 text-[11.5px] font-semibold ${
+                        urgent ? 'text-danger' : 'text-success'
+                      }`}
+                    >
+                      <Clock size={11} aria-hidden="true" />
+                      {left === 0 ? 'Closes today' : `${left} days left`}
+                    </span>
+                  )}
+                  {target ? (
+                    <span className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-brand-600">
+                      Apply
+                      <ExternalLink size={12} />
+                    </span>
+                  ) : (
+                    <span className="text-[11.5px] text-fg-faint">Link soon</span>
+                  )}
+                </div>
+              </>
+            );
+
+            return (
+              <li key={job.id}>
+                {target ? (
+                  <a
+                    href={target.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="card card-lift p-4 block h-full"
+                  >
+                    {body}
+                  </a>
+                ) : (
+                  <div className="card p-4 h-full opacity-75">{body}</div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      {/* Three columns */}
+      <div className="grid gap-4 md:grid-cols-3">
+        {COLUMNS.map(col => (
+          <div key={col.kind} className="card overflow-hidden">
+            <h3 className="px-4 py-3 border-b border-line text-[13px] font-bold uppercase tracking-[0.1em] text-fg bg-surface-2">
+              {col.heading}
+            </h3>
+            <ul className="px-4 py-1 max-h-[380px] overflow-y-auto">
+              {jobs.map(job => (
+                <JobLink key={`${col.kind}-${job.id}`} job={job} kind={col.kind} suffix={col.suffix} />
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <p className="mt-5 flex items-start gap-2 text-[12px] leading-relaxed text-fg-muted">
+        <AlertTriangle size={13} className="shrink-0 mt-0.5 text-warning" aria-hidden="true" />
+        This list is compiled from public job listings and is not an official source. Entries marked{' '}
+        <strong className="font-semibold">Portal</strong> open the board's official homepage rather
+        than the exact notification page. <strong className="font-semibold">Link soon</strong> means
+        no confirmed official URL yet, so the row is plain text instead of a dead link.{' '}
+        <strong className="font-semibold">Unconfirmed</strong> means the date was not re-checked on{' '}
+        {AS_OF}. Always verify on the official website before paying any fee.
+      </p>
+    </section>
+  );
+}

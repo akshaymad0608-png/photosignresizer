@@ -1,0 +1,87 @@
+{
+  "name": "PhotoResizer \u2014 Govt Exam Photo & Signature Resizer",
+  "short_name": "PhotoResizer",
+  "description": "Resize photos and signatures to the exact pixel and KB limits required by Indian government exam forms. Runs entirely in your browser.",
+  "id": "/",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "browser"
+  ],
+  "orientation": "any",
+  "background_color": "#fbfcfe",
+  "theme_color": "#365ef6",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": [
+    "utilities",
+    "photo",
+    "productivity",
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "PhotoResizer"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Resize a photo",
+      "short_name": "Resize",
+      "url": "/?tab=home",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "All tools",
+      "short_name": "Tools",
+      "url": "/tools"
+    },
+    {
+      "name": "Exam guides",
+      "short_name": "Guides",
+      "url": "/guides"
+    }
+  ]
+}
