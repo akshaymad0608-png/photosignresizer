@@ -38,9 +38,6 @@ async function convertFile(file: File, tool: Tool): Promise<{ blob: Blob; ext: s
     }
   }
 
-  const targetMime = tool.output === 'same' ? file.type : MIME[tool.output];
-  if (!targetMime || !EXT[targetMime]) return null;
-
   const url = URL.createObjectURL(file);
   try {
     const img = new Image();
@@ -50,24 +47,74 @@ async function convertFile(file: File, tool: Tool): Promise<{ blob: Blob; ext: s
       img.src = url;
     });
 
+    const srcW = img.naturalWidth;
+    const srcH = img.naturalHeight;
+
+    // Work out the canvas size: an explicit resize wins, otherwise keep the
+    // source size, swapping the axes for a quarter turn.
+    const quarterTurn = tool.rotate === 90 || tool.rotate === 270;
+    let outW = tool.resize?.width ?? (quarterTurn ? srcH : srcW);
+    let outH = tool.resize?.height ?? (quarterTurn ? srcW : srcH);
+    outW = Math.max(1, Math.round(outW));
+    outH = Math.max(1, Math.round(outH));
+
     const canvas = document.createElement('canvas');
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
+    canvas.width = outW;
+    canvas.height = outH;
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
 
-    // JPEG has no alpha — fill white so transparency doesn't turn black.
-    if (targetMime === 'image/jpeg') {
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const targetMime =
+      tool.output === 'pdf' ? 'image/jpeg'
+      : tool.output === 'same' ? file.type
+      : MIME[tool.output];
+    if (!targetMime || !EXT[targetMime]) return null;
+
+    // JPEG has no alpha channel, so transparency would render black.
+    const bg = tool.background ?? (targetMime === 'image/jpeg' ? '#ffffff' : null);
+    if (bg) {
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, outW, outH);
     }
+
     if (tool.filter) ctx.filter = tool.filter;
-    ctx.drawImage(img, 0, 0);
+
+    ctx.save();
+    ctx.translate(outW / 2, outH / 2);
+    if (tool.rotate) ctx.rotate((tool.rotate * Math.PI) / 180);
+    if (tool.flip) ctx.scale(-1, 1);
+
+    // The rotated frame swaps width and height for a quarter turn.
+    const frameW = quarterTurn ? outH : outW;
+    const frameH = quarterTurn ? outW : outH;
+
+    let drawW = frameW;
+    let drawH = frameH;
+    if (tool.resize) {
+      const scale =
+        tool.resize.fit === 'cover'
+          ? Math.max(frameW / srcW, frameH / srcH)
+          : Math.min(frameW / srcW, frameH / srcH);
+      drawW = srcW * scale;
+      drawH = srcH * scale;
+    }
+
+    ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
+    ctx.restore();
 
     const blob = await new Promise<Blob | null>(resolve =>
       canvas.toBlob(resolve, targetMime, tool.quality ?? 0.92)
     );
     if (!blob) return null;
+
+    if (tool.output === 'pdf') {
+      const { jsPDF } = await import('jspdf');
+      const orientation = outW >= outH ? 'landscape' : 'portrait';
+      const pdf = new jsPDF({ orientation, unit: 'px', format: [outW, outH] });
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+      pdf.addImage(dataUrl, 'JPEG', 0, 0, outW, outH);
+      return { blob: pdf.output('blob'), ext: 'pdf' };
+    }
 
     return { blob, ext: EXT[targetMime] };
   } finally {

@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
+import ScrollToHash from './components/ScrollToHash';
 
 const Dashboard = React.lazy(() => import('./pages/admin/Dashboard'));
 const ToolPage = React.lazy(() => import('./pages/ToolPage'));
@@ -26,6 +27,7 @@ const RouteFallback = () => (
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToHash />
       <a href="#main" className="skip-link">Skip to content</a>
       <Suspense fallback={<RouteFallback />}>
         <Routes>

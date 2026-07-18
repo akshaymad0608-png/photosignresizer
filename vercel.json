@@ -1,0 +1,158 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "geolocation=(), microphone=(), payment=(), interest-cohort=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/tools/jpg-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/png-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/heic-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/pdf-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/word-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/mp4-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/video-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/mov-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/wav-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/rar-",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/merge-pdf",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/split-pdf",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/compress-pdf",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/unlock-pdf",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/video-compressor",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/trim-video",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/crop-image",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/metadata",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/palette",
+      "destination": "/free-image-tools",
+      "permanent": true
+    },
+    {
+      "source": "/tools/watermark",
+      "destination": "/free-image-tools",
+      "permanent": true
+    }
+  ]
+}

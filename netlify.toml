@@ -1,0 +1,11 @@
+# Netlify reads this from the repo root.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA fallback: every unknown path must return index.html with HTTP 200,
+# otherwise deep links like /jobs return a real 404 and Google refuses to index.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

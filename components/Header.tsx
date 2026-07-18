@@ -22,7 +22,7 @@ export default function Header({ onOpenSearch, lang = 'en', onLangChange }: Head
   const [openId, setOpenId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef<number | undefined>(undefined);
-  const navRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const location = useLocation();
 
   // Route change closes everything (adjust-state-during-render pattern).
@@ -43,7 +43,12 @@ export default function Header({ onOpenSearch, lang = 'en', onLangChange }: Head
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpenId(null);
     const onClick = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenId(null);
+      // Must test the whole header: the mega panels are siblings of <nav>, so
+      // testing only the nav treated every panel click as a click-away, closed
+      // the panel on mousedown, and swallowed the click before it navigated.
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setOpenId(null);
+      }
     };
     document.addEventListener('keydown', onKey);
     document.addEventListener('mousedown', onClick);
@@ -71,6 +76,7 @@ export default function Header({ onOpenSearch, lang = 'en', onLangChange }: Head
       <a href="#main" className="skip-link">Skip to main content</a>
 
       <header
+        ref={headerRef}
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
           scrolled || openId
             ? 'glass-strong shadow-md border-b border-line'
@@ -78,7 +84,6 @@ export default function Header({ onOpenSearch, lang = 'en', onLangChange }: Head
         }`}
       >
         <nav
-          ref={navRef}
           aria-label="Main navigation"
           className="shell flex items-center gap-3 h-16 lg:h-[4.5rem]"
         >
@@ -228,7 +233,17 @@ const MegaPanel: React.FC<MegaPanelProps> = ({ group, open, onEnter, onLeave, on
     >
       <div className="shell pb-5">
         <div className="card shadow-xl overflow-hidden">
-          <div className={`grid gap-0 ${group.featured ? 'grid-cols-[repeat(3,1fr)_20rem]' : `grid-cols-${group.columns!.length}`}`}>
+          <div
+            className={`grid gap-0 ${
+              group.featured
+                ? 'grid-cols-[repeat(3,1fr)_20rem]'
+                : group.columns!.length === 3
+                  ? 'grid-cols-3'
+                  : group.columns!.length === 2
+                    ? 'grid-cols-2'
+                    : 'grid-cols-1'
+            }`}
+          >
             {group.columns!.map(col => (
               <div key={col.heading} className="p-5 border-r border-line-soft last:border-r-0">
                 <p className="label-field">{col.heading}</p>

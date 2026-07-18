@@ -14,15 +14,23 @@ export interface Tool {
   name: string;
   /** Short description used on cards and as the meta description. */
   blurb: string;
-  group: 'Convert' | 'Optimise' | 'Edit';
-  /** Output container. 'same' keeps the source format. */
-  output: 'png' | 'jpeg' | 'webp' | 'same';
+  group: 'Convert' | 'Optimise' | 'Edit' | 'Resize';
+  /** Output container. 'same' keeps the source format, 'pdf' wraps it. */
+  output: 'png' | 'jpeg' | 'webp' | 'same' | 'pdf';
   /** JPEG/WebP quality, 0–1. Ignored for PNG. */
   quality?: number;
   /** Canvas filter applied before encoding. */
   filter?: string;
   /** Runs the background-removal model instead of a plain re-encode. */
   removeBackground?: boolean;
+  /** Resize the output to these pixel dimensions. */
+  resize?: { width: number; height: number; fit: 'cover' | 'contain' };
+  /** Composite onto a solid background before encoding (kills transparency). */
+  background?: string;
+  /** Rotate clockwise by this many degrees before encoding. */
+  rotate?: 90 | 180 | 270;
+  /** Mirror horizontally. */
+  flip?: boolean;
   /** MIME types the file picker will accept. */
   accept: string;
 }
@@ -91,11 +99,82 @@ export const TOOLS: Tool[] = [
     removeBackground: true,
     accept: 'image/jpeg,image/png,image/webp',
   },
+  {
+    id: 'add-white-background',
+    name: 'Add White Background',
+    blurb: 'Flatten a transparent PNG onto solid white, which most exam forms require.',
+    group: 'Edit',
+    output: 'jpeg',
+    quality: 0.92,
+    background: '#ffffff',
+    accept: 'image/png,image/webp,image/jpeg',
+  },
+  {
+    id: 'passport-photo',
+    name: 'Passport Size Photo',
+    blurb: 'Resize any photo to a standard 35x45 mm passport size at 300 DPI.',
+    group: 'Resize',
+    output: 'jpeg',
+    quality: 0.92,
+    resize: { width: 413, height: 531, fit: 'cover' },
+    background: '#ffffff',
+    accept: 'image/jpeg,image/png,image/webp',
+  },
+  {
+    id: 'resize-200x230',
+    name: 'Resize to 200x230',
+    blurb: 'The photo size printed in most UPSC and SSC notifications.',
+    group: 'Resize',
+    output: 'jpeg',
+    quality: 0.92,
+    resize: { width: 200, height: 230, fit: 'cover' },
+    background: '#ffffff',
+    accept: 'image/jpeg,image/png,image/webp',
+  },
+  {
+    id: 'signature-300x80',
+    name: 'Resize Signature 300x80',
+    blurb: 'Trim a scanned signature to the 300x80 pixel box many forms ask for.',
+    group: 'Resize',
+    output: 'jpeg',
+    quality: 0.92,
+    resize: { width: 300, height: 80, fit: 'contain' },
+    background: '#ffffff',
+    accept: 'image/jpeg,image/png,image/webp',
+  },
+  {
+    id: 'rotate-image',
+    name: 'Rotate 90 degrees',
+    blurb: 'Fix a sideways scan or photo without losing quality.',
+    group: 'Edit',
+    output: 'same',
+    quality: 0.95,
+    rotate: 90,
+    accept: 'image/jpeg,image/png,image/webp',
+  },
+  {
+    id: 'flip-image',
+    name: 'Mirror / Flip Image',
+    blurb: 'Flip a photo horizontally, useful for selfie-camera signatures.',
+    group: 'Edit',
+    output: 'same',
+    quality: 0.95,
+    flip: true,
+    accept: 'image/jpeg,image/png,image/webp',
+  },
+  {
+    id: 'image-to-pdf',
+    name: 'Image to PDF',
+    blurb: 'Wrap a photo or scan into a single-page PDF for upload counters.',
+    group: 'Convert',
+    output: 'pdf',
+    accept: 'image/jpeg,image/png,image/webp',
+  },
 ];
 
 export const getTool = (id?: string) => TOOLS.find(t => t.id === id);
 
-export const TOOL_GROUPS = ['Convert', 'Optimise', 'Edit'] as const;
+export const TOOL_GROUPS = ['Resize', 'Convert', 'Optimise', 'Edit'] as const;
 
 /**
  * Tools that were previously advertised but are not implemented. Kept only so

@@ -307,7 +307,7 @@ export default function Home() {
   }, [activeTab, selectedExam]);
 
   const scrollToTool = useCallback(() => {
-    document.getElementById('tool')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('resize')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
   const EmptyResult = ({ icon: Icon }: { icon: typeof Camera }) => (
@@ -341,7 +341,7 @@ export default function Home() {
           <>
             <Hero lang={lang} exam={selectedExam} onSelectExam={setSelectedExam} onStart={scrollToTool} />
 
-            <div id="tool" className="shell scroll-mt-24">
+            <div id="resize" className="shell scroll-mt-24">
               <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
                 {/* Left rail: what the form demands */}
                 <aside className="lg:col-span-4 xl:col-span-3 space-y-4 lg:sticky lg:top-20 lg:self-start">
@@ -456,7 +456,7 @@ export default function Home() {
                   </section>
 
                   {/* Signature */}
-                  <section className="card p-4 sm:p-5">
+                  <section id="signature" className="card p-4 sm:p-5 scroll-mt-24">
                     <div className="grid md:grid-cols-2 gap-5 md:gap-7">
                       <div>
                         <ImageUploader
@@ -526,7 +526,9 @@ export default function Home() {
                     </span>
                   </div>
 
-                  <ExtraOutputs lang={lang} exam={selectedExam} photo={photoProcessed} sign={signProcessed} />
+                  <div id="extras" className="scroll-mt-24">
+                    <ExtraOutputs lang={lang} exam={selectedExam} photo={photoProcessed} sign={signProcessed} />
+                  </div>
                   <RecentHistory history={history} onClear={() => setHistory([])} title={t.recentResizes} />
                 </div>
               </div>

@@ -37,16 +37,17 @@ export const MEGA_MENU: MenuGroup[] = [
           { label: 'Exam photo resizer', desc: 'Exact px and KB for 50+ exams', href: '/', icon: Crop },
           { label: 'Signature resizer', desc: 'Clean ink on white, under the limit', href: '/#signature', icon: PenLine },
           { label: 'Image compressor', desc: 'Hit a target KB without mush', href: '/tools/image-compressor', icon: Minimize2 },
+          { label: 'Passport size photo', desc: '35x45 mm at 300 DPI', href: '/tools/passport-photo', icon: Crop },
           { label: 'JPG to PNG', desc: 'Lossless conversion', href: '/tools/jpg-to-png', icon: Repeat },
         ],
       },
       {
         heading: 'Utilities',
         items: [
-          { label: 'Metadata remover', desc: 'Strip EXIF and GPS data', href: '/tools/png-to-jpg', icon: ShieldOff },
-          { label: 'Watermark', desc: 'Protect documents you share', href: '/tools/remove-background', icon: Droplets },
-          { label: 'Colour palette', desc: 'Pull dominant colours', href: '/tools/grayscale-converter', icon: Palette },
-          { label: 'QR generator', desc: 'Links, UPI and text', href: '/tools/webp-converter', icon: QrCode, badge: 'New' },
+          { label: 'Remove background', desc: 'Cut out a portrait, get a transparent PNG', href: '/tools/remove-background', icon: ShieldOff },
+          { label: 'Add white background', desc: 'Flatten transparency onto white', href: '/tools/add-white-background', icon: Droplets },
+          { label: 'Convert to grayscale', desc: 'Black and white, as some forms ask', href: '/tools/grayscale-converter', icon: Palette },
+          { label: 'Image to PDF', desc: 'One-page PDF for upload counters', href: '/tools/image-to-pdf', icon: QrCode, badge: 'New' },
         ],
       },
       {
@@ -70,21 +71,19 @@ export const MEGA_MENU: MenuGroup[] = [
     label: 'Exams',
     columns: [
       {
-        heading: 'National',
+        heading: 'Browse',
         items: [
-          { label: 'UPSC Civil Services', href: '/guides/upsc', icon: GraduationCap },
-          { label: 'SSC CGL & CHSL', href: '/guides/ssc', icon: GraduationCap },
-          { label: 'IBPS PO & Clerk', href: '/guides/ibps', icon: GraduationCap },
-          { label: 'RRB NTPC & Group D', href: '/guides/rrb', icon: GraduationCap },
+          { label: 'All supported exams', desc: '50+ presets, searchable', href: '/#supported-exams', icon: BookOpen },
+          { label: 'Start resizing', desc: 'Pick an exam and go', href: '/#resize', icon: GraduationCap },
+          { label: 'Signature requirements', desc: 'Size, ink and background', href: '/#signature', icon: GraduationCap },
         ],
       },
       {
-        heading: 'More',
+        heading: 'Common sizes',
         items: [
-          { label: 'NEET & JEE', href: '/guides/neet', icon: GraduationCap },
-          { label: 'State PSC forms', href: '/guides/state-psc', icon: GraduationCap },
-          { label: 'Bank & insurance', href: '/guides/banking', icon: GraduationCap },
-          { label: 'All supported exams', href: '/#resize', icon: BookOpen },
+          { label: 'Passport size (35x45 mm)', href: '/tools/passport-photo', icon: Crop },
+          { label: 'Photo 200x230 px', href: '/tools/resize-200x230', icon: Crop },
+          { label: 'Signature 300x80 px', href: '/tools/signature-300x80', icon: PenLine },
         ],
       },
     ],
@@ -96,9 +95,8 @@ export const MEGA_MENU: MenuGroup[] = [
       {
         heading: 'Guides',
         items: [
-          { label: 'Photo size guide', desc: 'Pixels, DPI and KB explained', href: '/guides', icon: BookOpen },
-          { label: 'Why forms reject photos', desc: 'The eight usual reasons', href: '/guides', icon: HelpCircle },
-          { label: 'Blog', desc: 'Notifications and deadlines', href: '/blog', icon: Newspaper },
+          { label: 'How it works', desc: 'Four steps, all on your device', href: '/#how-it-works', icon: BookOpen },
+          { label: 'Blog & guides', desc: 'Notifications and deadlines', href: '/blog', icon: Newspaper },
           { label: 'FAQ', desc: 'Quick answers', href: '/faq', icon: HelpCircle },
         ],
       },
@@ -112,5 +110,6 @@ export const MEGA_MENU: MenuGroup[] = [
       },
     ],
   },
+  { id: 'tools-all', label: 'All tools', href: '/free-image-tools' },
   { id: 'jobs', label: 'Jobs', href: '/jobs' },
 ];

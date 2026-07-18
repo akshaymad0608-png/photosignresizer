@@ -17,6 +17,22 @@ async function startServer() {
   //   const rateLimiter = rateLimit({ windowMs: 60_000, max: 30 });
   const rateLimiter = (_req: any, _res: any, next: any) => next();
 
+  // Old tool URLs that were indexed before the catalogue was trimmed. A real
+  // 301 here beats a client-side redirect: Google transfers the ranking signal
+  // and drops the dead URL instead of recording a soft 404.
+  const RETIRED_TOOLS = [
+    "jpg-", "png-", "heic-", "pdf-", "word-", "mp4-", "video-", "mov-", "wav-", "rar-",
+    "merge-pdf", "split-pdf", "compress-pdf", "unlock-pdf",
+    "video-compressor", "trim-video", "crop-image",
+    "metadata", "palette", "watermark",
+  ];
+  app.get("/tools/:toolId", (req, res, next) => {
+    if (RETIRED_TOOLS.includes(req.params.toolId)) {
+      return res.redirect(301, "/free-image-tools");
+    }
+    next();
+  });
+
   // API routes FIRST
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok", message: "PhotoResizer core API online" });

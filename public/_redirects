@@ -1,1 +1,23 @@
-/* /index.html 200
+/tools/jpg-   /free-image-tools   301
+/tools/png-   /free-image-tools   301
+/tools/heic-   /free-image-tools   301
+/tools/pdf-   /free-image-tools   301
+/tools/word-   /free-image-tools   301
+/tools/mp4-   /free-image-tools   301
+/tools/video-   /free-image-tools   301
+/tools/mov-   /free-image-tools   301
+/tools/wav-   /free-image-tools   301
+/tools/rar-   /free-image-tools   301
+/tools/merge-pdf   /free-image-tools   301
+/tools/split-pdf   /free-image-tools   301
+/tools/compress-pdf   /free-image-tools   301
+/tools/unlock-pdf   /free-image-tools   301
+/tools/video-compressor   /free-image-tools   301
+/tools/trim-video   /free-image-tools   301
+/tools/crop-image   /free-image-tools   301
+/tools/metadata   /free-image-tools   301
+/tools/palette   /free-image-tools   301
+/tools/watermark   /free-image-tools   301
+
+# SPA fallback — must be last
+/*   /index.html   200
