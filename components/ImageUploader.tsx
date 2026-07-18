@@ -1,6 +1,9 @@
-import React from 'react';
-import { Upload, X, CheckCircle, RotateCw, RotateCcw } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Upload, X, CheckCircle, RotateCw, RotateCcw, Crop as CropIcon, Check } from 'lucide-react';
+import ReactCrop, { Crop, PixelCrop } from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
 import { Language } from '../types';
+import { getCroppedImg } from '../utils/cropImage';
 
 interface ImageUploaderProps {
   title: string;
@@ -9,6 +12,7 @@ interface ImageUploaderProps {
   onClear: () => void;
   rotation?: number;
   onRotate?: (deg: number) => void;
+  onCropApply?: (croppedImageUrl: string) => void;
   accept?: string;
   lang: Language;
 }
@@ -20,12 +24,31 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   onClear,
   rotation = 0,
   onRotate,
+  onCropApply,
   accept = "image/*",
   lang
 }) => {
+  const [isCropping, setIsCropping] = useState(false);
+  const [crop, setCrop] = useState<Crop>();
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+  const imgRef = useRef<HTMLImageElement>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       onUpload(e.target.files[0]);
+    }
+  };
+
+  const handleApplyCrop = async () => {
+    if (imgRef.current && completedCrop && onCropApply) {
+      try {
+        const croppedImageUrl = await getCroppedImg(imgRef.current, completedCrop);
+        onCropApply(croppedImageUrl);
+        setIsCropping(false);
+        if (onRotate) onRotate(0); // Reset rotation since crop is on unrotated image
+      } catch (e) {
+        console.error("Failed to crop image", e);
+      }
     }
   };
 
@@ -35,12 +58,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         <span className="flex items-center gap-2">
           {title}
         </span>
-        {image && (
+        {image && !isCropping && (
           <span className="text-[10px] font-bold uppercase tracking-wider text-brand dark:text-brand flex items-center gap-1.5 bg-brand/10 dark:bg-brand/20 px-2 py-1 rounded-md border border-brand/20 dark:border-brand/20">
              <CheckCircle size={14}/> Ready
           </span>
         )}
       </h3>
+      
       {!image ? (
         <div className="flex flex-row gap-3">
           <label className="relative flex-1 flex flex-col items-center justify-center h-32 sm:h-40 border-2 border-brand/30 dark:border-accent/30 border-dashed rounded-xl cursor-pointer bg-brand/5 dark:bg-accent/5 hover:bg-brand/10 transition-colors group">
@@ -72,41 +96,86 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         </div>
       ) : (
         <div className="flex flex-col gap-4">
-          <div className="relative w-full h-48 sm:h-64 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-700 group">
-            <img 
-              src={image} 
-              alt={`${title} preview`} 
-              className="max-h-full max-w-full object-contain transition-transform duration-300" 
-              style={{ transform: `rotate(${rotation}deg)` }}
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <button
-                onClick={onClear}
-                className="bg-red-500 hover:bg-red-600 text-white p-3 rounded-lg shadow-sm transition-colors"
-                title="Remove Image"
+          <div className="relative w-full min-h-48 sm:min-h-64 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-700 group">
+            {isCropping ? (
+              <ReactCrop
+                crop={crop}
+                onChange={(_, percentCrop) => setCrop(percentCrop)}
+                onComplete={(c) => setCompletedCrop(c)}
+                className="max-h-[500px]"
               >
-                <X size={20} />
-              </button>
-            </div>
+                <img
+                  ref={imgRef}
+                  src={image}
+                  alt={`${title} preview`}
+                  className="max-h-[500px] w-auto object-contain"
+                  referrerPolicy="no-referrer"
+                />
+              </ReactCrop>
+            ) : (
+              <>
+                <img 
+                  src={image} 
+                  alt={`${title} preview`} 
+                  className="max-h-64 sm:max-h-80 max-w-full object-contain transition-transform duration-300" 
+                  style={{ transform: `rotate(${rotation}deg)` }}
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                  {onCropApply && (
+                    <button
+                      onClick={() => setIsCropping(true)}
+                      className="bg-brand hover:bg-brand-dark text-white p-3 rounded-lg shadow-sm transition-colors"
+                      title={lang === 'en' ? "Crop Image" : "क्रॉप करें"}
+                    >
+                      <CropIcon size={20} />
+                    </button>
+                  )}
+                  <button
+                    onClick={onClear}
+                    className="bg-red-500 hover:bg-red-600 text-white p-3 rounded-lg shadow-sm transition-colors"
+                    title={lang === 'en' ? "Remove Image" : "छवि हटाएं"}
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+              </>
+            )}
           </div>
           
-          {/* Rotation Controls */}
-          {onRotate && (
+          {/* Controls */}
+          {isCropping ? (
             <div className="flex justify-center gap-3">
-              <button 
-                onClick={() => onRotate(rotation - 90)}
+               <button 
+                onClick={() => setIsCropping(false)}
                 className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex-1 justify-center"
               >
-                <RotateCcw size={16} /> {lang === 'en' ? 'Rotate Left' : 'बाएं घुमाएं'}
+                <X size={16} /> {lang === 'en' ? 'Cancel' : 'रद्द करें'}
               </button>
               <button 
-                onClick={() => onRotate(rotation + 90)}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex-1 justify-center"
+                onClick={handleApplyCrop}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-dark border border-transparent rounded-lg transition-colors flex-1 justify-center"
               >
-                {lang === 'en' ? 'Rotate Right' : 'दाएं घुमाएं'} <RotateCw size={16} /> 
+                <Check size={16} /> {lang === 'en' ? 'Apply Crop' : 'क्रॉप लागू करें'}
               </button>
             </div>
+          ) : (
+            onRotate && (
+              <div className="flex justify-center gap-3">
+                <button 
+                  onClick={() => onRotate(rotation - 90)}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex-1 justify-center"
+                >
+                  <RotateCcw size={16} /> {lang === 'en' ? 'Rotate Left' : 'बाएं घुमाएं'}
+                </button>
+                <button 
+                  onClick={() => onRotate(rotation + 90)}
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex-1 justify-center"
+                >
+                  {lang === 'en' ? 'Rotate Right' : 'दाएं घुमाएं'} <RotateCw size={16} /> 
+                </button>
+              </div>
+            )
           )}
         </div>
       )}

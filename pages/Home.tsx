@@ -451,6 +451,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                             onClear={() => { setPhotoOriginal(null); setPhotoProcessed(null); }}
                             rotation={photoRotation}
                             onRotate={setPhotoRotation}
+                            onCropApply={(url) => { setPhotoOriginal(url); setPhotoProcessed(null); }}
                             lang={lang}
                         />
                         <ImageControls 
@@ -544,6 +545,7 @@ Signature: ${selectedExam.signature.width}x${selectedExam.signature.height}px, $
                             onClear={() => { setSignOriginal(null); setSignProcessed(null); }}
                             rotation={signRotation}
                             onRotate={setSignRotation}
+                            onCropApply={(url) => { setSignOriginal(url); setSignProcessed(null); }}
                             lang={lang}
                           />
                           <ImageControls 
