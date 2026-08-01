@@ -1,0 +1,197 @@
+# PhotoResizer
+
+> Free online photo & signature resizer for Indian government exam forms — UPSC, SSC, IBPS, RRB and State PSC. Resize to an exact KB size and pixel dimension right in the browser: no upload, no sign-up, no watermark.
+
+PhotoResizer (https://photoresizer.click/) is a free, browser-based web app for Indian government job aspirants who must upload a photo and signature that meet strict file-size (KB) and dimension (pixel/cm) limits on exam application portals. All processing is client-side, so images never leave the user's device.
+
+## Tools
+- [Photo & Signature Resizer](https://photoresizer.click/photo-and-signature-resizer-for-exams.html): Free online photo and signature resizer for UPSC, SSC, IBPS, RRB and State PSC forms. Set exact KB size and pixel dimensions in seconds — no sign-up, works on mobile.
+- [Signature Resizer](https://photoresizer.click/signature-resizer.html): Free online signature resizer for government exam forms. Reduce your signature to 10 KB or 20 KB in JPEG with the exact pixel size — no sign-up, works on mobile.
+- [Free Online Photo Resizer](https://photoresizer.click/free-online-photo-resizer.html): Free online photo resizer to reduce image size to 20 KB, 50 KB or 100 KB and set exact pixel dimensions. No sign-up, no watermark, works in your browser on mobile.
+
+## Exam size guides
+- [SSC Photo & Signature Size](https://photoresizer.click/ssc-photo-signature-size.html): SSC photo and signature size for CGL, CHSL, GD and MTS forms — dimensions, KB limits and format. Resize your photo and signature free for the SSC application.
+- [UPSC Photo & Signature Size](https://photoresizer.click/upsc-photo-signature-size.html): UPSC photo and signature size for the Civil Services and other UPSC forms — dimensions, KB limits and format. Resize your photo and signature free and correctly.
+- [IBPS & SBI Photo Size](https://photoresizer.click/ibps-photo-signature-size.html): IBPS and SBI photo and signature size for PO, Clerk and RRB bank exam forms — dimensions, KB limits and format. Resize your photo and signature free online.
+- [RRB Photo & Signature Size](https://photoresizer.click/rrb-photo-signature-size.html): RRB photo and signature size for NTPC, Group D and ALP railway forms — dimensions, KB limits and JPEG format. Resize your photo and signature free online.
+
+## Key facts
+- Cost: 100% free — no sign-up, no watermark, no limit on the number of images.
+- Privacy: all resizing happens locally in the visitor's browser; images are never uploaded to a server.
+- Output: JPEG, compressed to an exact target KB and cropped to an exact pixel/cm dimension.
+- Typical exam photo: 20–50 KB, JPEG, about 3.5 cm × 4.5 cm (≈200×230 px), plain background.
+- Typical exam signature: 10–20 KB, JPEG, on white paper with dark ink (≈140×60 px).
+- Supported exams: UPSC, SSC (CGL, CHSL, GD, MTS), IBPS, SBI, RRB (NTPC, Group D, ALP), State PSCs, plus any custom size.
+- Works on any phone or computer browser — no app to install.
+
+## More
+- Home / resizer app: https://photoresizer.click/
+- Latest govt jobs & Sarkari result: https://photoresizer.click/jobs
+- FAQ: https://photoresizer.click/faq
+
+_Last updated: 2026-08-01. Full data version: https://photoresizer.click/llms-full.txt_
+
+---
+
+## Detailed exam specifications
+
+### Photo & Signature Resizer
+URL: https://photoresizer.click/photo-and-signature-resizer-for-exams.html
+Typical photo & signature requirements:
+- Format — Photo: JPEG / JPG; Signature: JPEG / JPG
+- File size — Photo: 20 KB – 50 KB; Signature: 10 KB – 20 KB
+- Dimensions — Photo: ~3.5 cm × 4.5 cm (≈200×230 px); Signature: ~3.5 cm × 1.5 cm (≈140×60 px)
+- Background — Photo: Plain white / light; Signature: White paper, black/blue ink
+- Look — Photo: Recent, front-facing, clear; Signature: Running signature, not capital letters
+Note: These are common ranges — always confirm the exact size and format on your exam’s official notification PDF before uploading. PhotoResizer lets you set any custom KB and pixel value.
+
+### Signature Resizer
+URL: https://photoresizer.click/signature-resizer.html
+Typical signature requirements:
+- Format — Photo: —; Signature: JPEG / JPG
+- File size — Photo: —; Signature: 10 KB – 20 KB (some forms up to 40 KB)
+- Dimensions — Photo: —; Signature: ≈140 × 60 px (3.5 cm × 1.5 cm)
+- Ink & paper — Photo: —; Signature: Black or blue ink on plain white paper
+- Style — Photo: —; Signature: Running signature — not block capitals
+Note: Ranges vary by exam — confirm on the official notification. PhotoResizer lets you set any exact KB and pixel value, so you can match any form.
+
+### SSC Photo & Signature Size
+URL: https://photoresizer.click/ssc-photo-signature-size.html
+SSC photo & signature specifications (typical):
+- Format — Photo: JPEG; Signature: JPEG
+- File size — Photo: 20 KB – 50 KB; Signature: 10 KB – 20 KB
+- Dimensions — Photo: ≈3.5 cm × 4.5 cm; Signature: ≈4.0 cm × 2.0 cm
+- Photo age — Photo: Recent (with date, if asked); Signature: —
+- Background — Photo: Light / white, clear face; Signature: White paper, dark ink
+Note: Always confirm against the current SSC notice for your exam (CGL / CHSL / GD / MTS) — limits can differ by year. PhotoResizer supports any custom KB and pixel size.
+
+### UPSC Photo & Signature Size
+URL: https://photoresizer.click/upsc-photo-signature-size.html
+UPSC photo & signature specifications (typical):
+- Format — Photo: JPEG; Signature: JPEG
+- File size — Photo: ≈ up to 300 KB; Signature: ≈ up to 300 KB
+- Dimensions — Photo: ≈350 × 350 px to 3.5 × 4.5 cm; Signature: Clear, on white paper
+- Name & date — Photo: Often required printed on photo; Signature: —
+- Background — Photo: Plain, front-facing, recent; Signature: Dark ink, white paper
+Note: UPSC often asks for the candidate’s name and the date printed on the photo. Always verify the exact rules on the official UPSC notification for your exam before uploading.
+
+### IBPS & SBI Photo Size
+URL: https://photoresizer.click/ibps-photo-signature-size.html
+IBPS / SBI photo & signature specifications (typical):
+- Format — Photo: JPEG; Signature: JPEG
+- File size — Photo: 20 KB – 50 KB; Signature: 10 KB – 20 KB
+- Dimensions — Photo: ≈200 × 230 px; Signature: ≈140 × 60 px
+- Background — Photo: Light / white; Signature: White paper, black ink
+- Also may need — Photo: Thumb impression 20–50 KB; Signature: Handwritten declaration 50–100 KB
+Note: Bank exams (IBPS PO/Clerk/RRB, SBI PO/Clerk) may also require a thumb impression (20–50 KB) and a handwritten declaration (50–100 KB). Confirm on the official notification.
+
+### RRB Photo & Signature Size
+URL: https://photoresizer.click/rrb-photo-signature-size.html
+RRB photo & signature specifications (typical):
+- Format — Photo: JPEG; Signature: JPEG
+- File size — Photo: ≈20 KB – 50 KB; Signature: ≈10 KB – 40 KB
+- Dimensions — Photo: ≈3.5 cm × 4.5 cm; Signature: Clear, on white paper
+- Photo type — Photo: Recent colour, plain background; Signature: Dark ink, running signature
+- Clarity — Photo: Face clearly visible; Signature: No smudging
+Note: Railway (RRB) limits differ across NTPC, Group D and ALP notices and by year. Always confirm on the official CEN notification. PhotoResizer supports any custom size.
+
+---
+
+## Frequently asked questions
+
+### Photo & Signature Resizer — FAQ
+Q: Is PhotoResizer free?
+A: Yes — it is completely free, with no sign-up, no watermark and no limit on how many images you resize.
+
+Q: Is my photo safe?
+A: Yes. Resizing happens inside your browser on your own device. Your images are not uploaded to any server.
+
+Q: Which exams are supported?
+A: UPSC, SSC (CGL, CHSL, GD, MTS), IBPS, SBI, RRB (NTPC, Group D, ALP) and State PSCs. You can also enter a custom KB and pixel size for any other form.
+
+Q: Can I reduce a photo to 20 KB or 50 KB?
+A: Yes. Set the exact target size and PhotoResizer compresses to that KB value while keeping the photo clear.
+
+Q: Does it work on mobile?
+A: Yes — it is built mobile-first and works in any phone browser (Chrome, Safari) with no app to install.
+
+### Signature Resizer — FAQ
+Q: How do I reduce my signature to 20 KB?
+A: Upload your signature photo to PhotoResizer, set the target to 20 KB, and download — it compresses to that exact size while keeping the ink sharp.
+
+Q: What size should a signature be for exam forms?
+A: Most Indian exam forms ask for a signature of 10–20 KB in JPEG, around 140×60 pixels (3.5×1.5 cm), on a white background.
+
+Q: Can I use a black or blue pen?
+A: Yes. Black or blue ink on plain white paper both work well and scan cleanly.
+
+Q: Is the signature resizer free?
+A: Yes — free, no sign-up, no watermark, and it runs privately in your browser.
+
+### Free Online Photo Resizer — FAQ
+Q: How do I reduce a photo to 50 KB?
+A: Upload it to PhotoResizer, set the target size to 50 KB and download — it compresses to that exact size automatically.
+
+Q: Can I resize a photo to exact pixels?
+A: Yes. Enter the width and height in pixels or centimetres and the tool scales the image precisely.
+
+Q: Does it add a watermark?
+A: No. PhotoResizer never adds a watermark, and it is free with no sign-up.
+
+Q: Is it safe to resize private photos here?
+A: Yes — resizing happens locally in your browser, so your images are never uploaded to any server.
+
+Q: What formats are supported?
+A: Common image formats including JPG/JPEG, PNG and WebP. Output is usually JPEG for the smallest exam-friendly size.
+
+### SSC Photo & Signature Size — FAQ
+Q: What is the photo size for SSC CGL?
+A: SSC CGL usually requires a recent colour photo in JPEG of about 20–50 KB. Confirm the exact limit on the current notification.
+
+Q: What is the signature size for SSC?
+A: SSC signatures are typically 10–20 KB in JPEG on a white background with dark ink.
+
+Q: How do I resize my photo for SSC GD?
+A: Use PhotoResizer’s SSC preset, upload your photo, and download at the required KB — it works for SSC GD, CGL, CHSL and MTS.
+
+Q: Is the SSC resizer free?
+A: Yes — free, no sign-up, no watermark, and private (runs in your browser).
+
+### UPSC Photo & Signature Size — FAQ
+Q: What is the photo size for UPSC?
+A: UPSC typically accepts a recent colour JPEG photo up to around 300 KB, often with your name and date printed on it. Check the current notification for exact limits.
+
+Q: Does UPSC need name and date on the photo?
+A: Often yes. Many UPSC forms require your name and the date the photo was taken to be visible on the image.
+
+Q: How do I resize my photo for UPSC online?
+A: Use PhotoResizer’s UPSC preset, upload the photo, set the required size, and download — the name/date text stays readable.
+
+Q: Is it free?
+A: Yes — free, private, no sign-up and no watermark.
+
+### IBPS & SBI Photo Size — FAQ
+Q: What is the photo size for IBPS?
+A: IBPS forms typically need a JPEG photo of about 20–50 KB, around 200×230 pixels. Confirm on the current notification.
+
+Q: What is the signature size for SBI Clerk?
+A: Usually a JPEG signature of 10–20 KB on white paper with dark ink. Check the exact SBI notice.
+
+Q: Do bank forms need a thumb impression?
+A: Often yes — IBPS and SBI may require a left-thumb impression (about 20–50 KB) and a handwritten declaration (about 50–100 KB).
+
+Q: Can I resize all of them here?
+A: Yes — PhotoResizer can size the photo, signature, thumb impression and declaration to their exact limits.
+
+### RRB Photo & Signature Size — FAQ
+Q: What is the photo size for RRB NTPC?
+A: RRB NTPC usually needs a recent colour JPEG photo of about 20–50 KB. Confirm the exact size on the CEN notification.
+
+Q: What is the signature size for RRB ALP?
+A: Typically a JPEG signature of about 10–40 KB on white paper with dark ink.
+
+Q: How do I resize my photo for RRB Group D?
+A: Use PhotoResizer’s RRB preset, upload your photo, set the required KB, and download an RRB-ready JPEG.
+
+Q: Is it free?
+A: Yes — free, no sign-up, no watermark, and private to your device.
