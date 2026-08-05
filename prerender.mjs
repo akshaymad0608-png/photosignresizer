@@ -29,7 +29,7 @@ const routes = [
   },
   {
     path: '/jobs',
-    title: 'Latest Govt Job Vacancies 2026 — Last Dates & Official Links | PhotoResizer',
+    title: 'Latest Govt Jobs 2026 — Vacancies & Last Dates | PhotoResizer',
     description: 'Latest government job vacancies with last dates and official apply links — SSC, RRB, SBI, IBPS, UPPSC, BPSC and state exams. Free photo & signature resizer too.',
   },
   {
