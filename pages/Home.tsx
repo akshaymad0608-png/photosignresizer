@@ -33,6 +33,7 @@ const WhyUseSection = React.lazy(() => import('../components/sections/WhyUseSect
 const BlogSection = React.lazy(() => import('../components/sections/BlogSection'));
 const MajorExamsLinksSection = React.lazy(() => import('../components/sections/MajorExamsLinksSection'));
 const LatestVacanciesSection = React.lazy(() => import('../components/sections/LatestVacanciesSection'));
+const PopularToolsSection = React.lazy(() => import('../components/sections/PopularToolsSection'));
 
 type Tab = 'home' | 'faq' | 'blog' | 'tools' | 'jobs' | 'links';
 
@@ -539,6 +540,7 @@ export default function Home() {
         <React.Suspense fallback={<div className="h-72 animate-pulse" />}>
           {activeTab === 'jobs' && <div className="shell mt-8"><LatestVacanciesSection /></div>}
           {activeTab === 'links' && <div className="shell mt-8"><MajorExamsLinksSection /></div>}
+          {activeTab === 'home' && <PopularToolsSection />}
           {activeTab === 'home' && (
             <div className="shell mt-16 space-y-4">
               <div id="how-it-works" className="scroll-mt-24">
