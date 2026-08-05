@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Dark mode is toggled by a `.dark` class on <html> (see useTheme). Tailwind v4
+   defaults the `dark:` variant to the OS `prefers-color-scheme`, which fought
+   the toggle — half the UI followed the class, half followed the OS, so manual
+   dark mode looked broken/unreadable. This binds `dark:` to the class instead. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ============================================================
    APERTURE DESIGN SYSTEM
    Brand: blue → violet → cyan. Premium, minimal, AI-inspired.
