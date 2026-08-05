@@ -198,6 +198,14 @@
   color-scheme: dark;
 }
 
+/* Keep the page canvas dark even if a scroll-lock/base rule leaves <body>'s
+   own background light — otherwise an overscroll bounce flashes white in dark
+   mode. Unlayered + !important so it wins over any competing declaration. */
+html.dark,
+html.dark body {
+  background-color: var(--color-bg) !important;
+}
+
 /* ============================================================
    BASE
    ============================================================ */
