@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ExternalLink, CalendarClock, Clock, AlertTriangle } from 'lucide-react';
+import { ExternalLink, CalendarClock, Clock, AlertTriangle, Search, MapPin, X } from 'lucide-react';
 import {
   VACANCIES,
   AS_OF,
@@ -83,9 +83,23 @@ const JobLink: React.FC<JobLinkProps> = ({ job, kind, suffix }) => {
 
 export default function LatestVacanciesSection() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>('All');
+  const [stateFilter, setStateFilter] = useState('All states');
+  const [query, setQuery] = useState('');
+
+  // Unique states present in the data, for the dropdown.
+  const states = useMemo(
+    () => ['All states', ...Array.from(new Set(VACANCIES.map(j => j.state))).sort()],
+    [],
+  );
 
   const jobs = useMemo(() => {
-    const list = filter === 'All' ? VACANCIES : VACANCIES.filter(j => j.category === filter);
+    const q = query.trim().toLowerCase();
+    const list = VACANCIES.filter(
+      j =>
+        (filter === 'All' || j.category === filter) &&
+        (stateFilter === 'All states' || j.state === stateFilter) &&
+        (!q || `${j.board} ${j.post} ${j.state}`.toLowerCase().includes(q)),
+    );
     // Soonest deadline first; undated and expired entries sink to the bottom.
     return [...list].sort((a, b) => {
       const ea = isExpired(a) ? 1 : 0;
@@ -95,22 +109,61 @@ export default function LatestVacanciesSection() {
       const db = parseLastDate(b.lastDate)?.getTime() ?? Infinity;
       return da - db;
     });
-  }, [filter]);
+  }, [filter, stateFilter, query]);
 
   const featured = jobs.filter(j => !isExpired(j)).slice(0, 6);
+  const openCount = jobs.filter(j => !isExpired(j)).length;
+  const activeFilters = filter !== 'All' || stateFilter !== 'All states' || query.trim() !== '';
 
   return (
     <section className="mb-16">
       <h2 className="mb-2">Latest vacancies</h2>
       <p className="text-[15px] text-fg-muted mb-2 max-w-[62ch]">
-        Sorted by closing date. Always confirm details on the official notification before applying.
+        Sorted by closing date. Search or filter by exam, state and category. Always confirm details
+        on the official notification before applying.
       </p>
       <p className="font-mono text-[12px] text-fg-faint mb-6">
-        List last checked: {AS_OF} · {jobs.filter(j => !isExpired(j)).length} open
+        List last checked: {AS_OF} · {VACANCIES.length} listings · {openCount} shown
       </p>
 
+      {/* Search + state */}
+      <div className="flex flex-col sm:flex-row gap-2.5 mb-4">
+        <div className="relative flex-1">
+          <Search
+            size={16}
+            aria-hidden="true"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-fg-faint"
+          />
+          <input
+            type="search"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="Search exam or board — SSC, UPPSC, police, clerk…"
+            aria-label="Search vacancies"
+            className="w-full h-11 rounded-xl border border-line bg-surface pl-9 pr-3 text-[14px] text-fg outline-none transition-colors placeholder:text-fg-faint focus:border-brand-400"
+          />
+        </div>
+        <div className="relative sm:w-56">
+          <MapPin
+            size={16}
+            aria-hidden="true"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-fg-faint"
+          />
+          <select
+            value={stateFilter}
+            onChange={e => setStateFilter(e.target.value)}
+            aria-label="Filter by state"
+            className="w-full h-11 rounded-xl border border-line bg-surface pl-9 pr-8 text-[14px] text-fg outline-none appearance-none transition-colors focus:border-brand-400"
+          >
+            {states.map(s => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
       {/* Category filter */}
-      <div className="flex gap-1.5 overflow-x-auto no-scrollbar mb-6" role="tablist" aria-label="Job category">
+      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar mb-6" role="tablist" aria-label="Job category">
         {FILTERS.map(f => (
           <button
             key={f}
@@ -127,7 +180,29 @@ export default function LatestVacanciesSection() {
             {f}
           </button>
         ))}
+        {activeFilters && (
+          <button
+            type="button"
+            onClick={() => { setFilter('All'); setStateFilter('All states'); setQuery(''); }}
+            className="pill shrink-0 inline-flex items-center gap-1 bg-surface border border-line text-fg-faint hover:text-danger hover:border-danger/40 transition-colors"
+          >
+            <X size={12} /> Clear
+          </button>
+        )}
       </div>
+
+      {jobs.length === 0 && (
+        <div className="card p-8 text-center text-[14px] text-fg-muted mb-10">
+          No vacancies match your search.{' '}
+          <button
+            type="button"
+            onClick={() => { setFilter('All'); setStateFilter('All states'); setQuery(''); }}
+            className="font-semibold text-brand-600 hover:underline"
+          >
+            Clear filters
+          </button>
+        </div>
+      )}
 
       {/* Closing soon */}
       {featured.length > 0 && (
@@ -213,6 +288,7 @@ export default function LatestVacanciesSection() {
       )}
 
       {/* Three columns */}
+      {jobs.length > 0 && (
       <div className="grid gap-4 md:grid-cols-3">
         {COLUMNS.map(col => (
           <div key={col.kind} className="card overflow-hidden">
@@ -227,6 +303,7 @@ export default function LatestVacanciesSection() {
           </div>
         ))}
       </div>
+      )}
 
       <p className="mt-5 flex items-start gap-2 text-[12px] leading-relaxed text-fg-muted">
         <AlertTriangle size={13} className="shrink-0 mt-0.5 text-warning" aria-hidden="true" />
