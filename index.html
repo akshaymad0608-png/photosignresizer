@@ -54,12 +54,32 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://photoresizer.click/#publisher",
+      "name": "PhotoResizer",
+      "url": "https://photoresizer.click/",
+      "description": "Free browser-based photo and signature resizer for Indian government exam forms.",
+      "areaServed": { "@type": "Country", "name": "India" },
+      "founder": { "@type": "Person", "name": "Akshay Mahajan", "url": "https://akshay.website" },
+      "sameAs": ["https://akshay.website"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "PhotoResizer",
       "url": "https://photoresizer.click/",
       "operatingSystem": "Any (web browser)",
       "applicationCategory": "MultimediaApplication",
       "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en-IN",
+      "audience": {
+        "@type": "Audience",
+        "name": "Indian government exam applicants",
+        "geographicArea": { "@type": "Country", "name": "India" }
+      },
+      "publisher": { "@id": "https://photoresizer.click/#publisher" },
       "description": "Free online photo and signature resizer for Indian government exam forms — UPSC, SSC, IBPS, RRB and State PSC. Set exact KB size and pixel dimensions.",
       "offers": {
         "@type": "Offer",
