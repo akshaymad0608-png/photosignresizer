@@ -50,5 +50,4 @@ Allow: /
 User-agent: meta-externalagent
 Allow: /
 
-Host: https://photoresizer.click
 Sitemap: https://photoresizer.click/sitemap.xml
