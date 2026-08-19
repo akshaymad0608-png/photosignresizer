@@ -6,6 +6,10 @@ import { ExamRequirement, Language, ProcessedImage } from '../types';
 import { processImage, readFileAsDataURL } from '../utils/imageProcessing';
 
 import Header from '../components/Header';
+// Imported eagerly, not via React.lazy like the other sections. Its whole job
+// is to put the guide pages back into the rendered link graph, so it must not
+// sit behind a Suspense boundary and a separate chunk fetch.
+import GuideLinksSection from '../components/sections/GuideLinksSection';
 import CommandPalette from '../components/CommandPalette';
 import MobileBottomNav from '../components/MobileBottomNav';
 import Hero from '../components/Hero';
@@ -550,6 +554,7 @@ export default function Home() {
                 <SupportedExamsSection lang={lang} onSelectExam={setSelectedExam} />
               </div>
               <LatestVacanciesSection />
+              <GuideLinksSection />
               <WhyUseSection lang={lang} />
             </div>
           )}

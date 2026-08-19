@@ -75,12 +75,18 @@ export const softwareApplicationSchema = () => ({
     'Print sheet and PDF export',
     'Works entirely offline in the browser',
   ],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    ratingCount: '1240',
-    bestRating: '5',
-  },
+  // No aggregateRating here on purpose.
+  //
+  // It used to carry ratingValue 4.8 over ratingCount 1240. Those numbers were
+  // string literals in this file: no review is collected anywhere in the app,
+  // no rating is shown to a visitor, and nothing could ever have changed them.
+  // Google's structured data rules bar marking up content a user cannot see,
+  // and bar self-assigned ratings with no genuine review mechanism behind them
+  // — that combination is what spammy-markup manual actions are for, and this
+  // domain carries almost all of the site's search traffic.
+  //
+  // Re-add it only once real reviews are collected AND displayed on the page,
+  // backed by individual Review items.
 });
 
 export const breadcrumbSchema = (trail: { name: string; path: string }[]) => ({
