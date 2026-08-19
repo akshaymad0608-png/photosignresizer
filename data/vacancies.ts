@@ -306,6 +306,46 @@ export const VACANCIES: Vacancy[] = [
     portal: 'https://www.rbi.org.in/',
     links: { apply: 'https://opportunities.rbi.org.in/' },
   },
+
+  // ---- Insurance PSUs (added 19 Aug 2026) --------------------------------
+  // Portals confirmed by loading each site on that date. NICL and NIACL are
+  // two different companies that both recruit AOs and Assistants — National
+  // Insurance Company Limited and The New India Assurance Company Limited —
+  // and are listed separately so their recruitment pages do not get crossed.
+  // Recurring exams, so no fixed date is claimed.
+  {
+    id: 'v-lic-aao-ado',
+    board: 'LIC',
+    post: 'AAO / ADO (Assistant Administrative Officer, Apprentice Development Officer)',
+    vacancies: 'Multiple',
+    lastDate: 'As per notification',
+    qualification: 'Graduate',
+    category: 'Banking',
+    state: 'All India',
+    portal: 'https://licindia.in/web/guest/careers',
+  },
+  {
+    id: 'v-nicl-ao-assistant',
+    board: 'NICL',
+    post: 'Administrative Officer (AO) & Assistant',
+    vacancies: 'Multiple',
+    lastDate: 'As per notification',
+    qualification: 'Graduate',
+    category: 'Banking',
+    state: 'All India',
+    portal: 'https://nationalinsurance.nic.co.in/recruitment',
+  },
+  {
+    id: 'v-niacl-ao-assistant',
+    board: 'NIACL',
+    post: 'Administrative Officer (AO) & Assistant',
+    vacancies: 'Multiple',
+    lastDate: 'As per notification',
+    qualification: 'Graduate',
+    category: 'Banking',
+    state: 'All India',
+    portal: 'https://www.newindia.co.in/recruitment/list',
+  },
   {
     id: 'v-indiapost-gds',
     board: 'India Post',

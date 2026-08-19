@@ -76,10 +76,18 @@ const daysLeft = (v) => {
  */
 const PAGES = {
   'agniveer-photo-signature-size': { boards: ['Indian Air Force'] },
-  'bank-exam-photo-signature-size': { boards: ['IBPS', 'SBI', 'RBI', 'India Post'] },
+  'bank-exam-photo-signature-size': {
+    boards: ['IBPS', 'SBI', 'RBI', 'India Post', 'LIC', 'NICL', 'NIACL'],
+  },
   'ibps-photo-signature-size': { boards: ['IBPS'] },
   'rbi-photo-signature-size': { boards: ['RBI'] },
   'sbi-photo-signature-size': { boards: ['SBI'] },
+  // No 'lic-photo-signature-size'. LIC has exactly one recurring vacancy, so
+  // its section would be one row wrapped in the same intro and footer every
+  // other page carries — and on a 630-word page that wrapper dominates.
+  // Adding it measurably pushed lic/rbi from 86.5% to 90.3% and lic/sbi from
+  // 82.5% to 85.1%. A section only earns its place when it carries enough
+  // board-specific rows to outweigh its own boilerplate.
   'rrb-photo-signature-size': {
     boards: ['RRB', 'RRC Central Railway', 'Northeast Frontier Railway (NFR)'],
   },
