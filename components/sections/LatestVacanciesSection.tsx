@@ -42,6 +42,31 @@ const JobLink: React.FC<JobLinkProps> = ({ job, kind, suffix }) => {
   const target = resolveLink(job, kind);
   const label = `${job.board} ${job.post} ${suffix} 2026`;
 
+  /**
+   * A closed vacancy must not offer "Apply Online".
+   *
+   * The featured cards already drop expired entries, but these three columns
+   * render the whole list, and this component never checked the date — so a
+   * vacancy that shut on the 14th still rendered as a live apply link on the
+   * 19th. Someone following it would fill a form for a closed post.
+   *
+   * Only the apply column closes. Result and admit-card links become useful
+   * *after* the last date, so expiry is no reason to disable those.
+   */
+  if (kind === 'apply' && isExpired(job)) {
+    return (
+      <li className="flex items-start gap-2 py-2 border-b border-line-soft last:border-0">
+        <span className="flex-1 text-[13.5px] leading-snug text-fg-faint line-through">{label}</span>
+        <span
+          className="pill bg-surface-2 text-fg-faint text-[10px] shrink-0 mt-0.5"
+          title={`Applications closed on ${job.lastDate}`}
+        >
+          Closed
+        </span>
+      </li>
+    );
+  }
+
   if (!target) {
     return (
       <li className="flex items-start gap-2 py-2 border-b border-line-soft last:border-0">
