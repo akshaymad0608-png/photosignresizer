@@ -79,6 +79,99 @@ export const VACANCIES: Vacancy[] = [
     portal: 'https://nfr.indianrailways.gov.in/',
   },
 
+  // ---- Gujarat: read off ojas.gujarat.gov.in on 19 August 2026 ------------
+  // Post names and last dates come straight from the OJAS advertisement table,
+  // which is the official portal for these boards — so `verified` is set.
+  // Neither the table nor the board pages state a vacancy count or a
+  // qualification for these three, so both read "As per notification" rather
+  // than carrying a number nobody published.
+  {
+    id: 'v-seb-htat',
+    board: 'SEB',
+    post: 'Head Teachers Aptitude Test (HTAT) — promotion to Head Teacher',
+    vacancies: 'Multiple',
+    lastDate: '25-Aug-2026',
+    qualification: 'As per notification',
+    category: 'State Govt',
+    state: 'Gujarat',
+    verified: true,
+    portal: 'https://ojas.gujarat.gov.in/',
+  },
+  {
+    id: 'v-gsssb-municipal-accountant',
+    board: 'GSSSB',
+    post: 'Municipal Accountant',
+    vacancies: 'Multiple',
+    lastDate: '21-Aug-2026',
+    qualification: 'As per notification',
+    category: 'State Govt',
+    state: 'Gujarat',
+    verified: true,
+    portal: 'https://ojas.gujarat.gov.in/',
+  },
+  {
+    id: 'v-gsssb-sanitary-inspector',
+    board: 'GSSSB',
+    post: 'Sanitary Inspector',
+    vacancies: 'Multiple',
+    lastDate: '31-Aug-2026',
+    qualification: 'As per notification',
+    category: 'State Govt',
+    state: 'Gujarat',
+    verified: true,
+    portal: 'https://ojas.gujarat.gov.in/',
+  },
+
+  // ---- From a third-party listing, 19 August 2026 -------------------------
+  // Dates below were copied from an aggregator, not read off the board's own
+  // site, so `verified` is deliberately omitted and the UI marks them as
+  // needing confirmation. Only boards whose official portal was already known
+  // here are included — the rest are left out rather than linked on a guess.
+  {
+    id: 'v-rrb-je-cen04',
+    board: 'RRB',
+    post: 'Junior Engineer (CEN 04/2026)',
+    vacancies: '3993',
+    lastDate: '13-Sep-2026',
+    qualification: 'As per notification',
+    category: 'Railway',
+    state: 'All India',
+    portal: 'https://www.rrbapply.gov.in/',
+  },
+  {
+    id: 'v-mpesb-patwari',
+    board: 'MPESB',
+    post: 'Group 2 Sub Group 4 — Patwari and other posts',
+    vacancies: 'Multiple',
+    lastDate: '23-Aug-2026',
+    qualification: 'As per notification',
+    category: 'State Govt',
+    state: 'Madhya Pradesh',
+    portal: 'https://esb.mp.gov.in/',
+  },
+  {
+    id: 'v-mpesb-sub-engineer',
+    board: 'MPESB',
+    post: 'Group 3 Sub Engineer and other posts',
+    vacancies: 'Multiple',
+    lastDate: '01-Sep-2026',
+    qualification: 'As per notification',
+    category: 'State Govt',
+    state: 'Madhya Pradesh',
+    portal: 'https://esb.mp.gov.in/',
+  },
+  {
+    id: 'v-uppsc-asst-professor-gdc',
+    board: 'UPPSC',
+    post: 'Assistant Professor GDC (Mains)',
+    vacancies: 'Multiple',
+    lastDate: 'As per notification',
+    qualification: 'As per notification',
+    category: 'State Govt',
+    state: 'Uttar Pradesh',
+    portal: 'https://uppsc.up.nic.in/',
+  },
+
   // ---- Major recurring national exams (added 04 Aug 2026) -----------------
   // Not checked against a live listing, so `verified` is intentionally omitted
   // and counts/dates read "As per notification" — every entry links to the
