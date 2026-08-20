@@ -36,8 +36,8 @@
 
   --color-fg:          #0b1020;
   --color-fg-soft:     #3a4356;
-  --color-fg-muted:    #6b7484;
-  --color-fg-faint:    #98a0ae;
+  --color-fg-muted:    #525b6b;
+  --color-fg-faint:    #5c6575;
 
   --color-line:        #e5e9f0;
   --color-line-soft:   #eef1f6;
@@ -166,7 +166,7 @@
   --color-fg:          #f2f5fb;
   --color-fg-soft:     #c3cad9;
   --color-fg-muted:    #8b95aa;
-  --color-fg-faint:    #5f6a80;
+  --color-fg-faint:    #7d879c;
 
   --color-line:        #222c46;
   --color-line-soft:   #1a2238;
