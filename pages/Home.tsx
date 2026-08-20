@@ -25,7 +25,7 @@ import InstallBanner from '../components/InstallBanner';
 import UpdatesMarquee from '../components/sections/UpdatesMarquee';
 import Seo from '../seo/Seo';
 import {
-  organizationSchema, websiteSchema, softwareApplicationSchema, howToSchema, webPageSchema,
+  organizationSchema, websiteSchema, softwareApplicationSchema, webPageSchema,
 } from '../seo/schema';
 import SupportedExamsSection from '../components/sections/SupportedExamsSection';
 
@@ -331,7 +331,7 @@ export default function Home() {
         path={seo.path}
         schema={
           activeTab === 'home'
-            ? [organizationSchema(), websiteSchema(), softwareApplicationSchema(), howToSchema()]
+            ? [organizationSchema(), websiteSchema(), softwareApplicationSchema()]
             : [webPageSchema({ title: seo.title, description: seo.description, path: seo.path })]
         }
       />

@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import GenericUploader from '../components/GenericUploader';
 import Seo from '../seo/Seo';
-import { breadcrumbSchema, webPageSchema, howToSchema } from '../seo/schema';
+import { breadcrumbSchema, webPageSchema } from '../seo/schema';
 import { getTool, RETIRED_TOOL_IDS, TOOLS } from '../data/tools';
 
 export default function ToolPage() {
@@ -37,7 +37,6 @@ export default function ToolPage() {
             { name: 'Free image tools', path: '/free-image-tools' },
             { name: tool.name, path },
           ]),
-          howToSchema(),
         ]}
       />
 

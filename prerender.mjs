@@ -94,6 +94,40 @@ const routes = [
     title: 'About PhotoResizer — Free, Private Online Image Tools',
     description: 'PhotoResizer is a free, private, browser-based photo and signature resizer for government exam forms. No uploads, no sign-up, no file size limit.',
   },
+  // The remaining app routes. These were missing, so a crawler asking for
+  // /contact or /faq was served the homepage's title and description — and,
+  // more to the point, they had no file of their own, which is what forced
+  // the catch-all rewrite that turned every unknown URL into a soft 404.
+  {
+    path: '/faq',
+    title: 'PhotoResizer FAQ — Sizes, Formats and Privacy',
+    description: 'Answers on exam photo and signature sizes, KB limits, supported formats, and why nothing you upload ever leaves your own browser.',
+  },
+  {
+    path: '/contact',
+    title: 'Contact PhotoResizer — Corrections and Questions',
+    description: 'Tell us about a wrong size, a form that rejected your upload, or a tool that misbehaved. Corrections to exam specifications are especially welcome.',
+  },
+  {
+    path: '/links',
+    title: 'Every PhotoResizer Guide and Tool in One List',
+    description: 'The full index: exam photo and signature size guides, KB-target resizers, identity document sizes, and every free image tool on the site.',
+  },
+  {
+    path: '/privacy',
+    title: 'Privacy — Nothing You Upload Leaves Your Browser',
+    description: 'PhotoResizer processes images entirely on your device using HTML5 Canvas. There is no upload endpoint, so your photo is never sent anywhere.',
+  },
+  {
+    path: '/terms',
+    title: 'Terms of Use for PhotoResizer — Free Image Tools',
+    description: 'The terms that apply when you use PhotoResizer, what the exam size guides are and are not, and the limits of what a free tool can promise.',
+  },
+  {
+    path: '/cookies',
+    title: 'Cookie Policy — What PhotoResizer Stores Locally',
+    description: 'Which cookies and local storage PhotoResizer uses, what each one is for, and how to clear them from your browser at any time.',
+  },
   // One page per tool.
   ...TOOLS.map((t) => ({
     path: `/tools/${t.id}`,
@@ -138,3 +172,46 @@ for (const route of routes) {
 }
 
 console.log(`prerendered ${n} routes (${TOOLS.length} tools + ${routes.length - TOOLS.length} pages)`);
+
+/**
+ * A real 404 document.
+ *
+ * Vercel serves this, with a 404 status, for any path that does not match a
+ * file — but only once the catch-all rewrite in vercel.json stops swallowing
+ * every request first. Until now every typo and stale link returned 200 with
+ * the homepage and `index, follow`, which let Google collect an unbounded
+ * number of duplicate pages at invented URLs.
+ *
+ * It carries noindex as well as the status, because the two say different
+ * things and a crawler may act on either.
+ */
+const notFound = template
+  .replace(/<title>[\s\S]*?<\/title>/, '<title>Page not found — PhotoResizer</title>')
+  .replace(
+    /<meta name="description"[^>]*>/,
+    '<meta name="description" content="That page does not exist. The photo and signature resizers, exam size guides and job listings are all still here." />',
+  )
+  .replace(
+    /<meta name="robots"[^>]*>/,
+    '<meta name="robots" content="noindex, follow" />',
+  )
+  // Matched by regex, not exact string: the built #root carries utility classes
+  // ("w-full overflow-x-hidden"), so a literal '<div id="root">' silently found
+  // nothing and shipped a 404 with an empty body.
+  .replace(
+    /<div id="root"[^>]*>/,
+    `$&
+      <main>
+        <h1>Page not found</h1>
+        <p>That page does not exist — the link may be out of date, or the address mistyped.</p>
+        <ul>
+          <li><a href="/">Photo &amp; signature resizer</a></li>
+          <li><a href="/free-image-tools">All free image tools</a></li>
+          <li><a href="/links">Every exam size guide</a></li>
+          <li><a href="/jobs">Government job vacancies</a></li>
+        </ul>
+      </main>`,
+  );
+
+writeFileSync(join(DIST, '404.html'), notFound);
+console.log('prerendered 404.html (noindex)');

@@ -108,45 +108,14 @@ export const faqSchema = (faqs: { q: string; a: string }[]) => ({
   })),
 });
 
-export const howToSchema = () => ({
-  '@type': 'HowTo',
-  name: 'How to resize a photo and signature for a government exam form',
-  description:
-    'Resize an exam photo and signature to the exact pixel dimensions and file size limit stated in the official notification.',
-  totalTime: 'PT2M',
-  estimatedCost: { '@type': 'MonetaryAmount', currency: 'INR', value: '0' },
-  tool: [{ '@type': 'HowToTool', name: 'A web browser' }],
-  supply: [
-    { '@type': 'HowToSupply', name: 'A passport-style photograph' },
-    { '@type': 'HowToSupply', name: 'A scanned or photographed signature' },
-  ],
-  step: [
-    {
-      '@type': 'HowToStep',
-      name: 'Select the exam',
-      text: 'Choose your exam so the required pixel dimensions and KB limits load automatically.',
-      url: `${SITE_URL}/#resize`,
-    },
-    {
-      '@type': 'HowToStep',
-      name: 'Upload photo and signature',
-      text: 'Drag in, paste, or capture your photo and signature. Crop and rotate until the framing is correct.',
-      url: `${SITE_URL}/#resize`,
-    },
-    {
-      '@type': 'HowToStep',
-      name: 'Review the compliance checks',
-      text: 'Check dimensions, file size, sharpness, exposure and background against the requirement.',
-      url: `${SITE_URL}/#resize`,
-    },
-    {
-      '@type': 'HowToStep',
-      name: 'Download and upload to the form',
-      text: 'Download the JPG files and attach them to the official application form.',
-      url: `${SITE_URL}/#resize`,
-    },
-  ],
-});
+/**
+ * howToSchema was removed here.
+ *
+ * Google retired HowTo rich results in September 2023, so it produced no
+ * result and never will. On tool pages it was also wrong: every one emitted
+ * the same generic "choose your exam, upload photo and signature" steps,
+ * describing the homepage flow rather than that tool.
+ */
 
 export const webPageSchema = (o: {
   path: string;
