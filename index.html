@@ -138,17 +138,26 @@
     }
     </script>
 
-    <!-- JSON-LD Structured Data for HowTo -->
-    <!-- Google Translate -->
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: 'en,hi,mr,gu'
-        }, 'google_translate_element');
-      }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!--
+      Google Translate was removed from here, not deferred.
+
+      It was a plain <script src> with no async or defer, so every visitor
+      waited on a third-party DNS lookup, TLS handshake and download before the
+      page could paint — PageSpeed measured it as 300ms of render-blocking on
+      mobile, where most of this site's traffic is.
+
+      It was also doing nothing. The only #google_translate_element in the
+      codebase lives in components/Navbar.tsx, and nothing imports that file —
+      the app renders components/Header.tsx instead. Checked against the live
+      site: the container div appears in none of the served pages, so the
+      widget has never rendered and the callback has never had anywhere to
+      mount. Every visitor has been paying for a feature that does not exist.
+
+      To bring translation back, add the container to Header.tsx and load this
+      script from JavaScript once that element is on screen — never as a
+      blocking tag in the head.
+    -->
+
     <script>
       (function () {
         try {

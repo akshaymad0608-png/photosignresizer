@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { removeBackground } from '@imgly/background-removal';
 import { Upload, X, File, Settings, Download, Zap, Loader2 } from 'lucide-react';
 import { getTool, type Tool } from '../data/tools';
 
@@ -31,6 +30,11 @@ async function convertFile(file: File, tool: Tool): Promise<{ blob: Blob; ext: s
   if (tool.removeBackground) {
     const url = URL.createObjectURL(file);
     try {
+      // Same reasoning as utils/imageProcessing.ts: onnxruntime is the
+      // heaviest thing this site can load, and only the background-removal
+      // tool ever needs it. A static import put it on the critical path for
+      // every other tool page too.
+      const { removeBackground } = await import('@imgly/background-removal');
       const blob = await removeBackground(url);
       return { blob, ext: 'png' };
     } finally {

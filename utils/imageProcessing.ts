@@ -1,5 +1,4 @@
 import { ImageConfig } from '../types';
-import { removeBackground } from '@imgly/background-removal';
 
 export const readFileAsDataURL = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -18,6 +17,12 @@ export const processImage = async (
   
   if (config.removeBg) {
     try {
+      // Imported here rather than at the top of the file. This pulls in
+      // onnxruntime — the two largest chunks in the build, ~780 KB between
+      // them — and it is only ever needed when someone actually ticks
+      // "remove background". A static import put that on the critical path
+      // for every visitor, including the ones who just resize a photo.
+      const { removeBackground } = await import('@imgly/background-removal');
       const blob = await removeBackground(sourceUrl);
       finalSourceUrl = URL.createObjectURL(blob);
     } catch (e) {
