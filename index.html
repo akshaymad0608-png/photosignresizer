@@ -46,8 +46,20 @@
 
     <!-- Canonical -->
     <link rel="canonical" href="https://photoresizer.click" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!--
+      No font preconnects here on purpose.
+
+      There used to be two, to fonts.googleapis.com and fonts.gstatic.com, but
+      nothing on this site ever loads a font from either: there is no font
+      stylesheet link and no @font-face anywhere in the CSS. The families named
+      in index.css — Plus Jakarta Sans, Inter, JetBrains Mono — have always
+      fallen through to the system stack.
+
+      A preconnect to an origin that is never used still costs a DNS lookup and
+      a TLS handshake on a phone. Removed rather than paired with a font
+      request: system fonts render immediately and cost nothing, which is the
+      better trade for a form-filling tool people open in a hurry.
+    -->
     <noscript></noscript>
 
     <!-- JSON-LD Structured Data for Software Application -->

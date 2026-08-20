@@ -254,9 +254,15 @@ export default function LatestVacanciesSection() {
                     <dt className="sr-only">Qualification</dt>
                     <dd>{job.qualification}</dd>
                   </div>
+                  {/* The icon sits inside the <dt>, not beside it. A <dl>'s
+                      wrapping <div> may only contain <dt> and <dd>, so an <svg>
+                      as their sibling makes the list invalid — Lighthouse flags
+                      it and the accessibility tree comes out malformed. */}
                   <div className="flex items-center gap-1.5">
-                    <CalendarClock size={12} aria-hidden="true" />
-                    <dt className="sr-only">Last date</dt>
+                    <dt className="flex items-center gap-1.5">
+                      <CalendarClock size={12} aria-hidden="true" />
+                      <span className="sr-only">Last date</span>
+                    </dt>
                     <dd className="font-mono tabular-nums">{job.lastDate}</dd>
                     {!job.verified && (
                       <dd

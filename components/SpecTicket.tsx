@@ -89,20 +89,20 @@ const SpecTicket = ({ exam, lang, onEditCustom }: SpecTicketProps) => {
       <div className="px-4 py-3">
         <div className="label-field mb-1">{t.photoParams}</div>
         <dl>
-          <div className="spec-row"><dt>{t.width}</dt><span className="lead" /><dd>{dim(exam.photo.width)}</dd></div>
-          <div className="spec-row"><dt>{t.height}</dt><span className="lead" /><dd>{dim(exam.photo.height)}</dd></div>
-          <div className="spec-row"><dt>{t.fileSize}</dt><span className="lead" /><dd>{exam.photo.minKB}–{exam.photo.maxKB} KB</dd></div>
-          <div className="spec-row"><dt>{t.fit}</dt><span className="lead" /><dd>{exam.photo.resizeMode}</dd></div>
+          <div className="spec-row"><dt>{t.width}</dt><dd>{dim(exam.photo.width)}</dd></div>
+          <div className="spec-row"><dt>{t.height}</dt><dd>{dim(exam.photo.height)}</dd></div>
+          <div className="spec-row"><dt>{t.fileSize}</dt><dd>{exam.photo.minKB}–{exam.photo.maxKB} KB</dd></div>
+          <div className="spec-row"><dt>{t.fit}</dt><dd>{exam.photo.resizeMode}</dd></div>
         </dl>
       </div>
 
       <div className="px-4 py-3 border-t border-dashed border-rule">
         <div className="label-field mb-1">{t.signParams}</div>
         <dl>
-          <div className="spec-row"><dt>{t.width}</dt><span className="lead" /><dd>{dim(exam.signature.width)}</dd></div>
-          <div className="spec-row"><dt>{t.height}</dt><span className="lead" /><dd>{dim(exam.signature.height)}</dd></div>
-          <div className="spec-row"><dt>{t.fileSize}</dt><span className="lead" /><dd>{exam.signature.minKB}–{exam.signature.maxKB} KB</dd></div>
-          <div className="spec-row"><dt>{t.fit}</dt><span className="lead" /><dd>{exam.signature.resizeMode}</dd></div>
+          <div className="spec-row"><dt>{t.width}</dt><dd>{dim(exam.signature.width)}</dd></div>
+          <div className="spec-row"><dt>{t.height}</dt><dd>{dim(exam.signature.height)}</dd></div>
+          <div className="spec-row"><dt>{t.fileSize}</dt><dd>{exam.signature.minKB}–{exam.signature.maxKB} KB</dd></div>
+          <div className="spec-row"><dt>{t.fit}</dt><dd>{exam.signature.resizeMode}</dd></div>
         </dl>
       </div>
 

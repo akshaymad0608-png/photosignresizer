@@ -322,7 +322,20 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ open, onClose, lang, onLang
       className={`lg:hidden fixed inset-0 z-[60] transition-opacity duration-250 ${
         open ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
-      aria-hidden={!open}
+      /**
+       * inert, not just aria-hidden.
+       *
+       * aria-hidden hides the subtree from assistive technology but leaves it
+       * in the tab order, so the closed drawer's buttons and links were still
+       * reachable by keyboard — Lighthouse reports that as "ARIA hidden
+       * element must not be focusable or contain focusable elements", and a
+       * keyboard user really did tab into an invisible menu.
+       *
+       * pointer-events-none only stopped the mouse. inert removes the whole
+       * subtree from focus and from the accessibility tree at once, which is
+       * what was meant all along.
+       */
+      inert={!open}
     >
       <div className="absolute inset-0 bg-fg/25 backdrop-blur-sm" onClick={onClose} />
 

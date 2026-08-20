@@ -523,7 +523,24 @@ html.dark body {
   }
   .spec-row:last-child { border-bottom: 0; }
   .spec-row dt { color: var(--color-fg-muted); white-space: nowrap; }
-  .spec-row .lead { flex: 1; border-bottom: 1px dotted var(--color-line-strong); translate: 0 -.2rem; }
+  /* The dotted leader between term and value.
+     It used to be a <span class="lead"> sitting between the <dt> and the <dd>,
+     which broke the definition list: inside a <dl>, a wrapping <div> may only
+     contain <dt> and <dd>, so the span made the tree invalid and Lighthouse
+     flagged it. Drawn as a pseudo-element on the <dt>, the rule looks the same
+     and the markup is a clean term/value pair again. */
+  .spec-row dt::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px dotted var(--color-line-strong);
+    translate: 0 -.2rem;
+  }
+  .spec-row dt {
+    display: flex;
+    align-items: baseline;
+    gap: .5rem;
+    flex: 1;
+  }
   .spec-row dd {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
