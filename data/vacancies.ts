@@ -15,7 +15,7 @@
 export type VacancyCategory = 'Central Govt' | 'State Govt' | 'Banking' | 'Railway' | 'Defence';
 
 /** Date this list was last checked against public listings. Shown in the UI. */
-export const AS_OF = '14 August 2026';
+export const AS_OF = '5 September 2026';
 
 export interface Vacancy {
   id: string;
@@ -131,7 +131,7 @@ export const VACANCIES: Vacancy[] = [
     id: 'v-rrb-je-cen04',
     board: 'RRB',
     post: 'Junior Engineer (CEN 04/2026)',
-    vacancies: '3993',
+    vacancies: '4029', // was 3993; revised count per FreeJobAlert, 4 Sep 2026
     lastDate: '13-Sep-2026',
     qualification: 'As per notification',
     category: 'Railway',
@@ -205,6 +205,19 @@ export const VACANCIES: Vacancy[] = [
     vacancies: 'Multiple',
     lastDate: 'As per notification',
     qualification: '10th',
+    category: 'Central Govt',
+    state: 'All India',
+    portal: 'https://ssc.gov.in/',
+  },
+  {
+    // New entry — not tracked before. From FreeJobAlert (4 Sep 2026), not yet
+    // checked against ssc.gov.in directly.
+    id: 'v-ssc-je',
+    board: 'SSC',
+    post: 'Junior Engineer (JE)',
+    vacancies: '1748',
+    lastDate: '22-Sep-2026',
+    qualification: 'Diploma/Degree in Engineering',
     category: 'Central Govt',
     state: 'All India',
     portal: 'https://ssc.gov.in/',
@@ -285,13 +298,16 @@ export const VACANCIES: Vacancy[] = [
   {
     id: 'v-ibps-rrb',
     board: 'IBPS',
-    post: 'RRB Officer Scale I/II/III & Office Assistant — notification due Sep 2026',
-    vacancies: 'To be announced',
-    lastDate: 'As per notification',
+    // Notification is out — was "due Sep 2026" / "To be announced". Post name,
+    // count and date below are from FreeJobAlert (4 Sep 2026), not yet checked
+    // against ibps.in directly, so `verified` is left off rather than kept
+    // true from the old, weaker claim.
+    post: 'RRB CRP XV — Officer & Office Assistant',
+    vacancies: '13706',
+    lastDate: '21-Sep-2026',
     qualification: 'Graduate',
     category: 'Banking',
     state: 'All India',
-    verified: true,
     portal: 'https://www.ibps.in/',
   },
   {
@@ -349,9 +365,12 @@ export const VACANCIES: Vacancy[] = [
   {
     id: 'v-indiapost-gds',
     board: 'India Post',
+    // Was "Multiple" / "As per notification" — real count and date below are
+    // from FreeJobAlert (4 Sep 2026), not yet checked against indiapost.gov.in
+    // directly.
     post: 'Gramin Dak Sevak (GDS)',
-    vacancies: 'Multiple',
-    lastDate: 'As per notification',
+    vacancies: '23757',
+    lastDate: '21-Sep-2026',
     qualification: '10th',
     category: 'Central Govt',
     state: 'All India',
