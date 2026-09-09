@@ -25,7 +25,28 @@ const EXT: Record<string, string> = {
  * handing back the original under a misleading new extension.
  */
 async function convertFile(file: File, tool: Tool): Promise<{ blob: Blob; ext: string } | null> {
-  if (!file.type.startsWith('image/')) return null;
+  // HEIC files routinely arrive with an empty file.type (Windows/some
+  // Android pickers don't know the MIME type), so this tool checks the
+  // extension too rather than bailing out on the image/* guard below.
+  const isHeicFile =
+    tool.decodeHeic && /\.hei[cf]$/i.test(file.name);
+
+  if (!isHeicFile && !file.type.startsWith('image/')) return null;
+
+  if (tool.decodeHeic) {
+    try {
+      // heic-to bundles its own WASM decoder — canvas/<img> cannot read
+      // HEIC in any non-Safari browser, this isn't a canvas operation at
+      // all. Imported here, same reasoning as background-removal below:
+      // it's a large chunk (WASM decoder), only this one tool needs it.
+      const { heicTo } = await import('heic-to');
+      const blob = await heicTo({ blob: file, type: 'image/jpeg', quality: tool.quality ?? 0.92 });
+      return { blob, ext: 'jpg' };
+    } catch (err) {
+      console.error('HEIC decode failed', err);
+      return null;
+    }
+  }
 
   if (tool.removeBackground) {
     const url = URL.createObjectURL(file);

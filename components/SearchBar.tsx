@@ -6,7 +6,7 @@ const ALL_TOOLS = [
   { id: "jpg-", name: "JPG to PNG Converter" },
   { id: "png-", name: "PNG to JPG Converter" },
   { id: "webp-converter", name: "WEBP Converter" },
-  { id: "heic-", name: "HEIC to JPG Converter" },
+  { id: "heic-to-jpg", name: "HEIC to JPG Converter" },
   { id: "image-compressor", name: "Image Compressor" },
   { id: "crop-image", name: "Crop Image" },
   { id: "pdf-", name: "PDF to Word Converter" },

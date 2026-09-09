@@ -2,11 +2,19 @@
  * The tool catalogue.
  *
  * RULE: only list a tool here if it genuinely works in the browser today.
- * Everything in this file is canvas-based, so it can decode and re-encode
- * raster images and nothing else. PDF, Office, video and archive conversion
- * are NOT possible with this pipeline — listing them would mean handing the
- * user back their original file under a new extension, which is worse than
- * not offering the tool at all.
+ * Almost everything in this file is canvas-based, so it can decode and
+ * re-encode raster images and nothing else. PDF, Office, video and archive
+ * conversion are NOT possible with that pipeline — listing them would mean
+ * handing the user back their original file under a new extension, which is
+ * worse than not offering the tool at all.
+ *
+ * `decodeHeic` is the one exception. Chrome, Firefox and Edge cannot decode
+ * HEIC/HEIF at all — not a canvas limitation, a licensing one, they never
+ * paid for HEVC — so canvas alone can't touch it. The `heic-to` package
+ * ships its own WASM decoder and does the decode+encode in one step, still
+ * entirely client-side (no upload), so the tool still keeps the site's
+ * privacy promise. It's lazy-loaded, same pattern as
+ * @imgly/background-removal, so it costs nothing on every other tool page.
  */
 
 export interface Tool {
@@ -23,6 +31,8 @@ export interface Tool {
   filter?: string;
   /** Runs the background-removal model instead of a plain re-encode. */
   removeBackground?: boolean;
+  /** Decodes HEIC/HEIF via WASM before encoding — canvas cannot read this format. */
+  decodeHeic?: boolean;
   /** Resize the output to these pixel dimensions. */
   resize?: { width: number; height: number; fit: 'cover' | 'contain' };
   /** Composite onto a solid background before encoding (kills transparency). */
@@ -31,7 +41,7 @@ export interface Tool {
   rotate?: 90 | 180 | 270;
   /** Mirror horizontally. */
   flip?: boolean;
-  /** MIME types the file picker will accept. */
+  /** MIME types (and, for HEIC, file extensions — many browsers report no MIME type for it) the file picker will accept. */
   accept: string;
 }
 
@@ -70,6 +80,16 @@ export const TOOLS: Tool[] = [
     output: 'jpeg',
     quality: 0.92,
     accept: 'image/webp',
+  },
+  {
+    id: 'heic-to-jpg',
+    name: 'HEIC to JPG',
+    blurb: 'Convert iPhone HEIC/HEIF photos to JPG so exam forms and other sites accept them.',
+    group: 'Convert',
+    output: 'jpeg',
+    quality: 0.92,
+    decodeHeic: true,
+    accept: 'image/heic,image/heif,.heic,.heif',
   },
   {
     id: 'image-compressor',
