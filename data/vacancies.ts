@@ -15,7 +15,7 @@
 export type VacancyCategory = 'Central Govt' | 'State Govt' | 'Banking' | 'Railway' | 'Defence';
 
 /** Date this list was last checked against public listings. Shown in the UI. */
-export const AS_OF = '5 September 2026';
+export const AS_OF = '9 September 2026';
 
 export interface Vacancy {
   id: string;
@@ -341,11 +341,17 @@ export const VACANCIES: Vacancy[] = [
     portal: 'https://licindia.in/web/guest/careers',
   },
   {
+    // Was "Multiple" / "As per notification". The 2026 Assistant cycle is
+    // real and already past applying — notification 17 Jul 2026, applied
+    // 18 Jul-7 Aug 2026, Prelims held 27 Aug 2026, Mains due 30 Oct 2026.
+    // Count and dates from Adda247/Testbook (9 Sep 2026), not yet checked
+    // against nationalinsurance.nic.co.in directly, so `verified` stays off.
+    // AO cycle wasn't found separately — post name kept as-is until it is.
     id: 'v-nicl-ao-assistant',
     board: 'NICL',
     post: 'Administrative Officer (AO) & Assistant',
-    vacancies: 'Multiple',
-    lastDate: 'As per notification',
+    vacancies: '500',
+    lastDate: '07-Aug-2026',
     qualification: 'Graduate',
     category: 'Banking',
     state: 'All India',
