@@ -145,11 +145,17 @@ export const EXAM_PRESETS: ExamRequirement[] = [
     signature: { width: 350, height: 150, minKB: 4, maxKB: 30, format: 'jpg', resizeMode: 'contain' }
   },
   {
+    // Was maxKB 200/photo and 150/signature, signature width:height 400:150
+    // (a 2.67x ratio) — GOAPS actually wants photo up to 600 KB, signature up
+    // to 300 KB, and a signature ratio of 2.75x-3.75x, so the old signature
+    // target sat just outside the accepted range. 420x140 = 3.0x, inside it.
+    // Source: GOAPS guidelines aggregated via web search, 9 Sep 2026 — not
+    // checked against goaps.iisc.ac.in directly.
     id: 'gate',
     name: 'GATE',
     category: 'Entrance',
-    photo: { width: 480, height: 640, minKB: 5, maxKB: 200, format: 'jpg', resizeMode: 'cover' },
-    signature: { width: 400, height: 150, minKB: 5, maxKB: 150, format: 'jpg', resizeMode: 'contain' }
+    photo: { width: 480, height: 640, minKB: 5, maxKB: 600, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 420, height: 140, minKB: 3, maxKB: 300, format: 'jpg', resizeMode: 'contain' }
   },
   {
     id: 'cat',

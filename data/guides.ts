@@ -42,6 +42,7 @@ export const GUIDE_GROUPS: GuideGroup[] = [
       { href: '/police-constable-photo-signature-size.html', label: 'Police Constable photo & signature size' },
       { href: '/agniveer-photo-signature-size.html', label: 'Agniveer photo & signature size', note: 'Army, Navy, Air Force' },
       { href: '/neet-photo-signature-size.html', label: 'NEET photo & signature size' },
+      { href: '/gate-photo-signature-size.html', label: 'GATE photo & signature size', note: 'GOAPS registration' },
     ],
   },
   {
