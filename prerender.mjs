@@ -21,6 +21,14 @@ const arrStart = toolsSrc.indexOf('Tool[] = [') + 'Tool[] = ['.length - 1;
 const arrEnd = toolsSrc.indexOf('\n];', arrStart);
 const TOOLS = eval(toolsSrc.slice(arrStart, arrEnd + 2));
 
+// Same for the static guide pages in public/. These are plain .html files, not
+// React routes, so the only thing that can link to them is markup we emit here.
+const guidesSrc = readFileSync('data/guides.ts', 'utf8');
+const gStart = guidesSrc.indexOf('GuideGroup[] = [') + 'GuideGroup[] = ['.length - 1;
+const gEnd = guidesSrc.indexOf('\n];', gStart);
+const GUIDE_GROUPS = eval(guidesSrc.slice(gStart, gEnd + 2));
+
+
 /**
  * Fits a title into the 50-60 characters a result listing shows.
  *
@@ -147,7 +155,85 @@ for (const r of routes) {
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-const template = readFileSync(join(DIST, 'index.html'), 'utf8');
+/**
+ * The site-wide link footer.
+ *
+ * Every internal link on this site used to live inside #root: either in the
+ * .seo-fallback block, which createRoot wipes the instant React mounts, or in
+ * GuideLinksSection, which renders only on the home tab and only after a lazy
+ * chunk resolves. A crawler that runs JavaScript sees the fallback destroyed;
+ * one that snapshots before the chunk lands sees nothing put back. Either way
+ * the guide pages and /tools/* routes end up with no discoverable incoming
+ * link and get reported as orphans, reachable from sitemap.xml alone.
+ *
+ * This block sits outside #root, so React never touches it, and it is written
+ * into every prerendered document. The links are therefore present in the raw
+ * HTML and still present after hydration — the two cases a crawler can be in.
+ *
+ * It is generated from data/guides.ts and data/tools.ts rather than written by
+ * hand, so adding a guide or a tool cannot silently leave it stale.
+ */
+const linkList = (links) =>
+  links.map((l) => `<li><a href="${l.href}">${esc(l.label)}</a></li>`).join('');
+
+const linkColumn = (heading, links) =>
+  `<div><h2>${esc(heading)}</h2><ul>${linkList(links)}</ul></div>`;
+
+const SITE_LINKS = [
+  ...GUIDE_GROUPS.map((g) => linkColumn(g.heading, g.links)),
+  linkColumn(
+    'Free image tools',
+    TOOLS.map((t) => ({ href: `/tools/${t.id}`, label: t.name })),
+  ),
+  linkColumn('Pages', [
+    { href: '/', label: 'Photo & signature resizer' },
+    { href: '/free-image-tools', label: 'All free image tools' },
+    { href: '/links', label: 'Every guide and tool' },
+    { href: '/jobs', label: 'Government job vacancies' },
+    { href: '/blog', label: 'Guides and articles' },
+    { href: '/faq', label: 'Frequently asked questions' },
+    { href: '/about', label: 'About PhotoResizer' },
+    { href: '/contact', label: 'Contact' },
+    { href: '/privacy', label: 'Privacy policy' },
+    { href: '/terms', label: 'Terms of use' },
+  ]),
+].join('');
+
+const SITE_LINKS_HTML = `
+<nav class="site-links" aria-label="All guides and tools">
+  <style>
+    .site-links {
+      max-width: 1180px; margin: 0 auto; padding: 34px 18px 44px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      border-top: 1px solid #d9dfec; color: #5a6683; font-size: 13px; line-height: 1.55;
+    }
+    html.dark .site-links { border-top-color: #1b2540; color: #9aa6c2; }
+    .site-links > div {
+      display: grid; gap: 22px 28px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    }
+    .site-links h2 {
+      font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+      color: #111a33; margin: 0 0 8px; font-weight: 700;
+    }
+    html.dark .site-links h2 { color: #e7ebf5; }
+    .site-links ul { list-style: none; margin: 0; padding: 0; }
+    .site-links li { margin: 0 0 5px; }
+    .site-links a { color: inherit; text-decoration: none; }
+    .site-links a:hover { color: #d6006e; text-decoration: underline; }
+    html.dark .site-links a:hover { color: #ff2e97; }
+  </style>
+  <div>${SITE_LINKS}</div>
+</nav>
+`;
+
+const withSiteLinks = (html) => html.replace('</body>', `${SITE_LINKS_HTML}</body>`);
+
+const template = withSiteLinks(readFileSync(join(DIST, 'index.html'), 'utf8'));
+
+// The homepage is not in `routes` (it is the template itself), so it has to be
+// written back explicitly or it would be the one page missing the links.
+writeFileSync(join(DIST, 'index.html'), template);
 
 let n = 0;
 for (const route of routes) {
