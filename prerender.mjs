@@ -196,6 +196,7 @@ const SITE_LINKS = [
     { href: '/contact', label: 'Contact' },
     { href: '/privacy', label: 'Privacy policy' },
     { href: '/terms', label: 'Terms of use' },
+    { href: '/cookies', label: 'Cookie policy' },
   ]),
 ].join('');
 
