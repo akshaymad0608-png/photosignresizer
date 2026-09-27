@@ -85,21 +85,25 @@ const routes = [
   {
     path: '/free-image-tools',
     title: 'Free Image Tools — Resize, Compress and Convert Online',
+    keywords: 'free image tools, online image resizer, image compressor, convert image to WebP, remove background, image tools no upload, browser image editor',
     description: `${TOOLS.length} free browser-based image tools — resize, compress, convert to WebP/PNG/JPG, remove background, rotate and more. No uploads, no sign-up, no limits.`,
   },
   {
     path: '/jobs',
     title: 'Latest Govt Jobs 2026 — Vacancies and Last Dates Online',
+    keywords: 'government jobs 2026, govt jobs vacancy, SSC jobs, RRB jobs, SBI jobs, IBPS jobs, UPPSC jobs, BPSC vacancy, latest govt jobs India',
     description: 'Latest government job vacancies with last dates and official apply links — SSC, RRB, SBI, IBPS, UPPSC, BPSC and state exams. Free photo & signature resizer too.',
   },
   {
     path: '/blog',
     title: 'Guides — Photo Size, Signature and Govt Exam Tips (2026)',
+    keywords: 'exam photo size guide, signature size guide, UPSC photo size, SSC photo size, banking exam photo, how to resize photo for exam, government exam photo requirements',
     description: 'Simple guides on exam photo and signature sizes, KB limits and how to resize images for UPSC, SSC, banking and state government forms — free.',
   },
   {
     path: '/about',
     title: 'About PhotoResizer — Free, Private Online Image Tools',
+    keywords: 'PhotoResizer about, free photo resizer, private image tools, photo and signature resizer, government exam photo resizer',
     description: 'PhotoResizer is a free, private, browser-based photo and signature resizer for government exam forms. No uploads, no sign-up, no file size limit.',
   },
   // The remaining app routes. These were missing, so a crawler asking for
@@ -109,16 +113,19 @@ const routes = [
   {
     path: '/faq',
     title: 'PhotoResizer FAQ — Sizes, Formats and Privacy',
+    keywords: 'PhotoResizer FAQ, photo resizer help, image size questions, exam photo FAQ, photo format FAQ',
     description: 'Answers on exam photo and signature sizes, KB limits, supported formats, and why nothing you upload ever leaves your own browser.',
   },
   {
     path: '/contact',
     title: 'Contact PhotoResizer — Corrections and Questions',
+    keywords: 'contact PhotoResizer, PhotoResizer support, photo resizer help, report wrong size, image tool feedback',
     description: 'Tell us about a wrong size, a form that rejected your upload, or a tool that misbehaved. Corrections to exam specifications are especially welcome.',
   },
   {
     path: '/links',
     title: 'Every PhotoResizer Guide and Tool in One List',
+    keywords: 'PhotoResizer sitemap, all image tools, all photo guides, photo resizer index, image tool directory',
     description: 'The full index: exam photo and signature size guides, KB-target resizers, identity document sizes, and every free image tool on the site.',
   },
   {
@@ -140,6 +147,7 @@ const routes = [
   ...TOOLS.map((t) => ({
     path: `/tools/${t.id}`,
     title: fitTitle(t.name, TOOL_TITLE_SUFFIXES),
+    keywords: `${t.name}, free ${t.name.toLowerCase()}, online ${t.name.toLowerCase()}, ${t.name.toLowerCase()} no upload, ${t.group ? t.group.toLowerCase() + ' image' : 'image tool'}, browser image tool`,
     description: fitDescription(t.blurb),
   })),
 ];
@@ -245,6 +253,7 @@ for (const route of routes) {
 
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${t}</title>`);
   html = html.replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${d}" />`);
+  if (route.keywords) html = html.replace(/<meta name="keywords"[^>]*>/, `<meta name="keywords" content="${esc(route.keywords)}" />`);
   html = html.replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${url}" />`);
   html = html.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${t}" />`);
   html = html.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${d}" />`);
