@@ -7,6 +7,22 @@ Disallow: /admin
 Disallow: /admin/
 Disallow: /404
 
+# Traditional search engines — explicitly welcome
+User-agent: Bingbot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
 # Explicitly welcome AI answer engines (AEO / GEO)
 User-agent: GPTBot
 Allow: /
