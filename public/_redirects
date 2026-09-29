@@ -19,5 +19,9 @@
 /tools/palette   /free-image-tools   301
 /tools/watermark   /free-image-tools   301
 
+# Duplicate URLs that Google discovered — fold into the canonical 20KB page
+/resize-image-20kb.html   /resize-image-to-20kb.html   301
+/resize-image-to-20-kb.html   /resize-image-to-20kb.html   301
+
 # SPA fallback — must be last
 /*   /index.html   200
