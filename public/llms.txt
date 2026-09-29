@@ -10,7 +10,7 @@ PhotoResizer (https://photoresizer.click/) is a free, browser-based web app for 
 - [Free Online Photo Resizer](https://photoresizer.click/free-online-photo-resizer.html): Free online photo resizer to reduce image size to 20 KB, 50 KB or 100 KB and set exact pixel dimensions. No sign-up, no watermark, works in your browser on mobile.
 
 ## Exam size guides
-- [SSC Photo & Signature Size](https://photoresizer.click/ssc-photo-signature-size.html): SSC photo and signature size for CGL, CHSL, GD and MTS forms — dimensions, KB limits and format. Resize your photo and signature free for the SSC application.
+- [SSC Photo & Signature Size](https://photoresizer.click/ssc-photo-signature-size.html): SSC photo and signature size: the photo is captured live on the form, only the signature is uploaded (JPEG, 10-20 KB, about 6 x 2 cm for GD). Resize free.
 - [UPSC Photo & Signature Size](https://photoresizer.click/upsc-photo-signature-size.html): UPSC photo and signature size for the Civil Services and other UPSC forms — dimensions, KB limits and format. Resize your photo and signature free and correctly.
 - [IBPS & SBI Photo Size](https://photoresizer.click/ibps-photo-signature-size.html): IBPS and SBI photo and signature size for PO, Clerk and RRB bank exam forms — dimensions, KB limits and format. Resize your photo and signature free online.
 - [RRB Photo & Signature Size](https://photoresizer.click/rrb-photo-signature-size.html): RRB photo and signature size for NTPC, Group D and ALP railway forms — dimensions, KB limits and JPEG format. Resize your photo and signature free online.

@@ -10,7 +10,7 @@ PhotoResizer (https://photoresizer.click/) is a free, browser-based web app for 
 - [Free Online Photo Resizer](https://photoresizer.click/free-online-photo-resizer.html): Free online photo resizer to reduce image size to 20 KB, 50 KB or 100 KB and set exact pixel dimensions. No sign-up, no watermark, works in your browser on mobile.
 
 ## Exam size guides
-- [SSC Photo & Signature Size](https://photoresizer.click/ssc-photo-signature-size.html): SSC photo and signature size for CGL, CHSL, GD and MTS forms — dimensions, KB limits and format. Resize your photo and signature free for the SSC application.
+- [SSC Photo & Signature Size](https://photoresizer.click/ssc-photo-signature-size.html): SSC photo and signature size: the photo is captured live on the form, only the signature is uploaded (JPEG, 10-20 KB, about 6 x 2 cm for GD). Resize free.
 - [UPSC Photo & Signature Size](https://photoresizer.click/upsc-photo-signature-size.html): UPSC photo and signature size for the Civil Services and other UPSC forms — dimensions, KB limits and format. Resize your photo and signature free and correctly.
 - [IBPS & SBI Photo Size](https://photoresizer.click/ibps-photo-signature-size.html): IBPS and SBI photo and signature size for PO, Clerk and RRB bank exam forms — dimensions, KB limits and format. Resize your photo and signature free online.
 - [RRB Photo & Signature Size](https://photoresizer.click/rrb-photo-signature-size.html): RRB photo and signature size for NTPC, Group D and ALP railway forms — dimensions, KB limits and JPEG format. Resize your photo and signature free online.
@@ -57,12 +57,11 @@ Note: Ranges vary by exam — confirm on the official notification. PhotoResizer
 
 ### SSC Photo & Signature Size
 URL: https://photoresizer.click/ssc-photo-signature-size.html
-SSC photo & signature specifications (typical):
-- Format — Photo: JPEG; Signature: JPEG
-- File size — Photo: 20 KB – 50 KB; Signature: 10 KB – 20 KB
-- Dimensions — Photo: ≈3.5 cm × 4.5 cm; Signature: ≈4.0 cm × 2.0 cm
-- Photo age — Photo: Recent (with date, if asked); Signature: —
-- Background — Photo: Light / white, clear face; Signature: White paper, dark ink
+SSC now captures the photograph live on its application form (webcam or phone camera), so there is no photo file to resize. Only the signature is uploaded.
+- Format — Signature: JPEG
+- File size — Signature: 10 KB – 20 KB
+- Dimensions — Signature: about 6.0 cm × 2.0 cm for SSC GD (official notice dated 1 December 2025, clause 8.7); about 4.0 cm × 2.0 cm reported for CGL 2026
+- Photo — captured live; a photograph of an existing photo is rejected
 Note: Always confirm against the current SSC notice for your exam (CGL / CHSL / GD / MTS) — limits can differ by year. PhotoResizer supports any custom KB and pixel size.
 
 ### UPSC Photo & Signature Size
@@ -145,14 +144,14 @@ Q: What formats are supported?
 A: Common image formats including JPG/JPEG, PNG and WebP. Output is usually JPEG for the smallest exam-friendly size.
 
 ### SSC Photo & Signature Size — FAQ
-Q: What is the photo size for SSC CGL?
-A: SSC CGL usually requires a recent colour photo in JPEG of about 20–50 KB. Confirm the exact limit on the current notification.
+Q: What is the photo size for SSC CGL and GD?
+A: There is no photo file to resize. The SSC application module captures a real-time photograph through your webcam or phone camera, and a capture of an old or printed photograph is rejected.
 
 Q: What is the signature size for SSC?
-A: SSC signatures are typically 10–20 KB in JPEG on a white background with dark ink.
+A: A JPEG between 10 KB and 20 KB. The SSC GD notice says about 6.0 x 2.0 cm; CGL is reported at about 4.0 x 2.0 cm. Blurred or miniature signatures are rejected.
 
-Q: How do I resize my photo for SSC GD?
-A: Use PhotoResizer’s SSC preset, upload your photo, and download at the required KB — it works for SSC GD, CGL, CHSL and MTS.
+Q: How do I resize my signature for SSC GD?
+A: Crop it to a wide 3:1 shape (about 6 x 2 cm, or 240 x 80 pixels) and bring the file to 10-20 KB in PhotoResizer with a custom size.
 
 Q: Is the SSC resizer free?
 A: Yes — free, no sign-up, no watermark, and private (runs in your browser).
