@@ -55,6 +55,16 @@
   ],
   "redirects": [
     {
+      "source": "/resize-image-20kb.html",
+      "destination": "/resize-image-to-20kb.html",
+      "permanent": true
+    },
+    {
+      "source": "/resize-image-to-20-kb.html",
+      "destination": "/resize-image-to-20kb.html",
+      "permanent": true
+    },
+    {
       "source": "/tools/jpg-",
       "destination": "/free-image-tools",
       "permanent": true
