@@ -151,7 +151,7 @@ Q: What is the signature size for SSC?
 A: A JPEG between 10 KB and 20 KB. The SSC GD notice says about 6.0 x 2.0 cm; CGL is reported at about 4.0 x 2.0 cm. Blurred or miniature signatures are rejected.
 
 Q: How do I resize my signature for SSC GD?
-A: Crop it to a wide 3:1 shape (about 6 x 2 cm, or 240 x 80 pixels) and bring the file to 10-20 KB in PhotoResizer with a custom size.
+A: Choose the SSC GD Constable preset in PhotoResizer. It crops to a 3:1 shape (about 6 x 2 cm, 360 x 120 pixels) and keeps the file at 10-20 KB.
 
 Q: Is the SSC resizer free?
 A: Yes — free, no sign-up, no watermark, and private (runs in your browser).

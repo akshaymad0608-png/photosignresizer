@@ -18,7 +18,7 @@ export const EXAM_PRESETS: ExamRequirement[] = [
   },
   {
     id: 'ssc',
-    name: 'SSC (CGL, CHSL, MTS, GD, JE)',
+    name: 'SSC (CGL, CHSL, MTS, JE)',
     category: 'Central',
     photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
     signature: { width: 400, height: 200, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
@@ -50,6 +50,16 @@ export const EXAM_PRESETS: ExamRequirement[] = [
     category: 'Central',
     photo: { width: 200, height: 230, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
     signature: { width: 140, height: 60, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
+  },
+  {
+    // SSC's GD notice (01.12.2025, cl. 8.4-8.7): the photo is captured live on the form, only the
+    // signature is uploaded - JPEG 10-20 KB, about 6.0 x 2.0 cm (3:1). The photo entry below is a
+    // required field of the preset shape and is not something the SSC GD form asks you to upload.
+    id: 'ssc_gd',
+    name: 'SSC GD Constable (live photo)',
+    category: 'Central',
+    photo: { width: 350, height: 450, minKB: 20, maxKB: 50, format: 'jpg', resizeMode: 'cover' },
+    signature: { width: 360, height: 120, minKB: 10, maxKB: 20, format: 'jpg', resizeMode: 'contain' }
   },
   {
     id: 'rrb_railway',
