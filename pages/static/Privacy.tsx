@@ -36,9 +36,15 @@ export default function Privacy() {
 
       <h2>Advertising</h2>
       <p>
-        Some pages carry advertising to keep the tool free. Ad providers may set their own cookies
-        and use them for frequency capping and personalisation, subject to their own policies. We
-        do not share any information about your images with them, because we do not have it.
+        Some pages carry advertising to keep the tool free. We use Google AdSense. Google and its
+        partners, as third-party vendors, use cookies (including the DoubleClick cookie) to serve
+        ads based on your visits to this and other websites. You can opt out of personalised
+        advertising in <a href="https://adssettings.google.com" rel="noopener noreferrer" target="_blank">Google Ads Settings</a> or at{' '}
+        <a href="https://www.aboutads.info" rel="noopener noreferrer" target="_blank">aboutads.info</a>. Read how Google
+        uses data from sites that use its services at{' '}
+        <a href="https://policies.google.com/technologies/partner-sites" rel="noopener noreferrer" target="_blank">policies.google.com/technologies/partner-sites</a>.
+        We do not share any information about your images with advertisers, because your images
+        never leave your browser.
       </p>
 
       <h2>Third-party links</h2>
