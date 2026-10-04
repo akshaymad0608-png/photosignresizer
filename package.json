@@ -4,6 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "seo:validate": "node scripts/seo-validate.mjs",
+    "seo:gsc": "node scripts/gsc-analyze.mjs",
+    "seo:report": "node scripts/seo-validate.mjs --json reports/seo-validate.json --md reports/seo-validate.md --no-fail && node scripts/seo-report.mjs",
     "dev": "tsx server.ts",
     "build": "node scripts/generate-sitemap.mjs && vite build && node prerender.mjs && node scripts/inject-exam-vacancies.mjs && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "start": "node dist/server.cjs",

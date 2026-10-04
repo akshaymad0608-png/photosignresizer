@@ -1,0 +1,8 @@
+{
+  "origin": "https://photoresizer.click",
+  "distDir": "dist",
+  "important": ["/", "/about", "/contact", "/faq"],
+  "minSitemapUrls": 30,
+  "adsense": true,
+  "gsc": { "brandTerms": ["photoresizer", "photo resizer click"], "minImpressions": 20 }
+}
