@@ -91,14 +91,23 @@ const previous = new Map();
 /* ------------------------------------------------------------- the routes -- */
 
 /** Guide pages are plain .html files in public/, listed in data/guides.ts. */
-const guideHrefs = [...read('data/guides.ts').matchAll(/href:\s*'(\/[^']+\.html)'/g)].map((m) => m[1]);
+const allGuideHrefs = [...read('data/guides.ts').matchAll(/href:\s*'(\/[^']+\.html)'/g)].map((m) => m[1]);
+
+/**
+ * A guide that carries a noindex robots meta must not be in the sitemap: the
+ * two contradict each other and Search Console reports it as an error. The
+ * templated near-duplicates (resize to N KB, RBI/SBI/LIC) were set to noindex
+ * for AdSense's low-value-content review, so the page itself is the switch.
+ */
+const isNoindex = (href) => /<meta\s+name="robots"\s+content="[^"]*noindex/i.test(read(`public${href}`));
+const guideHrefs = allGuideHrefs.filter((href) => !isNoindex(href));
 
 /** Tool pages are React routes, one per id in data/tools.ts. */
 const toolIds = [...read('data/tools.ts').matchAll(/^\s{2}\{\s*$[\s\S]*?^\s{4}id:\s*'([^']+)'/gm)].map((m) => m[1]);
 
 // A truncated sitemap is worse than a stale one: it tells Google pages that
 // still exist are gone. Fail rather than write one.
-if (guideHrefs.length < 30) throw new Error(`generate-sitemap: only ${guideHrefs.length} guides parsed from data/guides.ts`);
+if (allGuideHrefs.length < 30) throw new Error(`generate-sitemap: only ${allGuideHrefs.length} guides parsed from data/guides.ts`);
 if (toolIds.length < 20) throw new Error(`generate-sitemap: only ${toolIds.length} tools parsed from data/tools.ts`);
 
 /**
@@ -129,12 +138,9 @@ const routes = [
     priority: '0.9',
     from: [`public${href}`],
   })),
-  ...toolIds.map((id) => ({
-    path: `/tools/${id}`,
-    changefreq: 'monthly',
-    priority: '0.7',
-    from: [...SHELL, 'data/tools.ts'],
-  })),
+  // /tools/* pages are noindex (templated boilerplate), so they are listed in
+  // /free-image-tools but deliberately not here; toolIds above is still parsed
+  // as a check that data/tools.ts has not been truncated.
 ];
 
 /* ------------------------------------------------------------------ write -- */
