@@ -9,3 +9,12 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Netlify only (Vercel ignores this file). Netlify sites that build this repo
+# (e.g. examresizer.netlify.app) serve the same pages as photoresizer.click,
+# so they are kept out of search results rather than competing with it as
+# duplicates. The canonical host is Vercel.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
