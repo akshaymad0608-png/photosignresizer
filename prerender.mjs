@@ -149,6 +149,9 @@ const routes = [
     title: fitTitle(t.name, TOOL_TITLE_SUFFIXES),
     keywords: `${t.name}, free ${t.name.toLowerCase()}, online ${t.name.toLowerCase()}, ${t.name.toLowerCase()} no upload, ${t.group ? t.group.toLowerCase() + ' image' : 'image tool'}, browser image tool`,
     description: fitDescription(t.blurb),
+    // Every tool page is the same three-step boilerplate around a name and a
+    // one-line blurb, so none is indexed; see scripts/generate-sitemap.mjs.
+    noindex: true,
   })),
 ];
 
@@ -260,6 +263,7 @@ for (const route of routes) {
   html = html.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${url}" />`);
   html = html.replace(/<meta property="twitter:title"[^>]*>/, `<meta property="twitter:title" content="${t}" />`);
   html = html.replace(/<meta property="twitter:description"[^>]*>/, `<meta property="twitter:description" content="${d}" />`);
+  if (route.noindex) html = html.replace(/<meta name="robots"[^>]*>/, '<meta name="robots" content="noindex, nofollow" />');
 
   const outPath = join(DIST, route.path.slice(1), 'index.html');
   mkdirSync(dirname(outPath), { recursive: true });

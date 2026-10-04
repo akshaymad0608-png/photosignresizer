@@ -30,6 +30,8 @@ export default function ToolPage() {
         title={`${tool.name} — free and private | PhotoResizer`}
         description={tool.blurb}
         path={path}
+        // Templated boilerplate around a name and a blurb; see scripts/generate-sitemap.mjs.
+        noindex
         schema={[
           webPageSchema({ title: tool.name, description: tool.blurb, path }),
           breadcrumbSchema([
