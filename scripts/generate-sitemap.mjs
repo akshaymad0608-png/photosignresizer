@@ -123,7 +123,6 @@ const HOME = [...SHELL, 'pages/Home.tsx', 'components', 'data'];
 const routes = [
   { path: '/', changefreq: 'daily', priority: '1.0', from: HOME },
   { path: '/free-image-tools', changefreq: 'weekly', priority: '0.9', from: [...SHELL, 'pages/Home.tsx', 'data/tools.ts'] },
-  { path: '/jobs', changefreq: 'daily', priority: '0.9', from: [...SHELL, 'pages/Home.tsx', 'data/vacancies.ts'] },
   { path: '/blog', changefreq: 'weekly', priority: '0.7', from: HOME },
   { path: '/faq', changefreq: 'monthly', priority: '0.7', from: HOME },
   { path: '/links', changefreq: 'weekly', priority: '0.8', from: [...SHELL, 'pages/Home.tsx', 'data/guides.ts'] },

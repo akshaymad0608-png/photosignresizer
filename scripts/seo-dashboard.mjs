@@ -105,7 +105,7 @@ async function run() {
   }
 
   // 5. Listing lengths on the pages that carry the traffic.
-  const pages = ['/', '/nicl-photo-signature-size.html', '/ssc-photo-signature-size.html', '/jobs'];
+  const pages = ['/', '/nicl-photo-signature-size.html', '/ssc-photo-signature-size.html'];
   for (const p of pages) {
     try {
       const r = await get(p);

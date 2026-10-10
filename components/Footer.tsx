@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { type LucideIcon, Heart, ShieldCheck } from 'lucide-react';
 import Logo from './Logo';
-import Newsletter from './Newsletter';
 import { Language } from '../types';
 
 interface FooterProps {
@@ -28,7 +27,6 @@ const COLUMNS = [
       { label: 'How it works', href: '/#how-it-works' },
       { label: 'Guides', href: '/blog' },
       { label: 'FAQ', href: '/faq' },
-      { label: 'Latest vacancies', href: '/jobs' },
       { label: 'Useful links', href: '/links' },
     ],
   },
@@ -64,11 +62,6 @@ export default function Footer({ lang }: FooterProps) {
   return (
     <footer className="mt-20 border-t border-line bg-bg-subtle">
       <div className="shell py-14">
-        {/* Newsletter band */}
-        <div className="mb-14">
-          <Newsletter lang={lang} />
-        </div>
-
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
           {/* Brand */}
           <div className="lg:pr-8">

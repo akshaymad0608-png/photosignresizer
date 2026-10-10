@@ -3,7 +3,7 @@
  *
  * The app is a client-rendered SPA, so every deep link was served the same
  * index.html — meaning crawlers saw the homepage title/description on the tool
- * pages, /jobs and /free-image-tools instead of each page's own. This writes a
+ * pages and /free-image-tools instead of each page's own. This writes a
  * static <path>/index.html per route with the correct <title>, description,
  * canonical and Open Graph tags baked in; React still hydrates and takes over.
  * Netlify serves the specific file when it exists and only falls back to the
@@ -87,12 +87,6 @@ const routes = [
     title: 'Free Image Tools — Resize, Compress and Convert Online',
     keywords: 'free image tools, online image resizer, image compressor, convert image to WebP, remove background, image tools no upload, browser image editor',
     description: `${TOOLS.length} free browser-based image tools — resize, compress, convert to WebP/PNG/JPG, remove background, rotate and more. No uploads, no sign-up, no limits.`,
-  },
-  {
-    path: '/jobs',
-    title: 'Latest Govt Jobs 2026 — Vacancies and Last Dates Online',
-    keywords: 'government jobs 2026, govt jobs vacancy, SSC jobs, RRB jobs, SBI jobs, IBPS jobs, UPPSC jobs, BPSC vacancy, latest govt jobs India',
-    description: 'Latest government job vacancies with last dates and official apply links — SSC, RRB, SBI, IBPS, UPPSC, BPSC and state exams. Free photo & signature resizer too.',
   },
   {
     path: '/blog',
@@ -200,7 +194,6 @@ const SITE_LINKS = [
     { href: '/', label: 'Photo & signature resizer' },
     { href: '/free-image-tools', label: 'All free image tools' },
     { href: '/links', label: 'Every guide and tool' },
-    { href: '/jobs', label: 'Government job vacancies' },
     { href: '/blog', label: 'Guides and articles' },
     { href: '/faq', label: 'Frequently asked questions' },
     { href: '/about', label: 'About PhotoResizer' },
@@ -263,7 +256,7 @@ for (const route of routes) {
   html = html.replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${url}" />`);
   html = html.replace(/<meta property="twitter:title"[^>]*>/, `<meta property="twitter:title" content="${t}" />`);
   html = html.replace(/<meta property="twitter:description"[^>]*>/, `<meta property="twitter:description" content="${d}" />`);
-  if (route.noindex) html = html.replace(/<meta name="robots"[^>]*>/, '<meta name="robots" content="noindex, nofollow" />');
+  if (route.noindex) html = html.replace(/<meta name="robots"[^>]*>/, '<meta name="robots" content="noindex, follow" />');
 
   const outPath = join(DIST, route.path.slice(1), 'index.html');
   mkdirSync(dirname(outPath), { recursive: true });
@@ -289,7 +282,7 @@ const notFound = template
   .replace(/<title>[\s\S]*?<\/title>/, '<title>Page not found — PhotoResizer</title>')
   .replace(
     /<meta name="description"[^>]*>/,
-    '<meta name="description" content="That page does not exist. The photo and signature resizers, exam size guides and job listings are all still here." />',
+    '<meta name="description" content="That page does not exist. The photo and signature resizers and the exam size guides are all still here." />',
   )
   .replace(
     /<meta name="robots"[^>]*>/,
@@ -308,7 +301,6 @@ const notFound = template
           <li><a href="/">Photo &amp; signature resizer</a></li>
           <li><a href="/free-image-tools">All free image tools</a></li>
           <li><a href="/links">Every exam size guide</a></li>
-          <li><a href="/jobs">Government job vacancies</a></li>
         </ul>
       </main>`,
   );

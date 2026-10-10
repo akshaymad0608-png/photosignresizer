@@ -1,7 +1,7 @@
 # Deploy configuration — where each file must live
 
 SPA routing needs the host to return `index.html` with **HTTP 200** for any
-unknown path. Without it, `/jobs` and `/about` return a real 404, and Google
+unknown path. Without it, `/faq` and `/about` return a real 404, and Google
 Search Console reports "Page cannot be indexed: Not found (404)".
 
 | Host | File | Correct location |
@@ -18,7 +18,7 @@ headers were silently ignored. It now lives at the repo root.
 ## Verify after deploying
 
 ```bash
-curl -o /dev/null -w "%{http_code}\n" https://photoresizer.click/jobs
+curl -o /dev/null -w "%{http_code}\n" https://photoresizer.click/faq
 ```
 
 Must print `200`. If it prints `404`, the rewrite is not active on your host.

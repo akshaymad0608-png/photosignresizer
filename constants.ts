@@ -582,8 +582,8 @@ export const TRANSLATIONS = {
 
 export const FAQ_DATA = [
   {
-    q: "How to reduce image size (Image size kam kaise kare)?",
-    a: "If you need to 'jpg compress karo' or figure out 'image size kam kaise kare', simply upload your photo and select your exam. Our 'photo resize online free' tool will automatically compress and resize it to the required KB limit without losing quality."
+    q: "How do I reduce an image to the KB limit my form asks for?",
+    a: "Upload the photo and pick your exam. The tool resizes the image to the required pixel dimensions, then lowers the JPEG quality step by step until the file lands inside the KB range, and shows the final size before you download."
   },
   {
     q: "Is this tool safe to use for sensitive documents?",
@@ -605,13 +605,13 @@ export const FAQ_DATA = [
 
 export const SEO_CONTENT = {
   intro: {
-    title: "PHOTORESIZER: Best Online Photo & Signature Resizer for Indian Exams",
-    text: "Applying for government jobs like UPSC, SSC, IBPS, or entrance exams like JEE and NEET requires images to be in a very specific format. Most applications get rejected due to incorrect dimensions or file sizes. If you are wondering \"image size kam kaise kare\" or need to \"jpg compress karo\", PHOTORESIZER is the perfect solution. As a top \"photo resize online free\" tool, it effortlessly handles any \"passport size photo resize\" request. Whether you need a 20KB to 50KB photo converter, a signature compressor to 20kb, or a passport photo maker free, our online photo cropper for exam forms handles it all instantly. We support all major exams including SSC CGL, CHSL, MTS, GD, UPSC CSE, IBPS PO, Clerk, and State PSC exams like UPPSC, BPSC, and MPSC."
+    title: "How exam forms check your photo and signature",
+    text: "Application portals for UPSC, SSC, IBPS, RRB, NTA and the state commissions check three things before they accept an image: its pixel dimensions, its file size in KB and its format. Each board prints its own limits in the notification, and an upload that misses any one of them is rejected, usually without saying which. The notes below summarise the rules for the most common exams, and the guides linked under them cover each exam in full. Always check the current notification before you upload, because boards revise these limits."
   },
   exams: [
     {
       title: "Resize Photo for UPSC (CSE, NDA, CDS)",
-      content: "The Union Public Service Commission (UPSC) has updated its guidelines. Photos must now be 350x350 pixels. Our tool automatically crops your photo to a square format and compresses it between 20KB and 300KB. This is the perfect UPSC photo resizer online for 2026."
+      content: "The Union Public Service Commission (UPSC) has updated its guidelines. Photos must now be 350x350 pixels. Our tool automatically crops your photo to a square format and compresses it between 20KB and 300KB."
     },
     {
       title: "SSC Photo & Signature Compressor 20KB to 50KB",
@@ -627,7 +627,7 @@ export const SEO_CONTENT = {
     },
     {
       title: "State PSC & Police Exam Resizer (UPPSC, BPSC, MPSC)",
-      content: "State Public Service Commissions (like UPPSC, BPSC, MPSC, RPSC) and State Police recruitment boards have varying requirements. Our tool includes presets for major states and a custom option to dial in the exact width, height, and KB size needed for your specific state exam. Reduce photo size to 20kb or 50kb easily."
+      content: "State Public Service Commissions (like UPPSC, BPSC, MPSC, RPSC) and State Police recruitment boards have varying requirements. Our tool includes presets for major states and a custom option to dial in the exact width, height, and KB size needed for your specific state exam."
     }
   ],
   features: [

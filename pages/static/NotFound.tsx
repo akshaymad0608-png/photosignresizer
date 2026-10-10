@@ -8,7 +8,6 @@ const SUGGESTIONS = [
   { label: 'Photo & signature resizer', href: '/' },
   { label: 'All free image tools', href: '/free-image-tools' },
   { label: 'Frequently asked questions', href: '/faq' },
-  { label: 'Latest vacancies', href: '/jobs' },
 ];
 
 export default function NotFound() {

@@ -26,7 +26,6 @@ PhotoResizer (https://photoresizer.click/) is a free, browser-based web app for 
 
 ## More
 - Home / resizer app: https://photoresizer.click/
-- Latest govt jobs & Sarkari result: https://photoresizer.click/jobs
 - FAQ: https://photoresizer.click/faq
 
 _Last updated: 2026-08-01. Full data version: https://photoresizer.click/llms-full.txt_
