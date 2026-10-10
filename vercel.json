@@ -55,6 +55,11 @@
   ],
   "redirects": [
     {
+      "source": "/jobs",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/resize-image-20kb.html",
       "destination": "/resize-image-to-20kb.html",
       "permanent": true

@@ -111,5 +111,4 @@ export const MEGA_MENU: MenuGroup[] = [
     ],
   },
   { id: 'tools-all', label: 'All tools', href: '/free-image-tools' },
-  { id: 'jobs', label: 'Jobs', href: '/jobs' },
 ];

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Home, Briefcase, Link as LinkIcon, BookOpen, Wrench } from 'lucide-react';
+import { Home, Link as LinkIcon, BookOpen, Wrench } from 'lucide-react';
 import { Language } from '../types';
 import { TRANSLATIONS } from '../constants';
 
 interface MobileBottomNavProps {
   lang: Language;
   activeTab: string;
-  setActiveTab: (tab: 'home' | 'faq' | 'blog' | 'tools' | 'jobs' | 'links') => void;
+  setActiveTab: (tab: 'home' | 'faq' | 'blog' | 'tools' | 'links') => void;
 }
 
 const MobileBottomNav = ({ lang, activeTab, setActiveTab }: MobileBottomNavProps) => {
@@ -14,7 +14,6 @@ const MobileBottomNav = ({ lang, activeTab, setActiveTab }: MobileBottomNavProps
   const tabs = [
     { id: 'home', icon: Home, label: t.navResize },
     { id: 'tools', icon: Wrench, label: t.navTools },
-    { id: 'jobs', icon: Briefcase, label: t.navJobs },
     { id: 'links', icon: LinkIcon, label: t.navLinks },
     { id: 'blog', icon: BookOpen, label: t.navGuide },
   ] as const;

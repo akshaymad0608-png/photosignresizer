@@ -36,10 +36,9 @@ const HowItWorksSection = React.lazy(() => import('../components/sections/HowItW
 const WhyUseSection = React.lazy(() => import('../components/sections/WhyUseSection'));
 const BlogSection = React.lazy(() => import('../components/sections/BlogSection'));
 const MajorExamsLinksSection = React.lazy(() => import('../components/sections/MajorExamsLinksSection'));
-const LatestVacanciesSection = React.lazy(() => import('../components/sections/LatestVacanciesSection'));
 const PopularToolsSection = React.lazy(() => import('../components/sections/PopularToolsSection'));
 
-type Tab = 'home' | 'faq' | 'blog' | 'tools' | 'jobs' | 'links';
+type Tab = 'home' | 'faq' | 'blog' | 'tools' | 'links';
 
 const readStored = <T,>(key: string, fallback: T): T => {
   if (typeof window === 'undefined') return fallback;
@@ -74,14 +73,13 @@ export default function Home() {
     pathname === '/faq' ? 'faq'
     : pathname === '/blog' ? 'blog'
     : pathname === '/free-image-tools' ? 'tools'
-    : pathname === '/jobs' ? 'jobs'
     : pathname === '/links' ? 'links'
     : 'home';
 
   const handleTabChange = (tab: Tab) => {
     const routes: Record<Tab, string> = {
       home: '/', faq: '/faq', blog: '/blog',
-      tools: '/free-image-tools', jobs: '/jobs', links: '/links',
+      tools: '/free-image-tools', links: '/links',
     };
     navigate(routes[tab]);
     window.scrollTo({ top: 0 });
@@ -266,13 +264,6 @@ export default function Home() {
   const seo = React.useMemo(() => {
     const exam = selectedExam.name.split('(')[0].trim();
     switch (activeTab) {
-      case 'jobs':
-        return {
-          path: '/jobs',
-          title: 'Latest govt job vacancies 2026 — last dates and official links | PhotoResizer',
-          description:
-            'Currently open government job notifications with vacancy counts, closing dates and links to the official recruitment portals.',
-        };
       case 'links':
         return {
           path: '/links',
@@ -542,7 +533,6 @@ export default function Home() {
         )}
 
         <React.Suspense fallback={<div className="h-72 animate-pulse" />}>
-          {activeTab === 'jobs' && <div className="shell mt-8"><LatestVacanciesSection /></div>}
           {activeTab === 'links' && <div className="shell mt-8"><MajorExamsLinksSection /></div>}
           {activeTab === 'home' && <PopularToolsSection />}
           {activeTab === 'home' && (
@@ -553,7 +543,6 @@ export default function Home() {
               <div id="supported-exams" className="scroll-mt-24">
                 <SupportedExamsSection lang={lang} onSelectExam={setSelectedExam} />
               </div>
-              <LatestVacanciesSection />
               <GuideLinksSection />
               <WhyUseSection lang={lang} />
             </div>

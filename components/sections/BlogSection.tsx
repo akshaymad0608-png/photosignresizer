@@ -1,6 +1,7 @@
 import React from 'react';
 import { Language } from '../../types';
 import { TRANSLATIONS, SEO_CONTENT } from '../../constants';
+import GuideLinksSection from './GuideLinksSection';
 
 const BlogSection = ({ lang }: { lang: Language }) => (
   <div className="max-w-4xl mx-auto py-12 px-6 animate-fade-in relative">
@@ -27,6 +28,10 @@ const BlogSection = ({ lang }: { lang: Language }) => (
         ))}
       </div>
     </div>
+
+    {/* The full guides. Without this the tab was five short summaries and no
+        way into the guide pages that actually answer the question. */}
+    <GuideLinksSection />
   </div>
 );
 

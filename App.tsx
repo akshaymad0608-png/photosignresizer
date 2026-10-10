@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/Home';
 import ScrollToHash from './components/ScrollToHash';
@@ -35,7 +35,7 @@ export default function App() {
           <Route path="/faq" element={<Home />} />
           <Route path="/free-image-tools" element={<Home />} />
           <Route path="/blog" element={<Home />} />
-          <Route path="/jobs" element={<Home />} />
+          <Route path="/jobs" element={<Navigate to="/" replace />} />
           <Route path="/links" element={<Home />} />
 
           <Route path="/about" element={<About />} />
