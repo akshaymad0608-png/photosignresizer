@@ -61,6 +61,13 @@ export const GUIDE_GROUPS: GuideGroup[] = [
     ],
   },
   {
+    heading: 'Upload help',
+    links: [
+      { href: '/exam-photo-rejected-reasons.html', label: 'Why exam photos and signatures get rejected' },
+      { href: '/how-to-photograph-signature.html', label: 'How to photograph or scan a signature' },
+    ],
+  },
+  {
     heading: 'Identity documents',
     links: [
       { href: '/passport-size-photo.html', label: 'Passport size photo dimensions' },
