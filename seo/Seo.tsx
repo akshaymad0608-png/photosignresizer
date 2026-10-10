@@ -66,7 +66,7 @@ export default function Seo({
     meta(
       'name',
       'robots',
-      noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1'
+      noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'
     );
 
     link('canonical', canonical);
