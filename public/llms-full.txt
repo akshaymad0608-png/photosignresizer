@@ -15,6 +15,10 @@ PhotoResizer (https://photoresizer.click/) is a free, browser-based web app for 
 - [IBPS & SBI Photo Size](https://photoresizer.click/ibps-photo-signature-size.html): IBPS and SBI photo and signature size for PO, Clerk and RRB bank exam forms — dimensions, KB limits and format. Resize your photo and signature free online.
 - [RRB Photo & Signature Size](https://photoresizer.click/rrb-photo-signature-size.html): RRB photo and signature size for NTPC, Group D and ALP railway forms — dimensions, KB limits and JPEG format. Resize your photo and signature free online.
 
+## Upload help
+- [Why exam photos get rejected](https://photoresizer.click/exam-photo-rejected-reasons.html): The upload errors exam portals show (KB, pixels, format) and the scrutiny problems found later, with the fix for each and a checklist.
+- [How to photograph a signature](https://photoresizer.click/how-to-photograph-signature.html): Paper, pen, lighting, phone angle and cropping for a signature image that stays readable at 10-20 KB.
+
 ## Key facts
 - Cost: 100% free — no sign-up, no watermark, no limit on the number of images.
 - Privacy: all resizing happens locally in the visitor's browser; images are never uploaded to a server.
