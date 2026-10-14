@@ -84,12 +84,16 @@ const fitDescription = (blurb) => {
 const routes = [
   {
     path: '/free-image-tools',
+    // Same content as the homepage; the app redirects it. Not indexed.
+    noindex: true,
     title: 'Free Image Tools — Resize, Compress and Convert Online',
     keywords: 'free image tools, online image resizer, image compressor, convert image to WebP, remove background, image tools no upload, browser image editor',
     description: `${TOOLS.length} free browser-based image tools — resize, compress, convert to WebP/PNG/JPG, remove background, rotate and more. No uploads, no sign-up, no limits.`,
   },
   {
     path: '/blog',
+    // Same content as the homepage; the app redirects it. Not indexed.
+    noindex: true,
     title: 'Guides — Photo Size, Signature and Govt Exam Tips (2026)',
     keywords: 'exam photo size guide, signature size guide, UPSC photo size, SSC photo size, banking exam photo, how to resize photo for exam, government exam photo requirements',
     description: 'Simple guides on exam photo and signature sizes, KB limits and how to resize images for UPSC, SSC, banking and state government forms — free.',
@@ -106,6 +110,8 @@ const routes = [
   // the catch-all rewrite that turned every unknown URL into a soft 404.
   {
     path: '/faq',
+    // Same content as the homepage; the app redirects it. Not indexed.
+    noindex: true,
     title: 'PhotoResizer FAQ — Sizes, Formats and Privacy',
     keywords: 'PhotoResizer FAQ, photo resizer help, image size questions, exam photo FAQ, photo format FAQ',
     description: 'Answers on exam photo and signature sizes, KB limits, supported formats, and why nothing you upload ever leaves your own browser.',
@@ -118,6 +124,8 @@ const routes = [
   },
   {
     path: '/links',
+    // Same content as the homepage; the app redirects it. Not indexed.
+    noindex: true,
     title: 'Every PhotoResizer Guide and Tool in One List',
     keywords: 'PhotoResizer sitemap, all image tools, all photo guides, photo resizer index, image tool directory',
     description: 'The full index: exam photo and signature size guides, KB-target resizers, identity document sizes, and every free image tool on the site.',
@@ -134,6 +142,8 @@ const routes = [
   },
   {
     path: '/cookies',
+    // Same content as /privacy; the app redirects it. Not indexed.
+    noindex: true,
     title: 'Cookie Policy — What PhotoResizer Stores Locally',
     description: 'Which cookies and local storage PhotoResizer uses, what each one is for, and how to clear them from your browser at any time.',
   },

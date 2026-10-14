@@ -49,13 +49,6 @@ async function startServer() {
     res.json({ success: true, message: "AI upscaler endpoint placeholder." });
   });
   
-  // Analytics Endpoint Placeholder.
-  // NOTE: unauthenticated. It returns hardcoded numbers today, so nothing real
-  // leaks, but add auth before it ever reads from a database.
-  app.get("/api/admin/stats", rateLimiter, (_req, res) => {
-    res.json({ success: true, conversions: 1200000, activeUsers: 45000 });
-  });
-
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
