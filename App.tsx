@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import ScrollToHash from './components/ScrollToHash';
 
-const Dashboard = React.lazy(() => import('./pages/admin/Dashboard'));
 const ToolPage = React.lazy(() => import('./pages/ToolPage'));
 const About = React.lazy(() => import('./pages/static/About'));
 const Contact = React.lazy(() => import('./pages/static/Contact'));
@@ -32,19 +31,18 @@ export default function App() {
       <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/faq" element={<Home />} />
-          <Route path="/free-image-tools" element={<Home />} />
-          <Route path="/blog" element={<Home />} />
+          <Route path="/faq" element={<Navigate to="/" replace />} />
+          <Route path="/free-image-tools" element={<Navigate to="/" replace />} />
+          <Route path="/blog" element={<Navigate to="/" replace />} />
           <Route path="/jobs" element={<Navigate to="/" replace />} />
-          <Route path="/links" element={<Home />} />
+          <Route path="/links" element={<Navigate to="/" replace />} />
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/cookies" element={<Privacy />} />
+          <Route path="/cookies" element={<Navigate to="/privacy" replace />} />
 
-          <Route path="/admin" element={<Dashboard />} />
           <Route path="/tools/:toolId" element={<ToolPage />} />
 
           <Route path="*" element={<NotFound />} />

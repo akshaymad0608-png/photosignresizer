@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /admin/
-
-User-agent: GPTBot
-Allow: /
-
-Sitemap: https://photoresizer.click/sitemap.xml

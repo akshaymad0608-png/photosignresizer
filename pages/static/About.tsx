@@ -4,8 +4,8 @@ import PageShell from './PageShell';
 
 const PILLARS = [
   { Icon: ShieldCheck, title: 'Nothing is uploaded', body: 'Every resize, crop and compression happens on your own device using the canvas API. There is no upload endpoint, so there is no file to leak.' },
-  { Icon: Cpu, title: 'Numbers, not guesses', body: 'Each preset stores the exact pixel and kilobyte range printed in that exam notification, and every output is measured against it before you download.' },
-  { Icon: Users, title: 'Built for form-filling day', body: 'The tool assumes you are in a cyber cafe queue with ten minutes left. It works on a slow phone, works offline, and does not ask you to sign up.' },
+  { Icon: Cpu, title: 'Numbers, not guesses', body: 'Each preset stores a pixel and kilobyte range, and every output is measured against it before you download. Guides marked with a notification link and date were checked against that notice; the rest show typical ranges, so always confirm on your own notification.' },
+  { Icon: Users, title: 'Built for form-filling day', body: 'The tool assumes you are in a cyber cafe queue with ten minutes left. It works on a slow phone and does not ask you to sign up.' },
   { Icon: Scale, title: 'Free and independent', body: 'PhotoResizer is not affiliated with any recruitment board. We read the notifications, encode the requirements, and keep the tool free.' },
 ];
 
@@ -47,6 +47,21 @@ export default function About() {
         into a canvas, resized with the requested fit mode, and re-encoded as JPEG at a quality
         the tool searches for until the file lands inside the size window. Quality checks for
         sharpness, exposure, background uniformity and ink coverage run on the same canvas data.
+      </p>
+
+      <h2>Who runs it</h2>
+      <p>
+        PhotoResizer is built and maintained by Akshay Mahajan, an independent developer in
+        India. It is a personal project, not a company, and it is not affiliated with any
+        recruitment board. You can reach the owner through the contact page.
+      </p>
+
+      <h2>How the size guides are checked</h2>
+      <p>
+        A guide that says &ldquo;Checked against the official notice&rdquo; links the notice and
+        shows the date it was read. Guides without that line give general ranges that many
+        exams use; treat them as a starting point and compare with your own notification
+        before you upload.
       </p>
 
       <h2>Corrections</h2>
