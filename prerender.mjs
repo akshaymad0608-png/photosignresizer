@@ -250,6 +250,74 @@ const template = withSiteLinks(readFileSync(join(DIST, 'index.html'), 'utf8'));
 // written back explicitly or it would be the one page missing the links.
 writeFileSync(join(DIST, 'index.html'), template);
 
+
+/*
+  Static bodies for the four info pages. The homepage template carries the
+  homepage's own text in <main class="seo-fallback">, so /about, /contact,
+  /privacy and /terms used to ship that same text under four different titles.
+  A crawler that does not run JavaScript saw four duplicates of the homepage.
+  These mirror the copy in pages/static/{About,Contact,Privacy,Terms}.tsx; if
+  you change the wording there, change it here too.
+*/
+const sec = (h, ...paras) => `<h2>${h}</h2>${paras.map((t) => `<p>${t}</p>`).join('')}`;
+const page = (h1, sub, body, updated) =>
+  `<main class="seo-fallback"><h1>${h1}</h1><p class="sub">${sub}</p>${updated ? `<p>Last updated ${updated}.</p>` : ''}${body}` +
+  `<p><a href="/">Back to the photo &amp; signature resizer</a> · <a href="/about">About</a> · <a href="/contact">Contact</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p></main>`;
+
+const PAGE_BODIES = {
+  '/about': page(
+    'About PhotoResizer',
+    'A small tool with one job: make sure the photograph and signature you attach to a government exam form are accepted the first time you upload them.',
+    '<p>Application portals reject images for reasons they rarely explain well. The photo is four kilobytes too large. The signature is the right size but the wrong aspect ratio. The form wants 200×230 pixels and your phone produced 3024×4032. Each rejection costs another attempt at a portal that is usually under load on the last day.</p>' +
+      '<p>PhotoResizer removes that loop. Choose the exam, and the pixel dimensions and file-size window from that notification are applied automatically. Add your photograph and signature, and the tool resizes, crops and compresses until the output lands inside the allowed range, then tells you whether it passed.</p>' +
+      sec('What we care about',
+        '<strong>Nothing is uploaded.</strong> Every resize, crop and compression happens on your own device using the canvas API. There is no upload endpoint, so there is no file to leak.',
+        '<strong>Numbers, not guesses.</strong> Each preset stores a pixel and kilobyte range, and every output is measured against it before you download. Guides marked with a notification link and date were checked against that notice; the rest show typical ranges, so always confirm on your own notification.',
+        '<strong>Built for form-filling day.</strong> The tool assumes you are in a cyber cafe queue with ten minutes left. It works on a slow phone and does not ask you to sign up.',
+        '<strong>Free and independent.</strong> PhotoResizer is not affiliated with any recruitment board. We read the notifications, encode the requirements, and keep the tool free.') +
+      sec('How it is built', 'The site is a React application with no backend for image handling. Images are decoded into a canvas, resized with the requested fit mode, and re-encoded as JPEG at a quality the tool searches for until the file lands inside the size window. Quality checks for sharpness, exposure, background uniformity and ink coverage run on the same canvas data.') +
+      sec('Who runs it', 'PhotoResizer is built and maintained by Akshay Mahajan, an independent developer in India. It is a personal project, not a company, and it is not affiliated with any recruitment board. You can reach the owner through the <a href="/contact">contact page</a>.') +
+      sec('How the size guides are checked', 'A guide that says “Checked against the official notice” links the notice and shows the date it was read. Guides without that line give general ranges that many exams use; treat them as a starting point and compare with your own notification before you upload.') +
+      sec('Corrections', 'Notifications change and boards occasionally revise their requirements mid-cycle. If a preset here disagrees with the notification you are reading, the notification is right — please tell us through the <a href="/contact">contact page</a> and we will correct it.'),
+  ),
+  '/contact': page(
+    'Contact PhotoResizer',
+    'Wrong size in a preset, a broken download, or an exam you want added — tell us and we will fix it.',
+    sec('Ways to reach us',
+      'Email: <a href="mailto:hello@photoresizer.click">hello@photoresizer.click</a>',
+      'WhatsApp: <a href="https://wa.me/917600885080">message us</a>') +
+      sec('Report a wrong size', 'Use the form on this page. It opens your email app with the message filled in — nothing is stored here. If a size is wrong, please include the exam name and a link to the notification.') +
+      sec('What to write about', 'A wrong exam size, a request to add an exam, a bug report, or anything else. Corrections to exam specifications are especially welcome.'),
+  ),
+  '/privacy': page(
+    'Privacy policy',
+    'The short version: your photographs and signatures are processed on your own device and are never sent to us.',
+    sec('Images you process', 'When you add a photograph or signature, the file is read by your browser and drawn into a canvas element in the page. Resizing, cropping, rotation, compression and the quality checks all run there. No copy is transmitted to our servers or to any third party, and we have no image storage of any kind. Closing the tab discards everything.') +
+      sec('What is stored on your device', 'We keep a small amount of state in your browser’s local storage so the tool remembers your preferences between visits: the interface language, the light or dark theme, the exam you last selected, and a short list of recent results shown in the history panel. This never leaves your device, and clearing your browser data removes it.') +
+      sec('Analytics', 'We use Google Analytics to understand which exams are being used and where the tool is failing. It records page views, approximate region, device type and referring site. It does not receive your images or the contents of any form field. You can block it with any standard content blocker without affecting the tool.') +
+      sec('Advertising', 'Some pages carry advertising to keep the tool free. We use Google AdSense. Google and its partners, as third-party vendors, use cookies (including the DoubleClick cookie) to serve ads based on your visits to this and other websites. You can opt out of personalised advertising in <a href="https://adssettings.google.com" rel="noopener noreferrer">Google Ads Settings</a> or at <a href="https://www.aboutads.info" rel="noopener noreferrer">aboutads.info</a>. Read how Google uses data from sites that use its services at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener noreferrer">policies.google.com/technologies/partner-sites</a>. We do not share any information about your images with advertisers, because your images never leave your browser.') +
+      sec('Third-party links', 'The site links to official recruitment portals, notification PDFs and job listings. Those sites have their own privacy practices, and this policy does not cover them.') +
+      sec('Children', 'The tool is intended for people applying to examinations and is not directed at children under 13. We do not knowingly collect personal information from them.') +
+      sec('Your choices', 'Because we hold no account and no image data, there is no profile to export or delete on our side. To remove local preferences, clear site data for this domain in your browser settings. For anything else, write to hello@photoresizer.click.') +
+      sec('Changes', 'If this policy changes materially, the updated date at the top of this page will change and the revised version will be posted here.'),
+    '18 July 2026',
+  ),
+  '/terms': page(
+    'Terms of use',
+    'Plain terms for a free tool: use it for lawful purposes, and check the official notification before you submit.',
+    sec('Using the tool', 'PhotoResizer is provided free of charge for personal use in preparing images for examination and recruitment forms. You may use it as often as you like. You may not resell access to it, present it as your own service, or use automated means to overload it.') +
+      sec('Your content', 'You keep every right in the images you process. Because processing happens in your browser, we never receive them and therefore claim no licence over them. You are responsible for having the right to use any image you upload, and for the accuracy of anything you submit to a recruitment portal.') +
+      sec('No affiliation, no guarantee',
+        'PhotoResizer is an independent tool. It is not affiliated with, endorsed by, or operated by UPSC, SSC, IBPS, RRB, any State Public Service Commission, or any other recruitment body. Names of examinations are used only to identify the requirements published for them.',
+        'The size presets are transcribed from official notifications and are checked periodically, but notifications are revised and portals sometimes apply additional rules. The tool cannot guarantee that a given portal will accept a given file. Always read the notification you are applying under, and verify the output before you submit it. We are not responsible for a rejected application, a missed deadline, or any loss arising from use of the tool.') +
+      sec('Availability', 'The service is offered as-is and as-available. We may change, suspend or discontinue any part of it, including individual presets and tools, without notice.') +
+      sec('Limitation of liability', 'To the maximum extent permitted by law, our liability arising out of or relating to your use of the site is limited to zero, reflecting the fact that the service is provided free of charge. Nothing here excludes liability that cannot lawfully be excluded.') +
+      sec('Governing law', 'Any dispute relating to these terms is subject to the laws of India.') +
+      sec('Contact', 'Questions about these terms can be sent to hello@photoresizer.click.'),
+    '18 July 2026',
+  ),
+};
+
 let n = 0;
 for (const route of routes) {
   const url = `${SITE}${route.path}`;
@@ -267,6 +335,9 @@ for (const route of routes) {
   html = html.replace(/<meta property="twitter:title"[^>]*>/, `<meta property="twitter:title" content="${t}" />`);
   html = html.replace(/<meta property="twitter:description"[^>]*>/, `<meta property="twitter:description" content="${d}" />`);
   if (route.noindex) html = html.replace(/<meta name="robots"[^>]*>/, '<meta name="robots" content="noindex, follow" />');
+  if (PAGE_BODIES[route.path]) {
+    html = html.replace(/<main class="seo-fallback">[\s\S]*?<\/main>/, () => PAGE_BODIES[route.path]);
+  }
 
   const outPath = join(DIST, route.path.slice(1), 'index.html');
   mkdirSync(dirname(outPath), { recursive: true });
